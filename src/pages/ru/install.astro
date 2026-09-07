@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import "../../styles/content.css";
+
+const command = "git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\nbash install.sh";
+---
+
+<BaseLayout lang="ru" title="Установка — Raohane" description="Установка Raohane на Arch Linux, CachyOS и EndeavourOS.">
+  <div class="page-shell">
+    <SiteHeader active="install" lang="ru" />
+    <main class="content-main shell-width">
+      <section class="page-intro">
+        <span class="page-badge">Arch-first</span>
+        <h1>Установка без<br/><em>ручной сборки shell.</em></h1>
+        <p>Guided installer проверяет систему, показывает отсутствующие зависимости, разворачивает runtime и при необходимости настраивает SDDM и user service.</p>
+      </section>
+
+      <section class="section-block">
+        <header><span class="section-kicker">Быстрый старт</span><h2>Три команды.</h2></header>
+        <div class="code-panel"><pre><code>{command}</code></pre></div>
+      </section>
+
+      <section class="content-grid">
+        <article class="content-card"><span class="card-icon">01</span><h2>Проверка системы</h2><p>Installer рассчитан на Arch-family дистрибутивы: Arch Linux, CachyOS и EndeavourOS. Он не запускается от root.</p></article>
+        <article class="content-card"><span class="card-icon">02</span><h2>Зависимости</h2><p>Обязательные runtime packages проверяются отдельно от feature packages. Можно заранее посмотреть полный список на странице Packages.</p></article>
+        <article class="content-card"><span class="card-icon">03</span><h2>Runtime</h2><p>Живая Quickshell-конфигурация устанавливается в <code>~/.config/quickshell/raohane</code> и запускается через user service.</p></article>
+        <article class="content-card"><span class="card-icon">04</span><h2>Обновление</h2><p>После изменения исходников используется installer для staging runtime, затем <code>raohane restart</code> перезапускает оболочку.</p></article>
+      </section>
+
+      <section class="section-block">
+        <header><span class="section-kicker">Обновление checkout</span><h2>Если Raohane уже установлена.</h2></header>
+        <div class="code-panel"><pre><code>{`cd ~/raohane-dots\ngit pull --ff-only\n./install-raohane.sh --no-deps --no-login-theme\nraohane restart`}</code></pre></div>
+      </section>
+    </main>
+    <SiteFooter lang="ru" />
+  </div>
+</BaseLayout>
