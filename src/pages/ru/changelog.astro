@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import "../../styles/content.css";
+
+const releases = [
+  { title: "Unreleased — Native Serpantinum adoption", status: "В работе", items: ["Нативные настраиваемые desktop widgets и отдельный Settings editor.", "Более просторная композиция Control Center и общий motion polish.", "Нативный каталог тем Raohane с конвертацией палитр Serpantinum.", "Nix package, NixOS и Home Manager modules.", "Wallpaper library с крупной горизонтальной snap-каруселью."] },
+  { title: "0.10.0-dev — Standalone + Minimal Theme System", status: "Текущая ветка", items: ["Общий theme engine и shared surface tokens.", "Нативные Settings, Launcher, Control Center, notifications и wallpaper selector.", "Fullscreen-friendly media overlay, Context Island и native OSD.", "Standalone runtime, dependency manifests и release-boundary validation.", "Japanese-minimal направление и несколько палитр."] },
+  { title: "0.9.0-dev — Context Foundation", status: "Этап", items: ["Priority-based Context Island для privacy, recording, media и window context.", "Reusable quick tiles и seekable MPRIS card.", "Launcher actions и game-capable media overlay.", "Расширенная конфигурация и audit coverage."] },
+  { title: "0.8.0-dev — Visual Foundation", status: "Этап", items: ["Нативные Raohane Bar и Control Center напрямую из shell root.", "Native Launcher и Settings registry.", "Three-pod bar composition с Context Island по центру.", "Raohane-only panel family и удаление legacy primary loaders."] }
+];
+---
+
+<BaseLayout lang="ru" title="История изменений — Raohane" description="Текущая ветка разработки и основные этапы Raohane.">
+  <div class="page-shell">
+    <SiteHeader active="changelog" lang="ru" />
+    <main class="content-main shell-width">
+      <section class="page-intro">
+        <span class="page-badge">0.10.0-dev</span>
+        <h1>Разработка открыта.<br/><em>Изменения осознанны.</em></h1>
+        <p>Raohane всё ещё активно развивается. Здесь собраны крупные продуктовые этапы, а полный построчный changelog находится в основном репозитории.</p>
+      </section>
+      <section class="timeline" aria-label="История версий">
+        {releases.map((release) => <article class="release"><div class="release-top"><h2>{release.title}</h2><span class="status">{release.status}</span></div><ul>{release.items.map((item) => <li>{item}</li>)}</ul></article>)}
+      </section>
+      <section class="section-block">
+        <header><span class="section-kicker">Источник истины</span><h2>Все изменения,<br/><em>не только highlights.</em></h2><p>Полный changelog хранится рядом с runtime-кодом, чтобы release notes не расходились с реализацией.</p></header>
+        <a class="button button-ghost" href="https://github.com/killmyselfrin/raohane-dots/blob/main/CHANGELOG.md" target="_blank" rel="noreferrer">Открыть полный changelog ↗</a>
+      </section>
+    </main>
+    <SiteFooter lang="ru" />
+  </div>
+</BaseLayout>
