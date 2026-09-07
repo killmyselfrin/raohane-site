@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import "../../styles/content.css";
+
+const required = [
+  ["Core shell", "hyprland · quickshell · qt6-5compat · qt6-multimedia · qt6-wayland", "Compositor, Quickshell runtime и Qt-модули видимой оболочки."],
+  ["Сеть и звук", "networkmanager · pipewire · pipewire-audio · pipewire-pulse · wireplumber", "Нативное состояние сети, PipeWire graph и audio policy."],
+  ["Desktop integration", "polkit · xdg-desktop-portal · xdg-desktop-portal-hyprland · xdg-desktop-portal-gtk · upower · libnotify · xdg-utils · xdg-user-dirs", "Авторизация, portals, питание, уведомления и стандартная Linux desktop integration."],
+  ["Runtime tools", "python · git · rsync · ripgrep · jq · procps-ng · wl-clipboard", "Installer, диагностика, updater и небольшие backend-инструменты."],
+  ["Шрифты и иконки", "hicolor-icon-theme · adwaita-icon-theme · ttf-material-symbols-variable|ttf-material-symbols-variable-git · noto-fonts · noto-fonts-cjk · ttf-jetbrains-mono-nerd", "Стабильные glyphs, CJK coverage, Material Symbols и fallback icons."]
+];
+
+const features = [
+  ["Bluetooth и сеть", "bluez · bluez-utils · blueman · network-manager-applet"],
+  ["Дисплеи и яркость", "brightnessctl · ddcutil · hyprsunset · pciutils"],
+  ["Capture, media и clipboard", "grim · slurp · wf-recorder · cliphist · ffmpeg · imagemagick · python-pillow"],
+  ["Input, audio и utilities", "ydotool · easyeffects · libpulse · libqalculate"],
+  ["OCR и перевод", "tesseract · tesseract-data-eng · tesseract-data-rus · translate-shell"],
+  ["Session и authentication", "fprintd · sddm"]
+];
+---
+
+<BaseLayout lang="ru" title="Пакеты и зависимости — Raohane" description="Обязательные и feature-пакеты, используемые Raohane на Arch Linux.">
+  <div class="page-shell">
+    <SiteHeader active="dependencies" lang="ru" />
+    <main class="content-main shell-width">
+      <section class="page-intro">
+        <span class="page-badge">Runtime manifest</span>
+        <h1>Что питает<br/><em>Raohane.</em></h1>
+        <p>Зависимости не спрятаны за одной install-командой. Проект хранит собственные manifest-файлы, а installer проверяет их перед изменением системы.</p>
+      </section>
+
+      <section class="content-grid">
+        <article class="content-card"><span class="card-icon">31</span><h2>Required</h2><p>Минимальный поддерживаемый runtime-профиль Raohane для Arch-family системы.</p></article>
+        <article class="content-card"><span class="card-icon">25+</span><h2>Feature packages</h2><p>Bluetooth, DDC, capture, OCR, translation, EasyEffects, fingerprint и login theme.</p></article>
+        <article class="content-card"><span class="card-icon">0</span><h2>GPU drivers</h2><p>GPU drivers намеренно отсутствуют в manifest и не подменяются installer-ом.</p></article>
+      </section>
+
+      <section class="section-block">
+        <header><span class="section-kicker">Required</span><h2>Основной <em>runtime</em>.</h2></header>
+        <div class="package-stack">
+          {required.map(([title,packages,note]) => <article><h3>{title}</h3><code>{packages}</code><p>{note}</p></article>)}
+        </div>
+      </section>
+
+      <section class="section-block">
+        <header><span class="section-kicker">Full experience</span><h2>Feature <em>backends</em>.</h2><p>Эти пакеты включают дополнительные аппаратные и desktop-возможности.</p></header>
+        <div class="package-stack">
+          {features.map(([title,packages]) => <article><h3>{title}</h3><code>{packages}</code></article>)}
+        </div>
+      </section>
+
+      <section class="section-block">
+        <header><span class="section-kicker">Источник истины</span><h2>Manifest-файлы проекта.</h2></header>
+        <div class="content-grid">
+          <a class="content-card" href="https://github.com/killmyselfrin/raohane-dots/blob/main/install/arch/required.txt" target="_blank" rel="noreferrer"><h3>required.txt ↗</h3><p>Обязательные зависимости.</p></a>
+          <a class="content-card" href="https://github.com/killmyselfrin/raohane-dots/blob/main/install/arch/features.txt" target="_blank" rel="noreferrer"><h3>features.txt ↗</h3><p>Полный feature profile.</p></a>
+        </div>
+      </section>
+    </main>
+    <SiteFooter lang="ru" />
+  </div>
+</BaseLayout>
+
+<style>
+  .package-stack{display:grid;gap:10px}.package-stack article{padding:22px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}.package-stack h3{margin:0 0 10px;font-size:14px}.package-stack code{display:block;color:var(--accent);line-height:1.8;overflow-wrap:anywhere}.package-stack p{margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.65}
+</style>
