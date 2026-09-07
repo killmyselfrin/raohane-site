@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import "../styles/content.css";
+---
+
+<BaseLayout title="Docs — Raohane" description="Raohane commands, configuration paths, launcher modes, troubleshooting and development notes.">
+  <div class="page-shell">
+    <SiteHeader active="docs" />
+    <main class="content-main shell-width">
+      <section class="page-intro">
+        <span class="page-badge">Reference</span>
+        <h1>Know the shell.<br/><em>Keep control.</em></h1>
+        <p>A compact reference for daily use, configuration and recovery. Deeper architecture and release documentation stays in the source repository.</p>
+      </section>
+
+      <div class="docs-layout">
+        <aside class="docs-nav" aria-label="Documentation sections">
+          <a href="#commands">Commands</a>
+          <a href="#launcher">Launcher</a>
+          <a href="#configuration">Configuration</a>
+          <a href="#themes">Themes</a>
+          <a href="#diagnostics">Diagnostics</a>
+          <a href="#development">Development</a>
+        </aside>
+
+        <article class="docs-article">
+          <section id="commands">
+            <span class="section-kicker">Daily use</span>
+            <h2>Commands</h2>
+            <p>The <code>raohane</code> CLI provides direct entry points for the primary surfaces.</p>
+            <div class="code-panel"><pre><code>raohane launcher
+raohane control
+raohane settings
+raohane media
+raohane desktop
+raohane wallpaper
+raohane session
+raohane translate</code></pre></div>
+          </section>
+
+          <section id="launcher">
+            <span class="section-kicker">Search grammar</span>
+            <h2>Launcher modes</h2>
+            <p>The launcher is more than an application list. Prefixes switch the search model without opening another tool.</p>
+            <ul>
+              <li><code>/</code> — built-in Raohane actions.</li>
+              <li><code>&gt;</code> — command execution.</li>
+              <li><code>=</code> — calculations.</li>
+              <li><code>:</code> — clipboard history.</li>
+            </ul>
+          </section>
+
+          <section id="configuration">
+            <span class="section-kicker">User state</span>
+            <h2>Configuration</h2>
+            <p>Primary settings are persisted in <code>~/.config/raohane/native.json</code>. Custom autostart commands belong in <code>~/.config/raohane/autostart.conf</code>.</p>
+            <div class="docs-callout">Prefer changing product settings through Raohane Settings. Direct JSON edits are useful for recovery or development, but malformed values can be normalized during schema upgrades.</div>
+          </section>
+
+          <section id="themes">
+            <span class="section-kicker">Appearance</span>
+            <h2>Themes</h2>
+            <p>Raohane ships a shared whole-shell theme system. Bundled palettes include Paper, Sakura, Matcha, Slate, Sand, Sumi and Midnight, alongside the default Raohane direction.</p>
+            <div class="code-panel"><pre><code>raohane theme list
+raohane theme import FILE
+raohane theme export ID FILE
+raohane theme remove ID</code></pre></div>
+          </section>
+
+          <section id="diagnostics">
+            <span class="section-kicker">Recovery</span>
+            <h2>Diagnostics</h2>
+            <p>Start with the complete doctor report. It checks dependencies, installed runtime integrity, services and shell context.</p>
+            <div class="code-panel"><pre><code>raohane doctor all
+raohane status
+raohane logs</code></pre></div>
+            <h3>Inspect startup errors directly</h3>
+            <div class="code-panel"><pre><code>raohane stop
+raohane run</code></pre></div>
+            <p>For performance reports, include the installed version, recent logs, process usage during the issue and the exact interaction that triggered it.</p>
+          </section>
+
+          <section id="development">
+            <span class="section-kicker">Source</span>
+            <h2>Development</h2>
+            <p>Product QML lives under <code>modules/raohane/</code>. Static audits validate source/runtime boundaries, but final release validation still requires a real Hyprland + Quickshell session.</p>
+            <div class="code-panel"><pre><code>bash scripts/raohane-audit.sh
+bash scripts/runtime-payload-audit.sh</code></pre></div>
+            <p><a class="button button-ghost" href="https://github.com/killmyselfrin/raohane-dots/tree/main/docs" target="_blank" rel="noreferrer">Open source documentation ↗</a></p>
+          </section>
+        </article>
+      </div>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>
