@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import "../styles/content.css";
+
+const features = [
+  ["◈", "Shell surfaces", "Horizontal and vertical bars, workspaces, system tray, Context Island and a dock share one visual system."],
+  ["⌕", "Launcher & Overview", "Application search, built-in actions, command mode, calculations, clipboard history and workspace overview."],
+  ["⌘", "Control Center", "Wi-Fi, Bluetooth, output and microphone audio, brightness, Night Light and notifications in one native surface."],
+  ["♫", "Media", "MPRIS controls, lyrics and a fullscreen-friendly media overlay designed to stay usable while gaming."],
+  ["▣", "Desktop", "Image and video wallpapers, configurable desktop widgets, theme presets and a native wallpaper library."],
+  ["◎", "System tools", "Screenshots, screen recording, OCR, translation, clipboard tools, OSK, session controls, Polkit and process management."],
+  ["✦", "Themes", "Shared Raohane tokens power the complete shell, including Sakura, Matcha, Slate, Sand, Sumi and Midnight palettes."],
+  ["↯", "Responsive runtime", "Event-driven service state, resident primary surfaces and reduced background polling keep interaction latency low."]
+];
+---
+
+<BaseLayout title="Features — Raohane" description="Explore the native desktop surfaces, system controls, media tools and theming available in Raohane.">
+  <div class="page-shell">
+    <SiteHeader active="features" />
+    <main class="content-main shell-width">
+      <section class="page-intro">
+        <span class="page-badge">The shell, end to end</span>
+        <h1>One desktop.<br/><em>One language.</em></h1>
+        <p>Raohane is not a collection of unrelated widgets. Its bar, launcher, Control Center, Settings, media surfaces and desktop tools are built around the same state, motion and visual system.</p>
+      </section>
+
+      <section class="content-grid" aria-label="Raohane features">
+        {features.map(([icon, title, description]) => (
+          <article class="content-card">
+            <span class="card-icon">{icon}</span>
+            <h2>{title}</h2>
+            <p>{description}</p>
+          </article>
+        ))}
+      </section>
+
+      <section class="section-block">
+        <header>
+          <span class="section-kicker">Native architecture</span>
+          <h2>Built around <em>Hyprland</em>.</h2>
+          <p>Raohane targets Hyprland directly and uses Quickshell with Qt/QML for its runtime. Product configuration, service boundaries and visible surfaces are Raohane-owned.</p>
+        </header>
+        <div class="content-grid">
+          <article class="content-card">
+            <span class="card-icon">60</span>
+            <h3>Frame-conscious motion</h3>
+            <p>Large translucent surfaces avoid unnecessary work in their critical open path, while reduced-motion preferences remain respected.</p>
+          </article>
+          <article class="content-card">
+            <span class="card-icon">↻</span>
+            <h3>Event-driven state</h3>
+            <p>PipeWire, NetworkManager and BlueZ monitors provide live state while slower snapshots act as repair paths instead of constant polling.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>
