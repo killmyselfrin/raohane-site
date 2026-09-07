@@ -1,29 +1,97 @@
 ---
 interface Props {
-  active?: "home" | "features" | "install" | "dependencies" | "docs" | "changelog";
+  active?: "home" | "features" | "showcase" | "install" | "dependencies" | "docs" | "changelog";
+  lang?: "en" | "ru";
 }
 
-const { active = "home" } = Astro.props;
+const { active = "home", lang = "en" } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const links = [
-  ["features", "Features"],
-  ["install", "Install"],
-  ["dependencies", "Packages"],
-  ["docs", "Docs"],
-  ["changelog", "Changelog"]
-] as const;
+const prefix = lang === "ru" ? `${base}ru/` : base;
+const route = active === "home" ? "" : `${active}/`;
+const labels = lang === "ru"
+  ? {
+      features: "Возможности",
+      showcase: "Галерея",
+      install: "Установка",
+      dependencies: "Пакеты",
+      docs: "Документация",
+      changelog: "Изменения",
+      get: "Установить"
+    }
+  : {
+      features: "Features",
+      showcase: "Showcase",
+      install: "Install",
+      dependencies: "Packages",
+      docs: "Docs",
+      changelog: "Changelog",
+      get: "Get Raohane"
+    };
+const links = ["features", "showcase", "install", "dependencies", "docs", "changelog"] as const;
 ---
 
 <header class="site-header shell-width site-header-shared">
-  <a class="brand" href={base} aria-label="Raohane home">
+  <a class="brand" href={prefix} aria-label="Raohane home">
     <span class="brand-mark">R</span>
     <span>RAOHANE</span>
   </a>
-  <nav class="nav-links" aria-label="Main navigation">
-    {links.map(([key, label]) => (
-      <a class={active === key ? "is-active" : ""} href={`${base}${key}/`}>{label}</a>
+  <nav class="nav-links" aria-label={lang === "ru" ? "Основная навигация" : "Main navigation"}>
+    {links.map((key) => (
+      <a class={active === key ? "is-active" : ""} href={`${prefix}${key}/`}>{labels[key]}</a>
     ))}
     <a href="https://github.com/killmyselfrin/raohane-dots" target="_blank" rel="noreferrer">GitHub ↗</a>
   </nav>
-  <a class="header-cta" href={`${base}install/`}>Get Raohane</a>
+  <div class="header-actions">
+    <div class="lang-switch" aria-label={lang === "ru" ? "Язык сайта" : "Site language"}>
+      <a class:list={[lang === "en" && "is-active"]} href={`${base}${route}`}>EN</a>
+      <a class:list={[lang === "ru" && "is-active"]} href={`${base}ru/${route}`}>RU</a>
+    </div>
+    <a class="header-cta" href={`${prefix}install/`}>{labels.get}</a>
+  </div>
 </header>
+
+<style>
+  .header-actions {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: rgba(255,255,255,.025);
+  }
+
+  .lang-switch a {
+    min-width: 30px;
+    padding: 6px 7px;
+    border-radius: 7px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    transition: color 150ms ease, background 150ms ease;
+  }
+
+  .lang-switch a:hover { color: var(--text); }
+  .lang-switch a.is-active {
+    color: var(--text);
+    background: rgba(184,165,255,.12);
+  }
+
+  @media (max-width: 1040px) {
+    .site-header-shared .nav-links { gap: 16px; }
+    .site-header-shared .header-cta { display: none; }
+  }
+
+  @media (max-width: 820px) {
+    .site-header-shared { grid-template-columns: 1fr auto; }
+    .site-header-shared .nav-links { display: none; }
+  }
+</style>
