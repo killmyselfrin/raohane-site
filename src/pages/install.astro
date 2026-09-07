@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import "../styles/content.css";
+
+const installCommand = `git clone https://github.com/killmyselfrin/raohane-dots.git
+cd raohane-dots
+bash install.sh`;
+---
+
+<BaseLayout title="Install — Raohane" description="Install Raohane on Arch Linux, CachyOS and EndeavourOS with the guided installer.">
+  <div class="page-shell">
+    <SiteHeader active="install" />
+    <main class="content-main shell-width">
+      <section class="page-intro">
+        <span class="page-badge">Arch Linux and derivatives</span>
+        <h1>Install once.<br/><em>Stay updated.</em></h1>
+        <p>The guided installer performs a system preflight, shows missing dependencies before changes are made, configures Hyprland integration and enables Raohane as a user service.</p>
+      </section>
+
+      <section class="section-block" style="margin-top:0">
+        <div class="code-panel">
+          <div class="code-toolbar">
+            <div class="code-dots"><i></i><i></i><i></i></div>
+            <span>terminal</span>
+            <button class="copy-button" data-copy-install>Copy</button>
+          </div>
+          <pre><code>{installCommand}</code></pre>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <header>
+          <span class="section-kicker">What happens</span>
+          <h2>A guided <em>preflight</em>.</h2>
+          <p>Raohane does not silently replace GPU drivers or hide package changes. The installer explains what it needs and asks before installing the complete dependency set.</p>
+        </header>
+        <div class="steps">
+          <article class="step"><h3>Clone the source</h3><p>The public repository contains the standalone Raohane runtime, dependency manifests and installation backend.</p></article>
+          <article class="step"><h3>Review dependencies</h3><p>The installer detects your current Arch-family environment and shows every missing package before package-manager changes.</p></article>
+          <article class="step"><h3>Configure the session</h3><p>Hyprland integration, autostart and the optional Raohane SDDM login theme are configured through the guided flow.</p></article>
+          <article class="step"><h3>Start the shell</h3><p>The user service is enabled and, when a Hyprland session is available, Raohane starts for a live validation pass.</p></article>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <header>
+          <span class="section-kicker">Supported paths</span>
+          <h2>Arch first. <em>Nix available.</em></h2>
+        </header>
+        <div class="content-grid">
+          <article class="content-card">
+            <span class="card-icon">A</span>
+            <h3>Arch / CachyOS / EndeavourOS</h3>
+            <p>Use the guided installer above from an existing Hyprland session. The dependency manifests are maintained by Raohane itself.</p>
+          </article>
+          <article class="content-card">
+            <span class="card-icon">N</span>
+            <h3>NixOS / Home Manager</h3>
+            <p>The main repository ships a flake with a package, a NixOS module and a Home Manager module for declarative installation.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <header>
+          <span class="section-kicker">Updates</span>
+          <h2>No manual rebuild ritual.</h2>
+          <p>Raohane includes an updater in Settings → About. Source-checkout upgrades remain available for development and recovery.</p>
+        </header>
+        <div class="code-panel">
+          <div class="code-toolbar"><div class="code-dots"><i></i><i></i><i></i></div><span>manual recovery path</span></div>
+          <pre><code>git pull --ff-only
+./install-raohane.sh --no-deps --no-login-theme
+raohane restart</code></pre>
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+  </div>
+
+  <script>
+    const button = document.querySelector("[data-copy-install]");
+    button?.addEventListener("click", async () => {
+      const command = `git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\nbash install.sh`;
+      try {
+        await navigator.clipboard.writeText(command);
+        button.textContent = "Copied";
+        window.setTimeout(() => { button.textContent = "Copy"; }, 1500);
+      } catch {
+        button.textContent = "Select text";
+      }
+    });
+  </script>
+</BaseLayout>
