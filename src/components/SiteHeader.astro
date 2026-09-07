@@ -1,6 +1,6 @@
 ---
 interface Props {
-  active?: "home" | "features" | "install" | "docs" | "changelog";
+  active?: "home" | "features" | "install" | "dependencies" | "docs" | "changelog";
 }
 
 const { active = "home" } = Astro.props;
@@ -8,6 +8,7 @@ const base = import.meta.env.BASE_URL;
 const links = [
   ["features", "Features"],
   ["install", "Install"],
+  ["dependencies", "Packages"],
   ["docs", "Docs"],
   ["changelog", "Changelog"]
 ] as const;
