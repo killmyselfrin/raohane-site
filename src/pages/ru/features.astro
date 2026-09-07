@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import "../../styles/content.css";
+
+const features = [
+  ["◈", "Поверхности оболочки", "Горизонтальный и вертикальный Bar, workspaces, tray, Context Island и Dock используют одну дизайн-систему."],
+  ["⌕", "Launcher и Overview", "Поиск приложений, встроенные actions, command mode, вычисления, clipboard history и обзор рабочих пространств."],
+  ["⌘", "Control Center", "Wi-Fi, Bluetooth, output/microphone audio, яркость, Night Light и уведомления в одной нативной панели."],
+  ["♫", "Медиа", "MPRIS, тексты песен и fullscreen-friendly media overlay, рассчитанный в том числе на игры."],
+  ["▣", "Рабочий стол", "Изображения и видео-обои, desktop widgets, theme presets и собственная wallpaper library."],
+  ["◎", "Системные инструменты", "Скриншоты, запись экрана, OCR, перевод, clipboard tools, OSK, session controls, Polkit и Task Manager."],
+  ["✦", "Темы", "Общие Raohane tokens управляют всеми поверхностями, включая Sakura, Matcha, Slate, Sand, Sumi и Midnight."],
+  ["↯", "Отзывчивый runtime", "Event-driven state, resident surfaces и минимальный background polling уменьшают задержку интерфейса."]
+];
+---
+
+<BaseLayout lang="ru" title="Возможности — Raohane" description="Возможности нативной оболочки Raohane для Hyprland.">
+  <div class="page-shell">
+    <SiteHeader active="features" lang="ru" />
+    <main class="content-main shell-width">
+      <section class="page-intro">
+        <span class="page-badge">Вся оболочка целиком</span>
+        <h1>Один desktop.<br/><em>Один язык.</em></h1>
+        <p>Raohane — не набор несвязанных виджетов. Bar, Launcher, Control Center, Settings, media surfaces и desktop tools построены вокруг общего состояния, motion и визуальной системы.</p>
+      </section>
+      <section class="content-grid" aria-label="Возможности Raohane">
+        {features.map(([icon,title,description]) => <article class="content-card"><span class="card-icon">{icon}</span><h2>{title}</h2><p>{description}</p></article>)}
+      </section>
+      <section class="section-block">
+        <header><span class="section-kicker">Нативная архитектура</span><h2>Построено вокруг <em>Hyprland</em>.</h2><p>Raohane напрямую ориентирована на Hyprland и использует Quickshell + Qt/QML. Конфигурация продукта, системные сервисы и видимые поверхности принадлежат самой Raohane.</p></header>
+      </section>
+    </main>
+    <SiteFooter lang="ru" />
+  </div>
+</BaseLayout>
