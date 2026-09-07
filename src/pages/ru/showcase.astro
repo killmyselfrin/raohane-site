@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import "../../styles/content.css";
+
+const base = import.meta.env.BASE_URL;
+const shots = [
+  { image: `${base}screenshots/desktop.webp`, eyebrow: "Рабочий стол", title: "Спокойная основа.", description: "Живая Raohane-сессия с workspaces, Context Island, системным статусом и левой командной поверхностью поверх обоев.", tags: ["Bar", "Context Island", "Sidebar", "Workspaces"] },
+  { image: `${base}screenshots/control-center.webp`, eyebrow: "Control Center", title: "Управление системой без лишних окон.", description: "Сеть, Bluetooth, звук, микрофон, яркость, уведомления, медиа и session actions собраны в одной нативной поверхности.", tags: ["Quick Controls", "Audio", "Notifications", "Media"] },
+  { image: `${base}screenshots/launcher.webp`, eyebrow: "Launcher", title: "Приложения и действия в одном вызове.", description: "Launcher объединяет приложения, встроенные действия Raohane и быстрый доступ к основным функциям оболочки.", tags: ["Apps", "Actions", "Quick access", "Search"] },
+  { image: `${base}screenshots/settings.webp`, eyebrow: "Настройки", title: "Вся оболочка в одном workspace.", description: "Темы, виджеты, Bar & Dock, дисплеи, графические драйверы, Hyprland и интеграции настраиваются в едином интерфейсе.", tags: ["Themes", "Graphics & Drivers", "Hyprland", "Widgets"] }
+];
+---
+
+<BaseLayout lang="ru" title="Галерея — Raohane" description="Реальные скриншоты Raohane из живой Hyprland + Quickshell сессии.">
+  <div class="page-shell">
+    <SiteHeader active="showcase" lang="ru" />
+    <main class="content-main shell-width showcase-main">
+      <section class="page-intro showcase-intro">
+        <span class="page-badge">Снято из живой сессии</span>
+        <h1>Настоящий desktop.<br/><em>Настоящая Raohane.</em></h1>
+        <p>Это реальные кадры оболочки, работающей под Hyprland. Не браузерный макет, не сгенерированный UI и не постановочный product render.</p>
+      </section>
+      <section class="showcase-list" aria-label="Скриншоты Raohane">
+        {shots.map((shot, index) => (
+          <article class:list={["showcase-shot", index % 2 === 1 && "is-reverse"]}>
+            <a class="shot-frame" href={shot.image} target="_blank" rel="noreferrer">
+              <img src={shot.image} alt={`Raohane — ${shot.eyebrow}`} loading={index === 0 ? "eager" : "lazy"} decoding="async" />
+              <span class="shot-open">Открыть целиком ↗</span>
+            </a>
+            <div class="shot-copy">
+              <span class="section-kicker">0{index + 1} · {shot.eyebrow}</span>
+              <h2>{shot.title}</h2><p>{shot.description}</p>
+              <div class="shot-tags">{shot.tags.map((tag) => <span>{tag}</span>)}</div>
+            </div>
+          </article>
+        ))}
+      </section>
+    </main>
+    <SiteFooter lang="ru" />
+  </div>
+</BaseLayout>
+
+<style>
+  .showcase-main{padding-bottom:70px}.showcase-intro{padding-bottom:72px}.showcase-list{display:grid;gap:94px}.showcase-shot{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(260px,.65fr);gap:48px;align-items:center}.showcase-shot.is-reverse .shot-frame{order:2}.showcase-shot.is-reverse .shot-copy{order:1}.shot-frame{position:relative;display:block;overflow:hidden;border:1px solid rgba(255,255,255,.11);border-radius:22px;background:#0b0d12;box-shadow:0 28px 70px rgba(0,0,0,.34)}.shot-frame img{display:block;width:100%;height:auto;transition:transform 360ms cubic-bezier(.2,.8,.2,1),filter 220ms ease}.shot-frame:hover img{transform:scale(1.012);filter:brightness(1.04)}.shot-open{position:absolute;right:12px;bottom:12px;padding:8px 10px;border:1px solid rgba(255,255,255,.11);border-radius:9px;background:rgba(8,10,15,.74);backdrop-filter:blur(14px);color:#d8d4df;font-size:10px;font-weight:600}.shot-copy h2{margin:14px 0;font-family:Manrope,Inter,sans-serif;font-size:clamp(28px,3.2vw,45px);line-height:1.04;letter-spacing:-.045em}.shot-copy p{color:var(--text-soft);line-height:1.75;font-size:14px}.shot-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}.shot-tags span{padding:7px 9px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:rgba(255,255,255,.025);font-size:10px}@media(max-width:850px){.showcase-list{gap:58px}.showcase-shot{grid-template-columns:1fr;gap:24px}.showcase-shot.is-reverse .shot-frame,.showcase-shot.is-reverse .shot-copy{order:initial}}
+</style>
