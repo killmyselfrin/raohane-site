@@ -1,0 +1,283 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import "../styles/content.css";
+
+const requiredGroups = [
+  {
+    title: "Core shell",
+    note: "The compositor, Quickshell runtime and Qt modules used by the visible shell.",
+    packages: [
+      ["hyprland", "Wayland compositor and window-management target for Raohane."],
+      ["quickshell", "Qt/QML shell runtime used to render Raohane surfaces and services."],
+      ["qt6-5compat", "Qt 6 compatibility modules required by parts of the QML runtime."],
+      ["qt6-multimedia", "Qt multimedia backend for media and video-wallpaper support."],
+      ["qt6-wayland", "Qt Wayland platform integration."],
+    ],
+  },
+  {
+    title: "Networking & audio",
+    note: "Native system state comes from NetworkManager, PipeWire and WirePlumber.",
+    packages: [
+      ["networkmanager", "Wi-Fi and network state/control backend."],
+      ["pipewire", "Core media graph used for audio and privacy context."],
+      ["pipewire-audio", "PipeWire audio support."],
+      ["pipewire-pulse", "PulseAudio-compatible server on top of PipeWire."],
+      ["wireplumber", "PipeWire session and policy manager; also provides wpctl."],
+    ],
+  },
+  {
+    title: "Desktop integration",
+    note: "Authentication, portals, power state and standard Linux desktop plumbing.",
+    packages: [
+      ["polkit", "Privilege/authentication framework used for protected system actions."],
+      ["xdg-desktop-portal", "Desktop portal framework."],
+      ["xdg-desktop-portal-hyprland", "Hyprland-specific portal backend."],
+      ["xdg-desktop-portal-gtk", "GTK portal fallback for common desktop dialogs/integration."],
+      ["upower", "Battery and power-device information."],
+      ["libnotify", "Desktop notification command support."],
+      ["xdg-utils", "Standard xdg-open and desktop integration helpers."],
+      ["xdg-user-dirs", "Standard user-directory discovery."],
+    ],
+  },
+  {
+    title: "Runtime tools",
+    note: "Small command-line tools used by installation, diagnostics and product backends.",
+    packages: [
+      ["python", "Raohane helper backends, updater logic and maintenance scripts."],
+      ["git", "Source installation, development and update/recovery workflows."],
+      ["rsync", "Safe file synchronization during installation and maintenance."],
+      ["ripgrep", "Fast source/runtime diagnostics and audit helpers."],
+      ["jq", "JSON processing for shell-side maintenance utilities."],
+      ["procps-ng", "Process inspection utilities used by diagnostics/system tooling."],
+      ["wl-clipboard", "Wayland clipboard read/write support."],
+    ],
+  },
+  {
+    title: "Fonts & icons",
+    note: "The visual runtime expects a stable set of glyphs, CJK coverage and icon fallbacks.",
+    packages: [
+      ["hicolor-icon-theme", "Standard fallback icon-theme hierarchy."],
+      ["adwaita-icon-theme", "Common desktop icons used as a reliable fallback."],
+      ["ttf-material-symbols-variable | ttf-material-symbols-variable-git", "Material Symbols glyph set. Either package satisfies the requirement."],
+      ["noto-fonts", "General Unicode text coverage."],
+      ["noto-fonts-cjk", "Japanese, Chinese and Korean font coverage."],
+      ["ttf-jetbrains-mono-nerd", "Monospace + Nerd Font symbols for terminal/system UI."],
+    ],
+  },
+];
+
+const featureGroups = [
+  {
+    title: "Bluetooth & network tools",
+    packages: [
+      ["bluez", "Linux Bluetooth protocol stack."],
+      ["bluez-utils", "bluetoothctl and BlueZ command-line utilities used by the native Bluetooth service."],
+      ["blueman", "Optional graphical Bluetooth manager fallback."],
+      ["network-manager-applet", "Provides nm-connection-editor for advanced network configuration."],
+    ],
+  },
+  {
+    title: "Display & brightness",
+    packages: [
+      ["brightnessctl", "Backlight control for laptops and supported displays."],
+      ["ddcutil", "DDC/CI control for external monitor brightness where supported."],
+      ["hyprsunset", "Hyprland Night Light / display temperature backend."],
+      ["pciutils", "Hardware/GPU inspection used by system diagnostics."],
+    ],
+  },
+  {
+    title: "Capture, media & clipboard",
+    packages: [
+      ["grim", "Wayland screenshot capture."],
+      ["slurp", "Interactive region selection for screenshots and related tools."],
+      ["wf-recorder", "Wayland screen recording."],
+      ["cliphist", "Clipboard history storage and retrieval."],
+      ["ffmpeg", "Video processing, video wallpaper helpers and media conversion."],
+      ["imagemagick", "Image conversion and processing helpers."],
+      ["python-pillow", "Image analysis/processing used by native Python helpers such as cover-accent extraction."],
+    ],
+  },
+  {
+    title: "Input, audio & utilities",
+    packages: [
+      ["ydotool", "Synthetic input backend used by supported desktop automation/input features."],
+      ["easyeffects", "Optional PipeWire effects integration exposed in Control Center."],
+      ["libpulse", "PulseAudio client compatibility libraries for feature tooling."],
+      ["libqalculate", "Calculator backend used by launcher calculation mode."],
+    ],
+  },
+  {
+    title: "OCR & translation",
+    packages: [
+      ["tesseract", "OCR engine for screen text recognition."],
+      ["tesseract-data-eng", "English OCR language data."],
+      ["tesseract-data-rus", "Russian OCR language data."],
+      ["translate-shell", "Command-line translation backend for screen translation."],
+    ],
+  },
+  {
+    title: "Session & authentication",
+    packages: [
+      ["fprintd", "Fingerprint authentication integration when hardware supports it."],
+      ["sddm", "Display manager used by the optional Raohane login theme."],
+    ],
+  },
+];
+
+const requiredCount = requiredGroups.reduce((total, group) => total + group.packages.length, 0);
+const featureCount = featureGroups.reduce((total, group) => total + group.packages.length, 0);
+---
+
+<BaseLayout title="Dependencies & Packages — Raohane" description="See every required and feature package used by Raohane on Arch Linux, what each dependency does, and how the installer handles them.">
+  <div class="page-shell">
+    <SiteHeader active="dependencies" />
+    <main class="content-main shell-width">
+      <section class="page-intro">
+        <span class="page-badge">Runtime manifest</span>
+        <h1>What powers<br/><em>Raohane.</em></h1>
+        <p>Every Arch-family dependency is declared by Raohane itself. This page mirrors the product manifests and explains why each package is present instead of presenting one opaque install command.</p>
+      </section>
+
+      <section class="dependency-stats" aria-label="Dependency summary">
+        <article><strong>{requiredCount}</strong><span>required packages</span><small>Needed by the core runtime.</small></article>
+        <article><strong>{featureCount}</strong><span>feature packages</span><small>Complete desktop experience.</small></article>
+        <article><strong>0</strong><span>GPU drivers</span><small>Never changed automatically.</small></article>
+      </section>
+
+      <section class="manifest-note">
+        <div>
+          <span class="section-kicker">Source of truth</span>
+          <h2>Installer-owned manifests.</h2>
+          <p>The guided installer reads the same package manifests used by the project. A requirement written as <code>a|b</code> means either installed package satisfies it; if neither exists, the first package is preferred.</p>
+        </div>
+        <div class="manifest-links">
+          <a href="https://github.com/killmyselfrin/raohane-dots/blob/main/install/arch/required.txt" target="_blank" rel="noreferrer">required.txt ↗</a>
+          <a href="https://github.com/killmyselfrin/raohane-dots/blob/main/install/arch/features.txt" target="_blank" rel="noreferrer">features.txt ↗</a>
+        </div>
+      </section>
+
+      <section class="section-block dependency-section">
+        <header>
+          <span class="section-kicker">Required</span>
+          <h2>Core <em>runtime</em>.</h2>
+          <p>These packages form the minimum supported Arch-family environment for the full Raohane shell runtime.</p>
+        </header>
+        <div class="package-groups">
+          {requiredGroups.map((group) => (
+            <article class="package-group">
+              <div class="package-group-heading">
+                <div><span class="package-status required">Required</span><h3>{group.title}</h3></div>
+                <p>{group.note}</p>
+              </div>
+              <div class="package-list">
+                {group.packages.map(([name, description]) => (
+                  <div class="package-row">
+                    <code>{name}</code>
+                    <span>{description}</span>
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section-block dependency-section">
+        <header>
+          <span class="section-kicker">Full experience</span>
+          <h2>Feature <em>backends</em>.</h2>
+          <p>These packages unlock the complete Raohane feature set: Bluetooth, capture, OCR, monitor controls, translation, EasyEffects, fingerprint support and the optional login theme.</p>
+        </header>
+        <div class="package-groups">
+          {featureGroups.map((group) => (
+            <article class="package-group">
+              <div class="package-group-heading">
+                <div><span class="package-status feature">Feature</span><h3>{group.title}</h3></div>
+              </div>
+              <div class="package-list">
+                {group.packages.map(([name, description]) => (
+                  <div class="package-row">
+                    <code>{name}</code>
+                    <span>{description}</span>
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section-block package-policy">
+        <header>
+          <span class="section-kicker">Installer policy</span>
+          <h2>Explicit by <em>default</em>.</h2>
+        </header>
+        <div class="content-grid">
+          <article class="content-card"><span class="card-icon">✓</span><h3>Review before install</h3><p>The guided installer detects missing packages and shows what it intends to install before package-manager changes are made.</p></article>
+          <article class="content-card"><span class="card-icon">GPU</span><h3>Drivers stay yours</h3><p>GPU drivers are intentionally absent from the package manifests. Raohane never silently changes NVIDIA, AMD or Intel graphics drivers.</p></article>
+          <article class="content-card"><span class="card-icon">↻</span><h3>Repairable</h3><p><code>raohane doctor deps</code> and <code>raohane doctor all</code> can be used to inspect dependency health after installation.</p></article>
+          <article class="content-card"><span class="card-icon">A</span><h3>Arch-family package names</h3><p>This reference reflects the Arch/CachyOS/EndeavourOS manifests. NixOS and Home Manager use the declarative flake path instead.</p></article>
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .dependency-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 4px 0 72px;
+  }
+  .dependency-stats article {
+    min-height: 160px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015));
+  }
+  .dependency-stats strong { display: block; margin-bottom: 8px; color: var(--accent); font: 600 44px/1 Manrope, sans-serif; letter-spacing: -.04em; }
+  .dependency-stats span { display: block; color: var(--text); font-size: 13px; font-weight: 700; }
+  .dependency-stats small { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+  .manifest-note {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 28px;
+    padding: 26px;
+    border: 1px solid rgba(184,165,255,.14);
+    border-radius: 22px;
+    background: rgba(184,165,255,.045);
+  }
+  .manifest-note h2 { margin: 9px 0 8px; font: 600 25px/1.1 Manrope, sans-serif; }
+  .manifest-note p { max-width: 700px; margin: 0; color: var(--text-soft); font-size: 13px; line-height: 1.7; }
+  .manifest-note code { padding: 2px 6px; border-radius: 6px; background: rgba(255,255,255,.05); color: #e2dafb; }
+  .manifest-links { display: flex; gap: 8px; }
+  .manifest-links a { white-space: nowrap; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; color: var(--text-soft); font-size: 11px; }
+  .package-groups { display: grid; gap: 14px; }
+  .package-group { overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,.018); }
+  .package-group-heading { display: grid; grid-template-columns: minmax(220px,.7fr) 1fr; gap: 24px; align-items: center; padding: 22px 24px; border-bottom: 1px solid var(--line); }
+  .package-group-heading > div { display: flex; align-items: center; gap: 12px; }
+  .package-group-heading h3 { margin: 0; font: 600 17px/1.2 Manrope, sans-serif; }
+  .package-group-heading p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+  .package-status { padding: 5px 7px; border-radius: 7px; font-size: 8px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .package-status.required { color: #ddd6ff; background: rgba(184,165,255,.11); }
+  .package-status.feature { color: #c7eadc; background: rgba(143,211,183,.1); }
+  .package-list { display: grid; }
+  .package-row { display: grid; grid-template-columns: minmax(230px,.65fr) 1fr; gap: 24px; align-items: center; min-height: 54px; padding: 10px 24px; border-bottom: 1px solid rgba(255,255,255,.045); }
+  .package-row:last-child { border-bottom: 0; }
+  .package-row code { width: fit-content; color: #e5def8; font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .package-row span { color: var(--muted); font-size: 12px; line-height: 1.6; }
+  .package-policy .content-card code { color: #ded6f7; }
+  @media (max-width: 820px) {
+    .dependency-stats { grid-template-columns: 1fr; }
+    .manifest-note { grid-template-columns: 1fr; }
+    .manifest-links { flex-wrap: wrap; }
+    .package-group-heading, .package-row { grid-template-columns: 1fr; gap: 8px; }
+    .package-row { padding-block: 14px; }
+  }
+</style>
