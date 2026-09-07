@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import "../styles/content.css";
+
+const releases = [
+  {
+    title: "Unreleased — Native Serpantinum adoption",
+    status: "In progress",
+    items: [
+      "Native configurable desktop widgets with a dedicated Settings editor.",
+      "Roomier Control Center composition and shared motion improvements.",
+      "Native Raohane theme catalog with Serpantinum palette conversion.",
+      "Native Nix package plus NixOS and Home Manager modules.",
+      "Wallpaper library redesigned around a large horizontal snap carousel."
+    ]
+  },
+  {
+    title: "0.10.0-dev — Standalone + Minimal Theme System",
+    status: "Current development line",
+    items: [
+      "Whole-shell Raohane theme engine with shared surface tokens.",
+      "Native Settings, Launcher, Control Center, notifications and wallpaper selector.",
+      "Fullscreen-friendly media overlay, Context Island and native OSD.",
+      "Standalone runtime, dependency manifests and release-boundary validation.",
+      "Japanese-minimal visual direction with restrained motion and multiple palettes."
+    ]
+  },
+  {
+    title: "0.9.0-dev — Context Foundation",
+    status: "Milestone",
+    items: [
+      "Priority-based Context Island for privacy, recording, media and window context.",
+      "Reusable quick tiles and seekable MPRIS card.",
+      "Keyboard launcher actions and native game media overlay.",
+      "Expanded Raohane configuration namespace and audit coverage."
+    ]
+  },
+  {
+    title: "0.8.0-dev — Visual Foundation",
+    status: "Milestone",
+    items: [
+      "Native Raohane Bar and Control Center loaded directly from the shell root.",
+      "Native Launcher and Settings registry.",
+      "Three-pod bar composition with Context Island at the center.",
+      "Raohane-only panel family and removal of legacy primary loaders."
+    ]
+  }
+];
+---
+
+<BaseLayout title="Changelog — Raohane" description="Track the current Raohane development line and major shell milestones.">
+  <div class="page-shell">
+    <SiteHeader active="changelog" />
+    <main class="content-main shell-width">
+      <section class="page-intro">
+        <span class="page-badge">0.10.0-dev</span>
+        <h1>Built in public.<br/><em>Changed deliberately.</em></h1>
+        <p>Raohane is still in active development. This page surfaces the major product milestones; the source repository keeps the complete line-by-line changelog.</p>
+      </section>
+
+      <section class="timeline" aria-label="Release history">
+        {releases.map((release) => (
+          <article class="release">
+            <div class="release-top">
+              <h2>{release.title}</h2>
+              <span class="status">{release.status}</span>
+            </div>
+            <ul>{release.items.map((item) => <li>{item}</li>)}</ul>
+          </article>
+        ))}
+      </section>
+
+      <section class="section-block">
+        <header>
+          <span class="section-kicker">Source of truth</span>
+          <h2>Every change, <em>not just highlights.</em></h2>
+          <p>The complete changelog stays next to the runtime code so release notes and implementation never drift apart.</p>
+        </header>
+        <a class="button button-ghost" href="https://github.com/killmyselfrin/raohane-dots/blob/main/CHANGELOG.md" target="_blank" rel="noreferrer">Open full changelog ↗</a>
+      </section>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>
