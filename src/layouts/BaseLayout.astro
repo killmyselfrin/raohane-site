@@ -32,6 +32,8 @@ const base = import.meta.env.BASE_URL;
   </head>
   <body>
     <div class="global-lang-switch" aria-label={lang === "ru" ? "Язык сайта" : "Site language"}>
+      <a class="global-showcase" href={lang === "ru" ? `${base}ru/showcase/` : `${base}showcase/`}>{lang === "ru" ? "Галерея" : "Showcase"}</a>
+      <span class="global-divider"></span>
       <a class:list={[lang === "en" && "is-active"]} href={base}>EN</a>
       <a class:list={[lang === "ru" && "is-active"]} href={`${base}ru/`}>RU</a>
     </div>
@@ -46,6 +48,7 @@ const base = import.meta.env.BASE_URL;
     right: max(138px, calc((100vw - var(--width)) / 2 + 118px));
     z-index: 60;
     display: flex;
+    align-items: center;
     gap: 2px;
     padding: 3px;
     border: 1px solid var(--line);
@@ -62,12 +65,16 @@ const base = import.meta.env.BASE_URL;
     font-weight: 700;
     text-align: center;
   }
+  .global-lang-switch a:hover { color: var(--text); }
   .global-lang-switch a.is-active {
     color: var(--text);
     background: rgba(184,165,255,.12);
   }
+  .global-lang-switch .global-showcase { padding-inline: 9px; color: var(--text-soft); }
+  .global-divider { width: 1px; height: 16px; margin: 0 3px; background: var(--line); }
   body:has(.site-header-shared) > .global-lang-switch { display: none; }
   @media (max-width: 820px) {
     .global-lang-switch { right: 20px; top: 22px; }
+    .global-lang-switch .global-showcase, .global-divider { display: none; }
   }
 </style>
