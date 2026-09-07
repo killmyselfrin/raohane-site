@@ -1,0 +1,210 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const github = "https://github.com/killmyselfrin/raohane-dots";
+const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\nbash install.sh";
+---
+
+<BaseLayout>
+  <div class="page-shell">
+    <header class="site-header shell-width">
+      <a class="brand" href="#top" aria-label="Raohane home">
+        <span class="brand-mark">R</span>
+        <span>RAOHANE</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#experience">Experience</a>
+        <a href="#features">Features</a>
+        <a href="#install">Install</a>
+        <a href={github} target="_blank" rel="noreferrer">GitHub ↗</a>
+      </nav>
+      <a class="header-cta" href="#install">Get Raohane</a>
+    </header>
+
+    <main id="top">
+      <section class="hero shell-width">
+        <div class="hero-glow hero-glow-a"></div>
+        <div class="hero-glow hero-glow-b"></div>
+
+        <div class="sakura-field" aria-hidden="true">
+          {Array.from({ length: 12 }).map((_, index) => <i style={`--i:${index}`}></i>)}
+        </div>
+
+        <div class="hero-copy reveal">
+          <div class="eyebrow"><span></span> HYPRLAND · QUICKSHELL · NATIVE</div>
+          <h1>Desktop,<br/><em>composed.</em></h1>
+          <p class="hero-lede">
+            Raohane is a calm, responsive desktop shell built around Hyprland.
+            Native controls, deliberate motion and a visual language that stays out of your way.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#install">Install Raohane <span>→</span></a>
+            <a class="button button-ghost" href={github} target="_blank" rel="noreferrer">View source</a>
+          </div>
+          <div class="hero-meta">
+            <span><b>0.10</b> current line</span>
+            <span><b>Arch</b> first</span>
+            <span><b>GPL-3.0</b> open source</span>
+          </div>
+        </div>
+
+        <div class="hero-preview reveal" id="experience" data-shell-preview data-view="control">
+          <div class="preview-toolbar" role="group" aria-label="Preview Raohane surfaces">
+            <button data-preview="desktop">Desktop</button>
+            <button class="is-active" data-preview="control">Control Center</button>
+            <button data-preview="launcher">Launcher</button>
+            <button data-preview="settings">Settings</button>
+          </div>
+
+          <div class="desktop-frame">
+            <div class="desktop-wallpaper"></div>
+            <div class="desktop-grain"></div>
+            <div class="mock-bar glass">
+              <div class="mock-workspaces"><b>1</b><span>2</span><span>3</span><span>4</span></div>
+              <div class="mock-island"><i></i><span>Raohane</span></div>
+              <div class="mock-status"><span>󰕾</span><span>󰤨</span><span>00:01</span></div>
+            </div>
+
+            <div class="surface surface-control glass">
+              <div class="surface-heading">
+                <div><small>MONDAY · SEPTEMBER 8</small><h3>Good evening.</h3></div>
+                <span class="avatar">R</span>
+              </div>
+              <div class="quick-grid">
+                <div class="quick-tile is-on"><span>󰤨</span><div><b>Wi-Fi</b><small>Connected</small></div></div>
+                <div class="quick-tile"><span>󰂯</span><div><b>Bluetooth</b><small>Ready</small></div></div>
+                <div class="quick-tile"><span>󰖨</span><div><b>Night light</b><small>Off</small></div></div>
+                <div class="quick-tile is-on"><span>󰈐</span><div><b>Focus</b><small>Quiet</small></div></div>
+              </div>
+              <div class="slider-row"><span>󰖙</span><i><b style="width:68%"></b></i><small>68</small></div>
+              <div class="slider-row"><span>󰕾</span><i><b style="width:46%"></b></i><small>46</small></div>
+              <div class="media-card">
+                <span class="album-art"></span>
+                <div><small>NOW PLAYING</small><b>Quiet motion</b><span>Raohane Session</span></div>
+                <strong>Ⅱ</strong>
+              </div>
+            </div>
+
+            <div class="surface surface-launcher glass">
+              <div class="search-box"><span>⌕</span><strong>Search apps, actions and settings</strong><kbd>ESC</kbd></div>
+              <div class="launcher-label">FREQUENT</div>
+              <div class="app-grid">
+                <div><i>󰈹</i><span>Browser</span></div><div><i>󰆍</i><span>Terminal</span></div>
+                <div><i>󰘦</i><span>Files</span></div><div><i>󰒓</i><span>Settings</span></div>
+                <div><i>󰊴</i><span>Music</span></div><div><i>󰖟</i><span>Discord</span></div>
+              </div>
+              <div class="launcher-result"><span>⌘</span><div><b>Open Control Center</b><small>Raohane action</small></div><kbd>↵</kbd></div>
+            </div>
+
+            <div class="surface surface-settings glass">
+              <aside class="settings-sidebar">
+                <b>Raohane</b><small>SETTINGS</small>
+                <span class="active">󰒓 &nbsp; Appearance</span>
+                <span>󰍹 &nbsp; Display</span><span>󰓃 &nbsp; Bar & Dock</span>
+                <span>󰂚 &nbsp; Notifications</span><span>󰕾 &nbsp; Audio</span>
+              </aside>
+              <div class="settings-main">
+                <small>APPEARANCE</small><h3>Make it yours.</h3>
+                <div class="setting-card"><div><b>Sakura ambience</b><small>Subtle petals across Raohane surfaces</small></div><i class="toggle on"></i></div>
+                <div class="setting-card"><div><b>Motion</b><small>Short, smooth and responsive</small></div><span>Standard</span></div>
+                <div class="theme-swatches"><i></i><i></i><i></i><i></i></div>
+              </div>
+            </div>
+
+            <div class="mock-dock glass"><i>󰈹</i><i>󰆍</i><i>󰘦</i><i class="active">󰒓</i><i>󰊴</i></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section shell-width reveal" id="features">
+        <div class="section-kicker">01 · BUILT AS A SHELL</div>
+        <div class="section-heading">
+          <h2>Everything you touch<br/>belongs to <em>Raohane.</em></h2>
+          <p>Not a collection of disconnected widgets. One native desktop layer with shared state, motion, themes and system services.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature feature-wide">
+            <span class="feature-index">01</span><div class="feature-icon">⌘</div>
+            <h3>Resident. Immediate.</h3><p>Primary surfaces stay warm and respond before background refresh work begins. The interface comes first.</p>
+            <div class="latency-strip"><span></span><span></span><span></span><span></span><b>&lt; 50 ms target</b></div>
+          </article>
+          <article class="feature"><span class="feature-index">02</span><div class="feature-icon">桜</div><h3>Sakura ambience</h3><p>A restrained Japanese accent, designed as part of the shell instead of a heavy particle effect.</p></article>
+          <article class="feature"><span class="feature-index">03</span><div class="feature-icon">◌</div><h3>Native controls</h3><p>PipeWire, NetworkManager, BlueZ, Hyprland and system services behind one cohesive control surface.</p></article>
+          <article class="feature"><span class="feature-index">04</span><div class="feature-icon">Ⅱ</div><h3>Media, everywhere</h3><p>MPRIS controls, lyrics and an overlay that can appear above the desktop or inside a gaming session.</p></article>
+          <article class="feature feature-wide"><span class="feature-index">05</span><div class="feature-icon">◐</div><h3>Nocturne by design.</h3><p>Graphite glass, lavender accents, compact geometry and motion with discipline. Visual depth without uncontrolled neon.</p><div class="palette"><i></i><i></i><i></i><i></i><i></i></div></article>
+        </div>
+      </section>
+
+      <section class="section philosophy reveal">
+        <div class="shell-width philosophy-inner">
+          <div class="kanji" aria-hidden="true">静</div>
+          <div><span class="section-kicker">02 · THE IDEA</span><h2>Quiet when idle.<br/><em>Present when needed.</em></h2></div>
+          <p>Raohane avoids making the desktop the main character. It should disappear into your workflow, then feel instant when you call it.</p>
+        </div>
+      </section>
+
+      <section class="section shell-width install-section reveal" id="install">
+        <div class="install-copy">
+          <div class="section-kicker">03 · INSTALL</div>
+          <h2>Three commands.<br/><em>Your desktop changes.</em></h2>
+          <p>Raohane targets modern Arch-based Hyprland systems. The guided installer checks dependencies, stages the native runtime and configures the user service.</p>
+          <div class="distro-pills" role="group" aria-label="Supported distributions">
+            <button class="is-active">CachyOS</button><button>Arch Linux</button><button>EndeavourOS</button>
+          </div>
+          <a class="text-link" href={github} target="_blank" rel="noreferrer">Read the repository documentation →</a>
+        </div>
+        <div class="terminal-card">
+          <div class="terminal-top"><div><i></i><i></i><i></i></div><span>raohane — install</span><button class="copy-button" data-copy-install>Copy</button></div>
+          <pre><code>{installCommand}</code></pre>
+          <div class="terminal-status"><span>●</span> guided installer · dependencies checked before install</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer shell-width">
+      <a class="brand" href="#top"><span class="brand-mark">R</span><span>RAOHANE</span></a>
+      <p>Native desktop shell for Hyprland.</p>
+      <div><a href={github}>GitHub</a><a href="#features">Features</a><a href="#install">Install</a></div>
+    </footer>
+  </div>
+
+  <script>
+    const preview = document.querySelector('[data-shell-preview]');
+    if (preview) {
+      preview.querySelectorAll('[data-preview]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const target = button.getAttribute('data-preview') ?? 'desktop';
+          preview.setAttribute('data-view', target);
+          preview.querySelectorAll('[data-preview]').forEach((item) => item.classList.toggle('is-active', item === button));
+        });
+      });
+    }
+
+    const copyButton = document.querySelector('[data-copy-install]');
+    copyButton?.addEventListener('click', async () => {
+      const command = `git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\nbash install.sh`;
+      try {
+        await navigator.clipboard.writeText(command);
+        copyButton.textContent = 'Copied';
+        window.setTimeout(() => copyButton.textContent = 'Copy', 1400);
+      } catch {
+        copyButton.textContent = 'Select text';
+      }
+    });
+
+    document.querySelectorAll('.distro-pills button').forEach((button) => {
+      button.addEventListener('click', () => {
+        button.parentElement?.querySelectorAll('button').forEach((item) => item.classList.toggle('is-active', item === button));
+      });
+    });
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add('revealed'));
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach((item) => observer.observe(item));
+    } else {
+      document.querySelectorAll('.reveal').forEach((item) => item.classList.add('revealed'));
+    }
+  </script>
+</BaseLayout>
