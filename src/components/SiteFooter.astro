@@ -1,19 +1,42 @@
 ---
+interface Props {
+  lang?: "en" | "ru";
+}
+
+const { lang = "en" } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const prefix = lang === "ru" ? `${base}ru/` : base;
+const labels = lang === "ru"
+  ? {
+      tagline: "Нативная оболочка рабочего стола для Hyprland.",
+      features: "Возможности",
+      showcase: "Галерея",
+      install: "Установка",
+      dependencies: "Пакеты",
+      docs: "Документация",
+      changelog: "Изменения"
+    }
+  : {
+      tagline: "Native desktop shell for Hyprland.",
+      features: "Features",
+      showcase: "Showcase",
+      install: "Install",
+      dependencies: "Packages",
+      docs: "Docs",
+      changelog: "Changelog"
+    };
 ---
 
-<footer class="site-footer shell-width site-footer-shared">
-  <div class="footer-brand">
-    <span class="brand-mark">R</span>
-    <div><b>RAOHANE</b><small>Hyprland · Quickshell · Qt/QML</small></div>
+<footer class="site-footer shell-width">
+  <a class="brand" href={prefix}><span class="brand-mark">R</span><span>RAOHANE</span></a>
+  <p>{labels.tagline}</p>
+  <div>
+    <a href={`${prefix}features/`}>{labels.features}</a>
+    <a href={`${prefix}showcase/`}>{labels.showcase}</a>
+    <a href={`${prefix}install/`}>{labels.install}</a>
+    <a href={`${prefix}dependencies/`}>{labels.dependencies}</a>
+    <a href={`${prefix}docs/`}>{labels.docs}</a>
+    <a href={`${prefix}changelog/`}>{labels.changelog}</a>
+    <a href="https://github.com/killmyselfrin/raohane-dots">GitHub</a>
   </div>
-  <nav aria-label="Footer navigation">
-    <a href={`${base}features/`}>Features</a>
-    <a href={`${base}install/`}>Install</a>
-    <a href={`${base}dependencies/`}>Packages</a>
-    <a href={`${base}docs/`}>Docs</a>
-    <a href={`${base}changelog/`}>Changelog</a>
-    <a href="https://github.com/killmyselfrin/raohane-dots" target="_blank" rel="noreferrer">Source ↗</a>
-  </nav>
-  <p>Built for a quiet, responsive Hyprland desktop.</p>
 </footer>
