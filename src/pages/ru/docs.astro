@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import "../../styles/content.css";
+
+const commands = [
+  ["raohane status", "Показать состояние user service и runtime."],
+  ["raohane restart", "Перезапустить установленный Quickshell runtime."],
+  ["raohane doctor all", "Проверить зависимости, сервисы и основные backend-команды."],
+  ["raohane doctor graphics", "Определить GPU, активный драйвер и доступные graphics updates."],
+  ["raohane validate phase4 --full", "Запустить расширенную live-проверку Phase 4."],
+  ["raohane validate release --full", "Запустить release validation в реальной Wayland/Hyprland-сессии."]
+];
+---
+
+<BaseLayout lang="ru" title="Документация — Raohane" description="Основные команды, пути конфигурации и диагностика Raohane.">
+  <div class="page-shell">
+    <SiteHeader active="docs" lang="ru" />
+    <main class="content-main shell-width">
+      <section class="page-intro">
+        <span class="page-badge">Короткий справочник</span>
+        <h1>Управление Raohane<br/><em>без магии.</em></h1>
+        <p>Основные команды, runtime paths и диагностические точки собраны здесь. Полная техническая документация продолжает жить рядом с исходным кодом.</p>
+      </section>
+
+      <section class="section-block">
+        <header><span class="section-kicker">CLI</span><h2>Основные команды.</h2></header>
+        <div class="content-grid">
+          {commands.map(([command,description]) => <article class="content-card"><code>{command}</code><p>{description}</p></article>)}
+        </div>
+      </section>
+
+      <section class="section-block">
+        <header><span class="section-kicker">Пути</span><h2>Где живёт Raohane.</h2></header>
+        <div class="content-grid">
+          <article class="content-card"><h3>Source checkout</h3><code>~/raohane-dots</code><p>Git checkout проекта. Изменения сначала приходят сюда.</p></article>
+          <article class="content-card"><h3>Live runtime</h3><code>~/.config/quickshell/raohane</code><p>Установленный runtime, который фактически запускает Quickshell.</p></article>
+          <article class="content-card"><h3>State</h3><code>~/.local/state/raohane</code><p>Отчёты validation, updater state и другие runtime-данные.</p></article>
+          <article class="content-card"><h3>Config</h3><code>~/.config/raohane</code><p>Пользовательские настройки и интеграционные конфиги Raohane.</p></article>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <header><span class="section-kicker">Launcher</span><h2>Больше чем список приложений.</h2><p>Launcher поддерживает приложения, Raohane actions, command mode, вычисления, clipboard history и переход к настройкам.</p></header>
+      </section>
+    </main>
+    <SiteFooter lang="ru" />
+  </div>
+</BaseLayout>
