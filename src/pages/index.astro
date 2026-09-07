@@ -4,6 +4,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const github = "https://github.com/killmyselfrin/raohane-dots";
 const base = import.meta.env.BASE_URL;
 const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\nbash install.sh";
+
+const petals = [
+  { x: 4,  size: 0.82, opacity: 0.38, duration: 15.8, delay: -2.6, driftMid: 34,  driftEnd: -18, rot: 18 },
+  { x: 13, size: 1.08, opacity: 0.58, duration: 18.4, delay: -11.1, driftMid: -28, driftEnd: 22,  rot: 61 },
+  { x: 22, size: 0.9,  opacity: 0.46, duration: 16.9, delay: -6.7, driftMid: 42,  driftEnd: 10,  rot: 104 },
+  { x: 31, size: 1.2,  opacity: 0.62, duration: 20.2, delay: -15.4, driftMid: -36, driftEnd: 30,  rot: 147 },
+  { x: 41, size: 0.76, opacity: 0.32, duration: 14.7, delay: -4.1, driftMid: 25,  driftEnd: -25, rot: 203 },
+  { x: 49, size: 1.0,  opacity: 0.54, duration: 19.1, delay: -12.8, driftMid: -44, driftEnd: -8,  rot: 252 },
+  { x: 58, size: 0.86, opacity: 0.42, duration: 17.3, delay: -8.9, driftMid: 31,  driftEnd: 26,  rot: 299 },
+  { x: 66, size: 1.14, opacity: 0.6,  duration: 21.0, delay: -17.2, driftMid: -30, driftEnd: 18,  rot: 338 },
+  { x: 74, size: 0.72, opacity: 0.3,  duration: 15.3, delay: -5.4, driftMid: 39,  driftEnd: -14, rot: 23 },
+  { x: 82, size: 1.05, opacity: 0.5,  duration: 18.8, delay: -13.7, driftMid: -38, driftEnd: -28, rot: 79 },
+  { x: 89, size: 0.92, opacity: 0.44, duration: 16.4, delay: -9.8, driftMid: 28,  driftEnd: 20,  rot: 132 },
+  { x: 95, size: 1.18, opacity: 0.56, duration: 20.6, delay: -18.5, driftMid: -25, driftEnd: 34,  rot: 186 },
+];
 ---
 
 <BaseLayout>
@@ -17,6 +32,7 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
         <a href={`${base}features/`}>Features</a>
         <a href={`${base}install/`}>Install</a>
         <a href={`${base}docs/`}>Docs</a>
+        <a href={`${base}dependencies/`}>Packages</a>
         <a href={`${base}changelog/`}>Changelog</a>
         <a href={github} target="_blank" rel="noreferrer">GitHub ↗</a>
       </nav>
@@ -29,7 +45,9 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
         <div class="hero-glow hero-glow-b"></div>
 
         <div class="sakura-field" aria-hidden="true">
-          {Array.from({ length: 12 }).map((_, index) => <i style={`--i:${index}`}></i>)}
+          {petals.map((petal) => (
+            <i style={`--petal-x:${petal.x}%;--petal-scale:${petal.size};--petal-opacity:${petal.opacity};--petal-duration:${petal.duration}s;--petal-delay:${petal.delay}s;--petal-drift-mid:${petal.driftMid}px;--petal-drift-end:${petal.driftEnd}px;--petal-rotation:${petal.rot}deg`}></i>
+          ))}
         </div>
 
         <div class="hero-copy reveal">
@@ -170,11 +188,46 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
         <a href={`${base}features/`}>Features</a>
         <a href={`${base}install/`}>Install</a>
         <a href={`${base}docs/`}>Docs</a>
+        <a href={`${base}dependencies/`}>Packages</a>
         <a href={`${base}changelog/`}>Changelog</a>
         <a href={github}>GitHub</a>
       </div>
     </footer>
   </div>
+
+  <style>
+    .sakura-field i {
+      left: var(--petal-x);
+      width: calc(11px * var(--petal-scale));
+      height: calc(16px * var(--petal-scale));
+      opacity: var(--petal-opacity);
+      animation-duration: var(--petal-duration);
+      animation-delay: var(--petal-delay);
+      transform-origin: 50% 64%;
+    }
+
+    .sakura-field i::after {
+      left: 50%;
+      right: auto;
+      top: -1px;
+      width: 4px;
+      height: 4px;
+      transform: translateX(-50%) rotate(45deg);
+      border-radius: 0 0 4px 4px;
+    }
+
+    @keyframes petal-fall {
+      0% {
+        transform: translate3d(0, -5vh, 0) rotate(var(--petal-rotation)) rotateX(0deg);
+      }
+      46% {
+        transform: translate3d(var(--petal-drift-mid), 52vh, 0) rotate(calc(var(--petal-rotation) + 148deg)) rotateX(52deg);
+      }
+      100% {
+        transform: translate3d(var(--petal-drift-end), 104vh, 0) rotate(calc(var(--petal-rotation) + 318deg)) rotateX(8deg);
+      }
+    }
+  </style>
 
   <script>
     const preview = document.querySelector('[data-shell-preview]');
