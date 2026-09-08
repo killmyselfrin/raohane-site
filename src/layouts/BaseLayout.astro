@@ -10,8 +10,8 @@ interface Props {
 }
 
 const {
-  title = "Raohane — Native desktop shell for Hyprland",
-  description = "Raohane is a native Hyprland + Quickshell desktop shell focused on calm design, responsive motion, and deeply integrated desktop controls.",
+  title = "Raohane 1.0.0 — Native desktop shell for Hyprland",
+  description = "Raohane 1.0.0 is the first stable native Hyprland + Quickshell desktop shell, focused on calm design, responsive motion and deeply integrated desktop controls.",
   lang = "en",
   noindex = false
 } = Astro.props;
@@ -28,6 +28,9 @@ const englishUrl = new URL(`${base}${routePath}`, site).toString();
 const russianUrl = new URL(`${base}ru/${routePath}`, site).toString();
 const socialImage = new URL(`${base}screenshots/desktop.webp`, site).toString();
 const repositoryUrl = "https://github.com/killmyselfrin/raohane-dots";
+const changelogUrl = `${repositoryUrl}/blob/main/CHANGELOG.md`;
+const stableVersion = "1.0.0";
+const releaseDate = "2026-09-08";
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -37,7 +40,8 @@ const structuredData = {
       name: "Raohane",
       url: new URL(base, site).toString(),
       description,
-      inLanguage: ["en", "ru"]
+      inLanguage: ["en", "ru"],
+      dateModified: releaseDate
     },
     {
       "@type": ["SoftwareApplication", "SoftwareSourceCode"],
@@ -49,6 +53,10 @@ const structuredData = {
       codeRepository: repositoryUrl,
       license: "https://www.gnu.org/licenses/gpl-3.0.html",
       isAccessibleForFree: true,
+      softwareVersion: stableVersion,
+      datePublished: releaseDate,
+      dateModified: releaseDate,
+      releaseNotes: changelogUrl,
       screenshot: socialImage
     }
   ]
@@ -62,6 +70,7 @@ const structuredData = {
     <meta name="viewport" content="width=device-width" />
     <meta name="theme-color" content="#07090d" />
     <meta name="description" content={description} />
+    <meta name="application-name" content="Raohane" />
     <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
 
     {!noindex && <link rel="canonical" href={canonicalUrl} />}
