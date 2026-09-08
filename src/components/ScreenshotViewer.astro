@@ -1,0 +1,75 @@
+---
+const { lang = 'en' } = Astro.props;
+const ru = lang === 'ru';
+---
+<dialog class="image-viewer" aria-label={ru ? 'Просмотр скриншотов Raohane' : 'Raohane screenshot viewer'} data-image-viewer>
+  <div class="viewer-toolbar">
+    <p data-image-caption aria-live="polite"></p>
+    <div class="viewer-actions">
+      <a data-image-download download>{ru ? 'Скачать' : 'Download'}</a>
+      <button type="button" data-image-close autofocus>{ru ? 'Закрыть' : 'Close'} <span aria-hidden="true">×</span></button>
+    </div>
+  </div>
+  <div class="viewer-canvas"><img data-image-full alt="" width="1920" height="1080" /></div>
+  <div class="viewer-navigation">
+    <button type="button" data-image-prev aria-label={ru ? 'Предыдущий скриншот' : 'Previous screenshot'}>←</button>
+    <span>1920 × 1080</span>
+    <button type="button" data-image-next aria-label={ru ? 'Следующий скриншот' : 'Next screenshot'}>→</button>
+  </div>
+</dialog>
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-image-viewer]');
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('a[data-gallery]'));
+  if (dialog && links.length) {
+    const img = dialog.querySelector<HTMLImageElement>('[data-image-full]')!;
+    const caption = dialog.querySelector<HTMLElement>('[data-image-caption]')!;
+    const download = dialog.querySelector<HTMLAnchorElement>('[data-image-download]')!;
+    let current = 0;
+    let opener: HTMLAnchorElement | null = null;
+    const show = (index: number) => {
+      current = (index + links.length) % links.length;
+      const link = links[current];
+      img.src = link.href;
+      img.alt = link.querySelector('img')?.alt ?? link.dataset.caption ?? 'Raohane';
+      caption.textContent = `${current + 1} / ${links.length} · ${img.alt}`;
+      download.href = link.href;
+      download.download = `raohane-${link.href.split('/').pop()}`;
+    };
+    links.forEach((link, index) => link.addEventListener('click', (event) => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      opener = link;
+      show(index);
+      dialog.showModal();
+      document.documentElement.classList.add('viewer-open');
+    }));
+    dialog.querySelector('[data-image-close]')?.addEventListener('click', () => dialog.close());
+    dialog.querySelector('[data-image-prev]')?.addEventListener('click', () => show(current - 1));
+    dialog.querySelector('[data-image-next]')?.addEventListener('click', () => show(current + 1));
+    dialog.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault(); show(current + (event.key === 'ArrowRight' ? 1 : -1));
+      }
+    });
+    dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => {
+      document.documentElement.classList.remove('viewer-open');
+      opener?.focus();
+    });
+  }
+</script>
+<style is:global>
+  html.viewer-open { overflow: hidden; }
+  .image-viewer { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 16px 24px; border: 0; background: #07090df5; color: var(--text); }
+  .image-viewer[open] { display: flex; flex-direction: column; }
+  .image-viewer::backdrop { background: #07090d; }
+  .viewer-toolbar, .viewer-actions, .viewer-navigation { display: flex; align-items: center; gap: 12px; }
+  .viewer-toolbar { justify-content: space-between; flex-wrap: wrap; }
+  .viewer-toolbar p { margin: 0; font-size: 14px; }
+  .viewer-actions a, .image-viewer button { border: 1px solid var(--line-strong); background: #1b1d29; padding: 10px 14px; border-radius: 10px; font-size: 14px; cursor: pointer; }
+  .viewer-canvas { flex: 1; min-height: 0; display: grid; place-items: center; padding-block: 12px; }
+  .viewer-canvas img { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+  .viewer-navigation { justify-content: center; color: var(--text-soft); font-size: 14px; }
+  .viewer-navigation button { min-width: 48px; }
+  @media (max-width: 600px) { .image-viewer { padding: 12px; } }
+</style>

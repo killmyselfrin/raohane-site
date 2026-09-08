@@ -1,0 +1,37 @@
+---
+import { screenshots } from '../data/screenshots';
+const { lang = 'en' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+<div class="shell-preview" data-shell-preview>
+  <div class="shell-tabs" role="group" aria-label={lang === 'ru' ? 'Экраны Raohane' : 'Raohane surfaces'}>
+    {screenshots.map((shot, index) => <button type="button" data-preview={index} aria-pressed={index === 0} aria-controls={`preview-${shot.id}`}>{shot[lang as 'en' | 'ru']}</button>)}
+  </div>
+  {screenshots.map((shot, index) => (
+    <a id={`preview-${shot.id}`} class="shell-capture" data-gallery data-preview-image={index} href={`${base}screenshots/${shot.id}.webp`} hidden={index !== 0}>
+      <img src={`${base}screenshots/${shot.id}.webp`} srcset={`${base}screenshots/${shot.id}-800.webp 800w, ${base}screenshots/${shot.id}.webp 1920w`} sizes="(max-width: 1120px) calc(100vw - 40px), 1080px" width="1920" height="1080" alt={`Raohane — ${shot[lang as 'en' | 'ru']}`} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} />
+      <span>{lang === 'ru' ? 'Открыть в Full HD' : 'View in Full HD'} ↗</span>
+    </a>
+  ))}
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-shell-preview]').forEach(preview => {
+    const buttons = preview.querySelectorAll<HTMLButtonElement>('[data-preview]');
+    buttons.forEach(button => button.addEventListener('click', () => {
+      buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      preview.querySelectorAll<HTMLElement>('[data-preview-image]').forEach(item => {
+        item.hidden = item.dataset.previewImage !== button.dataset.preview;
+      });
+    }));
+  });
+</script>
+<style>
+  .shell-preview { width: min(1080px, 100%); margin: 56px auto 0; position: relative; z-index: 4; }
+  .shell-tabs { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .shell-tabs button { border: 1px solid var(--line); padding: 11px 16px; border-radius: 10px; background: #10121b; color: var(--text-soft); cursor: pointer; font-size: 14px; }
+  .shell-tabs button[aria-pressed='true'] { background: var(--accent-soft); color: var(--text); border-color: #b8a5ff66; }
+  .shell-capture { position: relative; display: block; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 20px; box-shadow: var(--shadow); }
+  .shell-capture[hidden] { display: none; }
+  .shell-capture img { display: block; width: 100%; height: auto; }
+  .shell-capture span { position: absolute; bottom: 14px; right: 14px; padding: 10px 14px; border-radius: 10px; background: #07090de6; color: var(--text); font-size: 14px; }
+</style>

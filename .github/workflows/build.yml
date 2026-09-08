@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: package.json
+          cache-dependency-path: package-lock.json
 
       - name: Configure GitHub Pages
         if: github.event_name != 'pull_request'
@@ -37,10 +37,17 @@ jobs:
           enablement: true
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build website
+        env:
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+          BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
+          YANDEX_SITE_VERIFICATION: ${{ vars.YANDEX_SITE_VERIFICATION }}
         run: npm run build
+
+      - name: Validate pages, links and screenshots
+        run: npm run check:site
 
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
@@ -60,32 +67,14 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+      - name: Checkout indexing script
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Notify IndexNow
         continue-on-error: true
-        run: |
-          curl --silent --show-error --fail-with-body \
-            -H 'Content-Type: application/json; charset=utf-8' \
-            --data @- \
-            https://api.indexnow.org/indexnow <<'JSON'
-          {
-            "host": "killmyselfrin.github.io",
-            "key": "8f4c2a7d91b6e3f0c5a8d2b7e1f4a963",
-            "keyLocation": "https://killmyselfrin.github.io/raohane-site/8f4c2a7d91b6e3f0c5a8d2b7e1f4a963.txt",
-            "urlList": [
-              "https://killmyselfrin.github.io/raohane-site/",
-              "https://killmyselfrin.github.io/raohane-site/features/",
-              "https://killmyselfrin.github.io/raohane-site/showcase/",
-              "https://killmyselfrin.github.io/raohane-site/install/",
-              "https://killmyselfrin.github.io/raohane-site/docs/",
-              "https://killmyselfrin.github.io/raohane-site/dependencies/",
-              "https://killmyselfrin.github.io/raohane-site/changelog/",
-              "https://killmyselfrin.github.io/raohane-site/ru/",
-              "https://killmyselfrin.github.io/raohane-site/ru/features/",
-              "https://killmyselfrin.github.io/raohane-site/ru/showcase/",
-              "https://killmyselfrin.github.io/raohane-site/ru/install/",
-              "https://killmyselfrin.github.io/raohane-site/ru/docs/",
-              "https://killmyselfrin.github.io/raohane-site/ru/dependencies/",
-              "https://killmyselfrin.github.io/raohane-site/ru/changelog/"
-            ]
-          }
-          JSON
+        run: node scripts/notify-indexnow.mjs

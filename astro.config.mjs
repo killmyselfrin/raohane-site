@@ -4,6 +4,7 @@ export default defineConfig({
   site: "https://killmyselfrin.github.io",
   base: "/raohane-site/",
   output: "static",
+  trailingSlash: "always",
   build: {
     assets: "assets"
   }
