@@ -6,19 +6,20 @@ import "../styles/content.css";
 
 const releases = [
   {
-    title: "Unreleased — Native Serpantinum adoption",
-    status: "In progress",
+    title: "1.0.0 — First Stable Release",
+    status: "Stable · September 8, 2026",
     items: [
-      "Native configurable desktop widgets with a dedicated Settings editor.",
-      "Roomier Control Center composition and shared motion improvements.",
-      "Native Raohane theme catalog with Serpantinum palette conversion.",
-      "Native Nix package plus NixOS and Home Manager modules.",
-      "Wallpaper library redesigned around a large horizontal snap carousel."
+      "First stable Raohane release with a standalone Hyprland + Quickshell runtime.",
+      "Native Settings, Launcher, Control Center, notifications, wallpaper tools, Task Manager, media surfaces and desktop widgets.",
+      "Raohane-owned theme library with built-in presets plus user theme import, export and editing.",
+      "Arch-family guided installer, Nix package, NixOS module and Home Manager module.",
+      "Release, runtime, localization, graphics and QML boundary validation for reproducible stable packaging.",
+      "Retired third-party palette catalog removed from the product theme path before the stable release."
     ]
   },
   {
     title: "0.10.0-dev — Standalone + Minimal Theme System",
-    status: "Current development line",
+    status: "Development milestone",
     items: [
       "Whole-shell Raohane theme engine with shared surface tokens.",
       "Native Settings, Launcher, Control Center, notifications and wallpaper selector.",
@@ -29,7 +30,7 @@ const releases = [
   },
   {
     title: "0.9.0-dev — Context Foundation",
-    status: "Milestone",
+    status: "Development milestone",
     items: [
       "Priority-based Context Island for privacy, recording, media and window context.",
       "Reusable quick tiles and seekable MPRIS card.",
@@ -39,7 +40,7 @@ const releases = [
   },
   {
     title: "0.8.0-dev — Visual Foundation",
-    status: "Milestone",
+    status: "Development milestone",
     items: [
       "Native Raohane Bar and Control Center loaded directly from the shell root.",
       "Native Launcher and Settings registry.",
@@ -50,14 +51,14 @@ const releases = [
 ];
 ---
 
-<BaseLayout title="Changelog — Raohane" description="Track the current Raohane development line and major shell milestones.">
+<BaseLayout title="Raohane 1.0.0 Changelog" description="Release notes for Raohane 1.0.0, the first stable Hyprland + Quickshell desktop shell release, plus earlier development milestones.">
   <div class="page-shell">
     <SiteHeader active="changelog" />
     <main id="main-content" class="content-main shell-width">
       <section class="page-intro">
-        <span class="page-badge">0.10.0-dev</span>
-        <h1>Built in public.<br/><em>Changed deliberately.</em></h1>
-        <p>Raohane is still in active development. This page surfaces the major product milestones; the source repository keeps the complete line-by-line changelog.</p>
+        <span class="page-badge">1.0.0 stable</span>
+        <h1>Stable foundation.<br/><em>Still moving forward.</em></h1>
+        <p>Raohane 1.0.0 is the first stable release. This page tracks major product milestones; the source repository keeps the complete line-by-line changelog.</p>
       </section>
 
       <section class="timeline" aria-label="Release history">
