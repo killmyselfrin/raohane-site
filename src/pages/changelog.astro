@@ -6,6 +6,18 @@ import "../styles/content.css";
 
 const releases = [
   {
+    title: "1.1.0 — Whole-shell Polish",
+    status: "Stable · September 8, 2026",
+    items: [
+      "Whole-shell visual polish across Settings, Control Center, Launcher, Wallpaper Selector, Overview, Media Overlay, OSD, Session, DropShelf, Polkit, Left Sidebar, Desktop Menu and Screen Translator.",
+      "Larger, clearer Settings controls and studio surfaces while preserving the existing registry, router and configuration architecture.",
+      "Runtime surfaces now share a more consistent visual scale without forcing rewrites of security- or density-sensitive Lock, Context Island, OSK, Task Manager, Bar and Dock paths.",
+      "Duplicate audio and microphone device selection remains removed from the Left Sidebar.",
+      "Targeted performance cleanup reduces unnecessary shell startup and repeated audio refresh work on common open paths.",
+      "Release boundary, QML, localization, graphics, backup, singleton-runtime and full Raohane audits pass on the stable release head."
+    ]
+  },
+  {
     title: "1.0.0 — First Stable Release",
     status: "Stable · September 8, 2026",
     items: [
@@ -51,14 +63,14 @@ const releases = [
 ];
 ---
 
-<BaseLayout title="Raohane 1.0.0 Changelog" description="Release notes for Raohane 1.0.0, the first stable Hyprland + Quickshell desktop shell release, plus earlier development milestones.">
+<BaseLayout title="Raohane 1.1.0 Changelog" description="Release notes for Raohane 1.1.0 whole-shell polish, the 1.0.0 stable foundation and earlier Hyprland + Quickshell development milestones.">
   <div class="page-shell">
     <SiteHeader active="changelog" />
     <main id="main-content" class="content-main shell-width">
       <section class="page-intro">
-        <span class="page-badge">1.0.0 stable</span>
-        <h1>Stable foundation.<br/><em>Still moving forward.</em></h1>
-        <p>Raohane 1.0.0 is the first stable release. This page tracks major product milestones; the source repository keeps the complete line-by-line changelog.</p>
+        <span class="page-badge">1.1.0 stable</span>
+        <h1>One shell.<br/><em>More consistent everywhere.</em></h1>
+        <p>Raohane 1.1.0 is the whole-shell polish release: clearer Settings, more consistent runtime surfaces and targeted performance cleanup on top of the stable 1.0 foundation.</p>
       </section>
 
       <section class="timeline" aria-label="Release history">
