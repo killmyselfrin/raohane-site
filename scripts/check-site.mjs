@@ -8,12 +8,13 @@ const base = '/raohane-site/';
 const origin = 'https://killmyselfrin.github.io';
 const root = new URL('../dist/', import.meta.url).pathname;
 const stableVersion = '1.0.0';
+const googleVerificationName = 'google6d6cd9ff57f64a8e.html';
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
   return (await Promise.all(entries.map(entry => entry.isDirectory() ? walk(join(dir, entry.name)) : join(dir, entry.name)))).flat();
 }
 const files = await walk(root);
-const pages = files.filter(path => path.endsWith('.html'));
+const pages = files.filter(path => path.endsWith('.html') && !path.endsWith(`/${googleVerificationName}`));
 const canonicals = [];
 for (const file of pages) {
   const html = await readFile(file, 'utf8');
@@ -57,8 +58,8 @@ const sitemap = await readFile(join(root, 'sitemap.xml'), 'utf8');
 const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
 assert.deepEqual(urls.sort(), canonicals.sort(), 'Sitemap must match all public pages');
 assert.equal(new Set(urls).size, urls.length, 'Unique sitemap URLs');
-const googleVerification = await readFile(join(root, 'google6d6cd9ff57f64a8e.html'), 'utf8');
-assert.equal(googleVerification.trim(), 'google-site-verification: google6d6cd9ff57f64a8e.html', 'Google verification file');
+const googleVerification = await readFile(join(root, googleVerificationName), 'utf8');
+assert.equal(googleVerification.trim(), `google-site-verification: ${googleVerificationName}`, 'Google verification file');
 for (const name of ['desktop', 'control-center', 'launcher', 'settings']) {
   const image = sharp(join(root, `screenshots/${name}.webp`));
   const meta = await image.metadata();
