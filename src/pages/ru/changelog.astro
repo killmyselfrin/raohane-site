@@ -5,6 +5,7 @@ import SiteFooter from "../../components/SiteFooter.astro";
 import "../../styles/content.css";
 
 const releases = [
+  { title: "1.1.0 — Whole-shell polish", status: "Stable · 8 сентября 2026", items: ["Визуальный polish всей оболочки: Settings, Control Center, Launcher, Wallpaper Selector, Overview, Media Overlay, OSD, Session, DropShelf, Polkit, Left Sidebar, Desktop Menu и Screen Translator.", "Более крупные и читаемые Settings и studio-поверхности без смены registry/router/config архитектуры.", "Runtime-поверхности приведены к более единому масштабу без лишнего rewrite security- и density-sensitive Lock, Context Island, OSK, Task Manager, Bar и Dock.", "Дублирующий выбор аудио- и микрофонных устройств не возвращён в Left Sidebar.", "Точечная оптимизация уменьшает лишний startup overhead и повторные audio refresh на частых путях открытия.", "Stable head проходит release boundary, QML, localization, graphics, backup, singleton-runtime и полный Raohane audit."] },
   { title: "1.0.0 — Первый стабильный релиз", status: "Stable · 8 сентября 2026", items: ["Первая стабильная версия Raohane с самостоятельным Hyprland + Quickshell runtime.", "Нативные Settings, Launcher, Control Center, notifications, wallpaper tools, Task Manager, media surfaces и desktop widgets.", "Собственная библиотека тем Raohane со встроенными пресетами и пользовательским import/export/editing.", "Guided installer для Arch-family, Nix package, NixOS module и Home Manager module.", "Release/runtime/localization/graphics/QML проверки для воспроизводимой stable-упаковки.", "Старый сторонний каталог палитр удалён из product theme path до стабильного релиза."] },
   { title: "0.10.0-dev — Standalone + Minimal Theme System", status: "Этап разработки", items: ["Общий theme engine и shared surface tokens.", "Нативные Settings, Launcher, Control Center, notifications и wallpaper selector.", "Fullscreen-friendly media overlay, Context Island и native OSD.", "Standalone runtime, dependency manifests и release-boundary validation.", "Japanese-minimal направление и несколько палитр."] },
   { title: "0.9.0-dev — Context Foundation", status: "Этап разработки", items: ["Priority-based Context Island для privacy, recording, media и window context.", "Reusable quick tiles и seekable MPRIS card.", "Launcher actions и game-capable media overlay.", "Расширенная конфигурация и audit coverage."] },
@@ -12,14 +13,14 @@ const releases = [
 ];
 ---
 
-<BaseLayout lang="ru" title="Raohane 1.0.0 — история изменений" description="Release notes первой стабильной версии Raohane 1.0.0 и основные этапы разработки оболочки Hyprland + Quickshell.">
+<BaseLayout lang="ru" title="Raohane 1.1.0 — история изменений" description="Release notes стабильной версии Raohane 1.1.0 whole-shell polish, предыдущей 1.0.0 и основных этапов разработки Hyprland + Quickshell оболочки.">
   <div class="page-shell">
     <SiteHeader active="changelog" lang="ru" />
     <main id="main-content" class="content-main shell-width">
       <section class="page-intro">
-        <span class="page-badge">1.0.0 stable</span>
-        <h1>Стабильная основа.<br/><em>Разработка продолжается.</em></h1>
-        <p>Raohane 1.0.0 — первый стабильный релиз. Здесь собраны крупные продуктовые этапы, а полный построчный changelog находится в основном репозитории.</p>
+        <span class="page-badge">1.1.0 stable</span>
+        <h1>Одна оболочка.<br/><em>Более цельная везде.</em></h1>
+        <p>Raohane 1.1.0 — релиз whole-shell polish: более читаемые Settings, единый runtime-scale и точечная оптимизация поверх стабильной основы 1.0.</p>
       </section>
       <section class="timeline" aria-label="История версий">
         {releases.map((release) => <article class="release"><div class="release-top"><h2>{release.title}</h2><span class="status">{release.status}</span></div><ul>{release.items.map((item) => <li>{item}</li>)}</ul></article>)}
