@@ -6,7 +6,7 @@ import ShellPreview from "../components/ShellPreview.astro";
 
 const github = "https://github.com/killmyselfrin/raohane-dots";
 const base = import.meta.env.BASE_URL;
-const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\nbash install.sh";
+const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\n./install-raohane.sh";
 
 const petals = [
   { x: 4,  size: 0.82, opacity: 0.38, duration: 15.8, delay: -2.6, driftMid: 34,  driftEnd: -18, rot: 18 },
@@ -24,7 +24,7 @@ const petals = [
 ];
 ---
 
-<BaseLayout>
+<BaseLayout title="Raohane 1.0.0 — Native desktop shell for Hyprland" description="Raohane 1.0.0 is the first stable native Hyprland + Quickshell desktop shell release, with cohesive system controls, themes, motion and desktop tools.">
   <div class="page-shell">
     <SiteHeader active="home" />
 
@@ -40,7 +40,7 @@ const petals = [
         </div>
 
         <div class="hero-copy reveal">
-          <div class="eyebrow"><span></span> HYPRLAND · QUICKSHELL · NATIVE</div>
+          <div class="eyebrow"><span></span> HYPRLAND · QUICKSHELL · 1.0.0 STABLE</div>
           <h1>Desktop,<br/><em>composed.</em></h1>
           <p class="hero-lede">
             Raohane is a calm, responsive desktop shell built around Hyprland.
@@ -51,6 +51,7 @@ const petals = [
             <a class="button button-ghost" href={github} target="_blank" rel="noreferrer">View source</a>
           </div>
           <div class="hero-meta">
+            <span><b>1.0.0</b> stable</span>
             <span><b>Hyprland</b> + Quickshell</span>
             <span><b>Arch</b> first</span>
             <span><b>GPL-3.0</b> open source</span>
@@ -91,7 +92,7 @@ const petals = [
         <div class="install-copy">
           <div class="section-kicker">03 · INSTALL</div>
           <h2>Three commands.<br/><em>Your desktop changes.</em></h2>
-          <p>Raohane targets modern Arch-based Hyprland systems. The guided installer checks dependencies, stages the native runtime and configures the user service.</p>
+          <p>Raohane 1.0.0 targets modern Arch-based Hyprland systems. The guided installer checks dependencies, stages the native runtime and configures the user service.</p>
           <div class="distro-pills" role="group" aria-label="Supported distributions">
             <span>CachyOS</span><span>Arch Linux</span><span>EndeavourOS</span>
           </div>
@@ -145,7 +146,7 @@ const petals = [
   <script>
     const copyButton = document.querySelector('[data-copy-install]');
     copyButton?.addEventListener('click', async () => {
-      const command = `git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\nbash install.sh`;
+      const command = `git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\n./install-raohane.sh`;
       try {
         await navigator.clipboard.writeText(command);
         copyButton.textContent = 'Copied';
