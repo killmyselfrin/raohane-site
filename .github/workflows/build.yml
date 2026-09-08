@@ -59,3 +59,33 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Notify IndexNow
+        continue-on-error: true
+        run: |
+          curl --silent --show-error --fail-with-body \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            --data @- \
+            https://api.indexnow.org/indexnow <<'JSON'
+          {
+            "host": "killmyselfrin.github.io",
+            "key": "8f4c2a7d91b6e3f0c5a8d2b7e1f4a963",
+            "keyLocation": "https://killmyselfrin.github.io/raohane-site/8f4c2a7d91b6e3f0c5a8d2b7e1f4a963.txt",
+            "urlList": [
+              "https://killmyselfrin.github.io/raohane-site/",
+              "https://killmyselfrin.github.io/raohane-site/features/",
+              "https://killmyselfrin.github.io/raohane-site/showcase/",
+              "https://killmyselfrin.github.io/raohane-site/install/",
+              "https://killmyselfrin.github.io/raohane-site/docs/",
+              "https://killmyselfrin.github.io/raohane-site/dependencies/",
+              "https://killmyselfrin.github.io/raohane-site/changelog/",
+              "https://killmyselfrin.github.io/raohane-site/ru/",
+              "https://killmyselfrin.github.io/raohane-site/ru/features/",
+              "https://killmyselfrin.github.io/raohane-site/ru/showcase/",
+              "https://killmyselfrin.github.io/raohane-site/ru/install/",
+              "https://killmyselfrin.github.io/raohane-site/ru/docs/",
+              "https://killmyselfrin.github.io/raohane-site/ru/dependencies/",
+              "https://killmyselfrin.github.io/raohane-site/ru/changelog/"
+            ]
+          }
+          JSON
