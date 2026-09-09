@@ -25,102 +25,204 @@ const labels = lang === "ru"
       dependencies: "Packages",
       docs: "Docs",
       changelog: "Changelog",
-      get: "Get Raohane"
+      get: "Install"
     };
 const links = ["features", "showcase", "install", "dependencies", "docs", "changelog"] as const;
 ---
 
-<header class="site-header shell-width site-header-shared">
-  <a class="brand" href={prefix} aria-label="Raohane home">
-    <span class="brand-mark">R</span>
-    <span>RAOHANE</span>
-  </a>
-  <nav class="nav-links" aria-label={lang === "ru" ? "Основная навигация" : "Main navigation"}>
-    {links.map((key) => (
-      <a class={active === key ? "is-active" : ""} aria-current={active === key ? "page" : undefined} href={`${prefix}${key}/`}>{labels[key]}</a>
-    ))}
-    <a href="https://github.com/killmyselfrin/raohane-dots" target="_blank" rel="noreferrer">GitHub ↗</a>
-  </nav>
-  <div class="header-actions">
-    <div class="lang-switch" aria-label={lang === "ru" ? "Язык сайта" : "Site language"}>
-      <a class:list={[lang === "en" && "is-active"]} href={`${base}${route}`}>EN</a>
-      <a class:list={[lang === "ru" && "is-active"]} href={`${base}ru/${route}`}>RU</a>
+<div class="header-wrap">
+  <header class="site-header shell-width site-header-v3">
+    <a class="brand brand-v3" href={prefix} aria-label="Raohane home">
+      <span class="brand-mark-v3"><b>R</b><i></i></span>
+      <span class="brand-copy"><b>RAOHANE</b><small>HYPRLAND SHELL</small></span>
+    </a>
+
+    <nav class="nav-links nav-links-v3" aria-label={lang === "ru" ? "Основная навигация" : "Main navigation"}>
+      {links.map((key) => (
+        <a class={active === key ? "is-active" : ""} aria-current={active === key ? "page" : undefined} href={`${prefix}${key}/`}>
+          <span>{labels[key]}</span>
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-switch" aria-label={lang === "ru" ? "Язык сайта" : "Site language"}>
+        <a class:list={[lang === "en" && "is-active"]} href={`${base}${route}`}>EN</a>
+        <a class:list={[lang === "ru" && "is-active"]} href={`${base}ru/${route}`}>RU</a>
+      </div>
+      <a class="header-cta header-cta-v3" href={`${prefix}install/`}><span>{labels.get}</span><b>↘</b></a>
+      <details class="mobile-menu">
+        <summary aria-label={lang === "ru" ? "Открыть меню" : "Open menu"}><span></span><span></span></summary>
+        <nav aria-label={lang === "ru" ? "Мобильная навигация" : "Mobile navigation"}>
+          {links.map((key) => <a href={`${prefix}${key}/`} aria-current={active === key ? "page" : undefined}>{labels[key]}</a>)}
+          <a href="https://github.com/killmyselfrin/raohane-dots" target="_blank" rel="noreferrer">GitHub ↗</a>
+        </nav>
+      </details>
     </div>
-    <a class="header-cta" href={`${prefix}install/`}>{labels.get}</a>
-    <details class="mobile-menu">
-      <summary>{lang === "ru" ? "Меню" : "Menu"}</summary>
-      <nav aria-label={lang === "ru" ? "Мобильная навигация" : "Mobile navigation"}>
-        {links.map((key) => <a href={`${prefix}${key}/`} aria-current={active === key ? "page" : undefined}>{labels[key]}</a>)}
-        <a href="https://github.com/killmyselfrin/raohane-dots">GitHub ↗</a>
-      </nav>
-    </details>
-  </div>
-</header>
+  </header>
+</div>
 
 <style>
-  .site-header-shared { grid-template-columns: auto 1fr auto; gap: 24px; }
-  .site-header-shared .nav-links { justify-content: center; gap: 18px; font-size: 14px; }
-  .mobile-menu { display: none; }
-  .mobile-menu summary { cursor: pointer; padding: 10px; border: 1px solid var(--line); border-radius: 10px; font-size: 14px; }
-  .mobile-menu nav { position: absolute; top: 72px; right: 0; width: min(300px, calc(100vw - 40px)); display: grid; padding: 12px; border: 1px solid var(--line-strong); border-radius: 16px; background: #10131c; box-shadow: var(--shadow); }
-  .mobile-menu nav a { padding: 12px; border-radius: 8px; font-size: 16px; }
-  .mobile-menu nav a:hover, .mobile-menu nav a[aria-current] { background: var(--accent-soft); }
-  .header-actions {
-    justify-self: end;
-    display: flex;
-    align-items: center;
-    gap: 9px;
+  .header-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding-top: 10px;
+    pointer-events: none;
   }
 
+  .site-header-v3 {
+    height: 62px;
+    padding: 0 10px 0 14px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: center;
+    border: 1px solid rgba(244,238,231,.09);
+    border-radius: 18px;
+    background: rgba(12,12,14,.76);
+    box-shadow: 0 16px 54px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.025);
+    backdrop-filter: blur(22px) saturate(120%);
+    pointer-events: auto;
+  }
+
+  .brand-v3 { display: inline-flex; align-items: center; gap: 11px; min-width: max-content; }
+  .brand-mark-v3 {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(223,195,207,.28);
+    border-radius: 10px;
+    background: linear-gradient(145deg, rgba(223,195,207,.17), rgba(255,255,255,.02));
+    overflow: hidden;
+  }
+  .brand-mark-v3 b { position: relative; z-index: 2; color: var(--text); font: 700 13px Manrope, sans-serif; }
+  .brand-mark-v3 i { position: absolute; width: 28px; height: 1px; background: var(--accent); opacity: .44; transform: rotate(-38deg); }
+  .brand-copy { display: grid; gap: 2px; }
+  .brand-copy b { color: var(--text); font: 700 11px Manrope, sans-serif; letter-spacing: .18em; }
+  .brand-copy small { color: var(--muted); font-size: 7px; letter-spacing: .15em; }
+
+  .nav-links-v3 { display: flex; justify-content: center; align-items: center; gap: 4px; }
+  .nav-links-v3 a {
+    position: relative;
+    padding: 10px 11px;
+    border-radius: 9px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    transition: color 150ms ease, background 150ms ease;
+  }
+  .nav-links-v3 a:hover { color: var(--text-soft); background: rgba(255,255,255,.025); }
+  .nav-links-v3 a.is-active { color: var(--text); }
+  .nav-links-v3 a.is-active::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 3px;
+    width: 4px;
+    height: 4px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .header-actions { justify-self: end; display: flex; align-items: center; gap: 7px; }
   .lang-switch {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 1px;
     padding: 3px;
     border: 1px solid var(--line);
     border-radius: 10px;
-    background: rgba(255,255,255,.025);
+    background: rgba(255,255,255,.018);
   }
-
   .lang-switch a {
-    min-width: 30px;
-    padding: 6px 7px;
+    min-width: 28px;
+    padding: 5px 6px;
     border-radius: 7px;
     color: var(--muted);
-    font-size: 14px;
+    font-size: 9px;
     font-weight: 700;
     text-align: center;
-    transition: color 150ms ease, background 150ms ease;
   }
-
   .lang-switch a:hover { color: var(--text); }
-  .lang-switch a.is-active {
-    color: var(--text);
-    background: rgba(184,165,255,.12);
-  }
+  .lang-switch a.is-active { color: var(--text); background: rgba(223,195,207,.11); }
 
-  @media (max-width: 1040px) {
-    .site-header-shared .nav-links { gap: 16px; }
-    .site-header-shared .header-cta { display: none; }
+  .header-cta-v3 {
+    min-height: 36px;
+    padding: 0 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid rgba(223,195,207,.19);
+    border-radius: 10px;
+    background: #eee7e3;
+    color: #151417;
+    font-size: 10px;
+    font-weight: 700;
   }
+  .header-cta-v3 b { font-size: 12px; }
 
-  @media (max-width: 1100px) {
-    .site-header-shared { grid-template-columns: 1fr auto; }
-    .site-header-shared .nav-links { display: none; }
+  .mobile-menu { display: none; position: relative; }
+  .mobile-menu summary {
+    width: 38px;
+    height: 36px;
+    display: grid;
+    place-content: center;
+    gap: 5px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    cursor: pointer;
+    list-style: none;
+  }
+  .mobile-menu summary::-webkit-details-marker { display: none; }
+  .mobile-menu summary span { width: 15px; height: 1px; display: block; background: var(--text-soft); }
+  .mobile-menu nav {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    width: min(310px, calc(100vw - 36px));
+    display: grid;
+    gap: 2px;
+    padding: 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    background: rgba(14,14,16,.97);
+    box-shadow: var(--shadow);
+  }
+  .mobile-menu nav a { padding: 13px; border-radius: 9px; color: var(--text-soft); font-size: 13px; }
+  .mobile-menu nav a:hover, .mobile-menu nav a[aria-current] { background: var(--accent-soft); color: var(--text); }
+
+  @media (max-width: 1120px) {
+    .site-header-v3 { grid-template-columns: 1fr auto; }
+    .nav-links-v3 { display: none; }
     .mobile-menu { display: block; }
-    .site-header-shared .header-cta { display: none; }
+  }
+
+  @media (max-width: 620px) {
+    .header-wrap { padding-top: 6px; }
+    .site-header-v3 { height: 56px; padding-left: 10px; border-radius: 15px; }
+    .brand-copy small { display: none; }
+    .header-cta-v3 { display: none; }
+    .lang-switch a { min-width: 26px; }
   }
 </style>
 
 <script>
-  const menu = document.querySelector<HTMLDetailsElement>('.mobile-menu');
+  const menus = document.querySelectorAll<HTMLDetailsElement>('.mobile-menu');
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && menu?.open) {
+    if (event.key !== 'Escape') return;
+    menus.forEach((menu) => {
+      if (!menu.open) return;
       menu.open = false;
       menu.querySelector('summary')?.focus();
-    }
+    });
   });
   document.addEventListener('click', (event) => {
-    if (menu?.open && event.target instanceof Node && !menu.contains(event.target)) menu.open = false;
+    menus.forEach((menu) => {
+      if (menu.open && event.target instanceof Node && !menu.contains(event.target)) menu.open = false;
+    });
   });
 </script>
