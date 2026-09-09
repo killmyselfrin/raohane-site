@@ -7,7 +7,7 @@ const sharp = require('sharp'); // Astro's image service dependency.
 const base = '/raohane-site/';
 const origin = 'https://killmyselfrin.github.io';
 const root = new URL('../dist/', import.meta.url).pathname;
-const stableVersion = '1.1.0';
+const stableVersion = '1.2.1';
 const googleVerificationName = 'google6d6cd9ff57f64a8e.html';
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -68,4 +68,4 @@ for (const name of ['desktop', 'control-center', 'launcher', 'settings']) {
   const small = await sharp(join(root, `screenshots/${name}-800.webp`)).metadata();
   assert.equal(small.width, 800); assert.equal(small.height, 450);
 }
-console.log(`Validated ${pages.length} HTML pages, ${urls.length} sitemap URLs, stable 1.1.0 metadata, search verification, internal links and 4 Full HD captures.`);
+console.log(`Validated ${pages.length} HTML pages, ${urls.length} sitemap URLs, stable 1.2.1 metadata, search verification, internal links and 4 Full HD captures.`);
