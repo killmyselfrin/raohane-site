@@ -5,54 +5,48 @@ import SiteFooter from "../components/SiteFooter.astro";
 import "../styles/content.css";
 
 const features = [
-  ["◈", "Shell surfaces", "Horizontal and vertical bars, workspaces, system tray, Context Island and a dock share one visual system."],
-  ["⌕", "Launcher & Overview", "Application search, built-in actions, command mode, calculations, clipboard history and workspace overview."],
-  ["⌘", "Control Center", "Wi-Fi, Bluetooth, output and microphone audio, brightness, Night Light and notifications in one native surface."],
-  ["♫", "Media", "MPRIS controls, lyrics and a fullscreen-friendly media overlay designed to stay usable while gaming."],
-  ["▣", "Desktop", "Image and video wallpapers, configurable desktop widgets, theme presets and a native wallpaper library."],
-  ["◎", "System tools", "Screenshots, screen recording, OCR, translation, clipboard tools, OSK, session controls, Polkit and process management."],
-  ["✦", "Themes", "Shared Raohane tokens power the complete shell, including Sakura, Matcha, Slate, Sand, Sumi and Midnight palettes."],
-  ["↯", "Responsive runtime", "Event-driven service state, resident primary surfaces and reduced background polling keep interaction latency low."]
+  ["01", "Scenes", "Balanced, Gaming, Focus and Work apply reversible runtime policy without overwriting your base shell configuration.", "場"],
+  ["02", "Launcher 2.0", "Applications, Scene commands, shell actions, calculations and contextual Gaming controls live in one command surface.", "⌕"],
+  ["03", "Context Island", "Recording, privacy, media, Scene changes and active-window context are prioritized into one small live surface.", "◌"],
+  ["04", "Control Center", "NetworkManager, Bluetooth, PipeWire, brightness, notifications and Scene switching share native service state.", "⌘"],
+  ["05", "Media + lyrics", "MPRIS playback, LRCLIB lyrics, click-to-seek and a fullscreen-friendly overlay stay usable across desktop and games.", "♫"],
+  ["06", "Capture tools", "Screenshots, native gameplay recording, OCR and screen translation follow the same Raohane interaction model.", "◎"],
+  ["07", "Desktop system", "Bar, Dock, Overview, wallpaper tools, desktop widgets and Settings use one theme, motion and configuration architecture.", "▣"],
+  ["08", "Event-driven runtime", "Shared PipeWire, NetworkManager and Bluetooth monitors keep state live while slower polling remains a repair path.", "↯"]
 ];
 ---
 
-<BaseLayout title="Features — Raohane" description="Explore the native desktop surfaces, system controls, media tools and theming available in Raohane.">
-  <div class="page-shell">
+<BaseLayout title="Features — Raohane" description="Explore Scenes, Launcher, Context Island, native system controls, media, capture tools and the shared runtime architecture in Raohane 1.2.1.">
+  <div class="page-shell editorial-page">
     <SiteHeader active="features" />
     <main id="main-content" class="content-main shell-width">
       <section class="page-intro">
-        <span class="page-badge">The shell, end to end</span>
-        <h1>One desktop.<br/><em>One language.</em></h1>
-        <p>Raohane is not a collection of unrelated widgets. Its bar, launcher, Control Center, Settings, media surfaces and desktop tools are built around the same state, motion and visual system.</p>
+        <span class="page-badge">Raohane 1.2.1 · system map</span>
+        <h1>Not widgets.<br/><em>A desktop system.</em></h1>
+        <p>Raohane surfaces are designed around shared state and reversible context. The Launcher, Control Center, Context Island, media layer and desktop tools do not need separate copies of the same system logic.</p>
       </section>
 
-      <section class="content-grid" aria-label="Raohane features">
-        {features.map(([icon, title, description]) => (
-          <article class="content-card">
-            <span class="card-icon">{icon}</span>
+      <section class="feature-ledger" aria-label="Raohane features">
+        {features.map(([index, title, description, mark]) => (
+          <article class="feature-ledger-row">
+            <span>{index}</span>
             <h2>{title}</h2>
             <p>{description}</p>
+            <b aria-hidden="true">{mark}</b>
           </article>
         ))}
       </section>
 
-      <section class="section-block">
-        <header>
-          <span class="section-kicker">Native architecture</span>
-          <h2>Built around <em>Hyprland</em>.</h2>
-          <p>Raohane targets Hyprland directly and uses Quickshell with Qt/QML for its runtime. Product configuration, service boundaries and visible surfaces are Raohane-owned.</p>
-        </header>
-        <div class="content-grid">
-          <article class="content-card">
-            <span class="card-icon">60</span>
-            <h3>Frame-conscious motion</h3>
-            <p>Large translucent surfaces avoid unnecessary work in their critical open path, while reduced-motion preferences remain respected.</p>
-          </article>
-          <article class="content-card">
-            <span class="card-icon">↻</span>
-            <h3>Event-driven state</h3>
-            <p>PipeWire, NetworkManager and BlueZ monitors provide live state while slower snapshots act as repair paths instead of constant polling.</p>
-          </article>
+      <section class="architecture-band">
+        <div>
+          <span class="section-kicker">NATIVE ARCHITECTURE</span>
+          <h2>Built for<br/><em>Hyprland.</em></h2>
+        </div>
+        <div class="architecture-stack">
+          <div><b>Runtime</b><span>Quickshell + Qt/QML surfaces with Raohane-owned state and configuration.</span></div>
+          <div><b>Context</b><span>Wayland/Hyprland active-window state drives application-aware Scene rules without a permanent polling loop.</span></div>
+          <div><b>System</b><span>PipeWire, NetworkManager, BlueZ, portals and compositor-facing actions stay behind shared services.</span></div>
+          <div><b>Safety</b><span>Scene changes are temporary overlays: leaving a context restores the user's selected baseline instead of rewriting it.</span></div>
         </div>
       </section>
     </main>
