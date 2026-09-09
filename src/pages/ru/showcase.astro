@@ -6,32 +6,36 @@ import "../../styles/content.css";
 
 const base = import.meta.env.BASE_URL;
 const shots = [
-  { image: `${base}screenshots/desktop.webp`, eyebrow: "Рабочий стол", title: "Спокойная основа.", description: "Живая Raohane-сессия с workspaces, Context Island, системным статусом и левой командной поверхностью поверх обоев.", tags: ["Bar", "Context Island", "Sidebar", "Workspaces"] },
-  { image: `${base}screenshots/control-center.webp`, eyebrow: "Control Center", title: "Управление системой без лишних окон.", description: "Сеть, Bluetooth, звук, микрофон, яркость, уведомления, медиа и session actions собраны в одной нативной поверхности.", tags: ["Quick Controls", "Audio", "Notifications", "Media"] },
-  { image: `${base}screenshots/launcher.webp`, eyebrow: "Launcher", title: "Приложения и действия в одном вызове.", description: "Launcher объединяет приложения, встроенные действия Raohane и быстрый доступ к основным функциям оболочки.", tags: ["Apps", "Actions", "Quick access", "Search"] },
-  { image: `${base}screenshots/settings.webp`, eyebrow: "Настройки", title: "Вся оболочка в одном workspace.", description: "Темы, виджеты, Bar & Dock, дисплеи, графические драйверы, Hyprland и интеграции настраиваются в едином интерфейсе.", tags: ["Themes", "Graphics & Drivers", "Hyprland", "Widgets"] }
+  { image: `${base}screenshots/desktop.webp`, eyebrow: "Рабочий стол", title: "Спокойная основа.", description: "Живая Raohane-сессия с workspaces, Context Island, системным статусом и левой командной поверхностью поверх обоев, а не поверх твоего внимания.", tags: ["Bar", "Context Island", "Sidebar", "Workspaces"] },
+  { image: `${base}screenshots/control-center.webp`, eyebrow: "Control Center", title: "Управление системой без лишних окон.", description: "Network, Bluetooth, audio, brightness, notifications, media и session actions находятся в одной нативной поверхности. Выбор микрофона и устройств не дублируется по разным sidebar.", tags: ["Quick Controls", "Audio", "Notifications", "Media"] },
+  { image: `${base}screenshots/launcher.webp`, eyebrow: "Launcher", title: "Приложения и действия в одном вызове.", description: "Приложения и действия Raohane используют одну search surface — это основа contextual Launcher, расширенного в релизе 1.2.", tags: ["Apps", "Actions", "Quick access", "Search"] },
+  { image: `${base}screenshots/settings.webp`, eyebrow: "Настройки", title: "Вся оболочка в одном workspace.", description: "Themes, widgets, Bar & Dock, displays, graphics, Hyprland preferences, Scenes и integrations находятся в одном Settings workspace.", tags: ["Themes", "Scenes", "Hyprland", "Widgets"] }
 ];
 ---
 
-<BaseLayout lang="ru" title="Галерея — Raohane" description="Реальные скриншоты Raohane из живой Hyprland + Quickshell сессии.">
+<BaseLayout lang="ru" title="Галерея — Raohane" description="Full HD скриншоты Raohane из реальной Hyprland + Quickshell desktop-сессии.">
   <div class="page-shell">
     <SiteHeader active="showcase" lang="ru" />
-    <main id="main-content" class="content-main shell-width showcase-main">
-      <section class="page-intro showcase-intro">
-        <span class="page-badge">Снято из живой сессии</span>
-        <h1>Твой рабочий стол.<br/><em>Настоящая Raohane.</em></h1>
-        <p>Рабочий стол, центр управления, запуск приложений и настройки из живой Hyprland-сессии. Открой любой кадр, чтобы рассмотреть или скачать его в Full HD.</p>
+    <main id="main-content" class="shell-width showcase-editorial">
+      <section class="page-intro">
+        <span class="page-badge">4 реальных кадра · 1920 × 1080</span>
+        <h1>Живая сессия.<br/><em>Не concept renders.</em></h1>
+        <p>Это Full HD кадры из реальной Hyprland-сессии Raohane. Любой кадр открывается в оригинальном разрешении; для небольших экранов сайт автоматически использует варианты 800 × 450.</p>
       </section>
-      <section class="showcase-list" aria-label="Скриншоты Raohane">
+
+      <section class="showcase-gallery-v3" aria-label="Скриншоты Raohane">
         {shots.map((shot, index) => (
-          <article class:list={["showcase-shot", index % 2 === 1 && "is-reverse"]}>
-            <a class="shot-frame" data-gallery href={shot.image} target="_blank" rel="noreferrer">
-              <img width="1920" height="1080" srcset={`${shot.image.replace(".webp", "-800.webp")} 800w, ${shot.image} 1920w`} sizes="(max-width: 850px) calc(100vw - 40px), 800px" src={shot.image} alt={`Raohane — ${shot.eyebrow}`} loading={index === 0 ? "eager" : "lazy"} decoding="async" />
-              <span class="shot-open">Full HD · 1920 × 1080 ↗</span>
-            </a>
-            <div class="shot-copy">
-              <span class="section-kicker">0{index + 1} · {shot.eyebrow}</span>
-              <h2>{shot.title}</h2><p>{shot.description}</p>
+          <article class="showcase-piece">
+            <div class="showcase-image">
+              <a data-gallery href={shot.image} target="_blank" rel="noreferrer" aria-label={`Открыть Full HD кадр ${shot.eyebrow}`}>
+                <img width="1920" height="1080" srcset={`${shot.image.replace(".webp", "-800.webp")} 800w, ${shot.image} 1920w`} sizes="(max-width: 880px) calc(100vw - 38px), 820px" src={shot.image} alt={`Raohane — ${shot.eyebrow}`} loading={index === 0 ? "eager" : "lazy"} decoding="async" />
+                <small>FULL HD · ОТКРЫТЬ ↗</small>
+              </a>
+            </div>
+            <div class="showcase-copy">
+              <span>0{index + 1} · {shot.eyebrow.toUpperCase()}</span>
+              <h2>{shot.title}</h2>
+              <p>{shot.description}</p>
               <div class="shot-tags">{shot.tags.map((tag) => <span>{tag}</span>)}</div>
             </div>
           </article>
@@ -41,7 +45,3 @@ const shots = [
     <SiteFooter lang="ru" />
   </div>
 </BaseLayout>
-
-<style>
-  .showcase-main{padding-bottom:70px}.showcase-intro{padding-bottom:72px}.showcase-list{display:grid;gap:94px}.showcase-shot{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(260px,.65fr);gap:48px;align-items:center}.showcase-shot.is-reverse .shot-frame{order:2}.showcase-shot.is-reverse .shot-copy{order:1}.shot-frame{position:relative;display:block;overflow:hidden;border:1px solid rgba(255,255,255,.11);border-radius:22px;background:#0b0d12;box-shadow:0 28px 70px rgba(0,0,0,.34)}.shot-frame img{display:block;width:100%;height:auto;transition:transform 360ms cubic-bezier(.2,.8,.2,1),filter 220ms ease}.shot-frame:hover img{transform:scale(1.012);filter:brightness(1.04)}.shot-open{position:absolute;right:12px;bottom:12px;padding:8px 10px;border:1px solid rgba(255,255,255,.11);border-radius:9px;background:rgba(8,10,15,.74);backdrop-filter:blur(14px);color:#d8d4df;font-size:12px;font-weight:600}.shot-copy h2{margin:14px 0;font-family:Manrope,Inter,sans-serif;font-size:clamp(28px,3.2vw,45px);line-height:1.04;letter-spacing:-.045em}.shot-copy p{color:var(--text-soft);line-height:1.75;font-size:14px}.shot-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}.shot-tags span{padding:7px 9px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:rgba(255,255,255,.025);font-size:12px}@media(max-width:850px){.showcase-list{gap:58px}.showcase-shot{grid-template-columns:1fr;gap:24px}.showcase-shot.is-reverse .shot-frame,.showcase-shot.is-reverse .shot-copy{order:initial}}
-</style>
