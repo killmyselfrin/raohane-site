@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import "../styles/redesign.css";
 import ScreenshotViewer from "../components/ScreenshotViewer.astro";
 
 interface Props {
@@ -10,8 +11,8 @@ interface Props {
 }
 
 const {
-  title = "Raohane 1.1.0 — Native desktop shell for Hyprland",
-  description = "Raohane 1.1.0 is the stable whole-shell polish release of the native Hyprland + Quickshell desktop shell, with refreshed system surfaces and targeted runtime performance improvements.",
+  title = "Raohane 1.2.1 — Context-aware desktop shell for Hyprland",
+  description = "Raohane 1.2.1 is the stable contextual-shell release for Hyprland + Quickshell, with Scenes, application-aware switching, native shell actions and improved lyrics flow.",
   lang = "en",
   noindex = false
 } = Astro.props;
@@ -29,7 +30,7 @@ const russianUrl = new URL(`${base}ru/${routePath}`, site).toString();
 const socialImage = new URL(`${base}screenshots/desktop.webp`, site).toString();
 const repositoryUrl = "https://github.com/killmyselfrin/raohane-dots";
 const changelogUrl = `${repositoryUrl}/blob/main/CHANGELOG.md`;
-const stableVersion = "1.1.0";
+const stableVersion = "1.2.1";
 const releaseDate = "2026-09-08";
 
 const structuredData = {
@@ -48,7 +49,7 @@ const structuredData = {
       name: "Raohane",
       applicationCategory: "UtilitiesApplication",
       operatingSystem: "Linux",
-      description: "A native desktop shell for Hyprland built with Quickshell.",
+      description: "A context-aware desktop shell for Hyprland built with Quickshell.",
       url: new URL(base, site).toString(),
       codeRepository: repositoryUrl,
       license: "https://www.gnu.org/licenses/gpl-3.0.html",
@@ -68,7 +69,7 @@ const structuredData = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="theme-color" content="#07090d" />
+    <meta name="theme-color" content="#09090a" />
     <meta name="description" content={description} />
     <meta name="application-name" content="Raohane" />
     <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
