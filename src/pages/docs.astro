@@ -3,16 +3,33 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import "../styles/content.css";
+
+const commands = [
+  ["raohane launcher", "Open Launcher 2.0 with apps, native actions and search modes."],
+  ["raohane control", "Open the native Control Center."],
+  ["raohane settings", "Open the Raohane Settings workspace."],
+  ["raohane media", "Open the media surface owned by the current scene and placement policy."],
+  ["raohane desktop", "Open desktop actions and wallpaper tools."],
+  ["raohane wallpaper", "Open the wallpaper selector directly."],
+  ["raohane session", "Open session actions such as lock, logout and power controls."],
+  ["raohane translate", "Start the screen-translation workflow."],
+];
 ---
 
-<BaseLayout title="Docs — Raohane" description="Raohane commands, configuration paths, launcher modes, troubleshooting and development notes.">
+<BaseLayout title="Docs — Raohane" description="Raohane commands, configuration paths, Launcher 2.0 search grammar, diagnostics and development reference.">
   <div class="page-shell">
     <SiteHeader active="docs" />
     <main id="main-content" class="content-main shell-width">
       <section class="page-intro">
-        <span class="page-badge">Reference</span>
+        <span class="page-badge">Reference · Raohane 1.2.1</span>
         <h1>Know the shell.<br/><em>Keep control.</em></h1>
-        <p>A compact reference for daily use, configuration and recovery. Deeper architecture and release documentation stays in the source repository.</p>
+        <p>A compact operational reference for daily use, configuration and recovery. The deeper architecture, release validation and developer notes stay next to the runtime source.</p>
+      </section>
+
+      <section class="docs-overview" aria-label="Documentation scope">
+        <div><b>CLI</b><span>Direct shell entry points</span></div>
+        <div><b>State</b><span>Config, runtime and scene data</span></div>
+        <div><b>Recovery</b><span>Doctor, logs and validation</span></div>
       </section>
 
       <div class="docs-layout">
@@ -20,6 +37,7 @@ import "../styles/content.css";
           <a href="#commands">Commands</a>
           <a href="#launcher">Launcher</a>
           <a href="#configuration">Configuration</a>
+          <a href="#scenes">Scenes</a>
           <a href="#themes">Themes</a>
           <a href="#diagnostics">Diagnostics</a>
           <a href="#development">Development</a>
@@ -27,42 +45,46 @@ import "../styles/content.css";
 
         <article class="docs-article">
           <section id="commands">
-            <span class="section-kicker">Daily use</span>
-            <h2>Commands</h2>
-            <p>The <code>raohane</code> CLI provides direct entry points for the primary surfaces.</p>
-            <div class="code-panel"><pre><code>raohane launcher
-raohane control
-raohane settings
-raohane media
-raohane desktop
-raohane wallpaper
-raohane session
-raohane translate</code></pre></div>
+            <span class="section-kicker">01 · Daily use</span>
+            <h2>Primary commands</h2>
+            <p>The <code>raohane</code> CLI is a thin entry layer over native Raohane services and surfaces. Use it for direct access, scripting and recovery without replacing the shell's internal service ownership.</p>
+            <div class="command-ledger">
+              {commands.map(([command, description]) => (
+                <div><code>{command}</code><span>{description}</span></div>
+              ))}
+            </div>
           </section>
 
           <section id="launcher">
-            <span class="section-kicker">Search grammar</span>
-            <h2>Launcher modes</h2>
-            <p>The launcher is more than an application list. Prefixes switch the search model without opening another tool.</p>
-            <ul>
-              <li><code>/</code> — built-in Raohane actions.</li>
-              <li><code>&gt;</code> — command execution.</li>
-              <li><code>=</code> — calculations.</li>
-              <li><code>:</code> — clipboard history.</li>
-            </ul>
+            <span class="section-kicker">02 · Search grammar</span>
+            <h2>Launcher 2.0</h2>
+            <p>Launcher combines applications with context-aware Raohane actions. Prefixes switch the search model without opening another utility.</p>
+            <div class="command-ledger">
+              <div><code>/</code><span>Raohane actions and shell commands exposed by the action registry.</span></div>
+              <div><code>&gt;</code><span>Command execution mode.</span></div>
+              <div><code>=</code><span>Calculator mode.</span></div>
+              <div><code>:</code><span>Clipboard history mode.</span></div>
+            </div>
           </section>
 
           <section id="configuration">
-            <span class="section-kicker">User state</span>
+            <span class="section-kicker">03 · User state</span>
             <h2>Configuration</h2>
-            <p>Primary settings are persisted in <code>~/.config/raohane/native.json</code>. Custom autostart commands belong in <code>~/.config/raohane/autostart.conf</code>.</p>
-            <div class="docs-callout">Prefer changing product settings through Raohane Settings. Direct JSON edits are useful for recovery or development, but malformed values can be normalized during schema upgrades.</div>
+            <p>Primary product settings live in <code>~/.config/raohane/native.json</code>. User autostart commands belong in <code>~/.config/raohane/autostart.conf</code>. Runtime-only scene state is kept separate so automatic context switching does not rewrite the user's base configuration.</p>
+            <div class="docs-callout">Prefer changing product settings through Raohane Settings. Direct JSON edits are useful for recovery or development, but malformed values may be normalized during schema upgrades.</div>
+          </section>
+
+          <section id="scenes">
+            <span class="section-kicker">04 · Context</span>
+            <h2>Scenes</h2>
+            <p>Balanced, Gaming, Focus and Work are runtime policy layers. Application-aware switching can temporarily change DND, Keep Awake, Game Mode and other scene-owned behavior, then return to the user's selected scene without permanently overwriting settings.</p>
+            <div class="docs-callout">Gaming is intentionally reversible. Closing the matching game or leaving the rule context restores the selected scene and its baseline policies.</div>
           </section>
 
           <section id="themes">
-            <span class="section-kicker">Appearance</span>
+            <span class="section-kicker">05 · Appearance</span>
             <h2>Themes</h2>
-            <p>Raohane ships a shared whole-shell theme system. Bundled palettes include Paper, Sakura, Matcha, Slate, Sand, Sumi and Midnight, alongside the default Raohane direction.</p>
+            <p>Raohane uses one whole-shell token system across Settings, Launcher, Control Center, media, widgets and desktop surfaces. Built-in presets can be extended with user themes.</p>
             <div class="code-panel"><pre><code>raohane theme list
 raohane theme import FILE
 raohane theme export ID FILE
@@ -70,24 +92,25 @@ raohane theme remove ID</code></pre></div>
           </section>
 
           <section id="diagnostics">
-            <span class="section-kicker">Recovery</span>
+            <span class="section-kicker">06 · Recovery</span>
             <h2>Diagnostics</h2>
-            <p>Start with the complete doctor report. It checks dependencies, installed runtime integrity, services and shell context.</p>
+            <p>Start with the complete doctor report. It checks dependencies, installed runtime integrity, services, graphics and shell context before you start changing configuration blindly.</p>
             <div class="code-panel"><pre><code>raohane doctor all
 raohane status
 raohane logs</code></pre></div>
             <h3>Inspect startup errors directly</h3>
             <div class="code-panel"><pre><code>raohane stop
 raohane run</code></pre></div>
-            <p>For performance reports, include the installed version, recent logs, process usage during the issue and the exact interaction that triggered it.</p>
+            <p>For a performance report, include the installed version, recent logs, process usage during the issue and the exact interaction that triggered it.</p>
           </section>
 
           <section id="development">
-            <span class="section-kicker">Source</span>
+            <span class="section-kicker">07 · Source</span>
             <h2>Development</h2>
-            <p>Product QML lives under <code>modules/raohane/</code>. Static audits validate source/runtime boundaries, but final release validation still requires a real Hyprland + Quickshell session.</p>
+            <p>Product QML lives under <code>modules/raohane/</code>. Static audits validate source/runtime boundaries, localization and architectural contracts, but final release validation still needs a real Hyprland + Quickshell session.</p>
             <div class="code-panel"><pre><code>bash scripts/raohane-audit.sh
-bash scripts/runtime-payload-audit.sh</code></pre></div>
+bash scripts/runtime-payload-audit.sh
+bash scripts/media-overlay-boundary-audit.sh</code></pre></div>
             <p><a class="button button-ghost" href="https://github.com/killmyselfrin/raohane-dots/tree/main/docs" target="_blank" rel="noreferrer">Open source documentation ↗</a></p>
           </section>
         </article>
