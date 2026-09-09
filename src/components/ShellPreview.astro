@@ -2,36 +2,187 @@
 import { screenshots } from '../data/screenshots';
 const { lang = 'en' } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const copy = lang === 'ru'
+  ? { eyebrow: 'ЖИВАЯ СИСТЕМА', title: 'Raohane в реальном Hyprland', full: 'Открыть Full HD', index: 'ЭКРАН' }
+  : { eyebrow: 'LIVE SYSTEM', title: 'Raohane in a real Hyprland session', full: 'Open Full HD', index: 'SURFACE' };
 ---
-<div class="shell-preview" data-shell-preview>
-  <div class="shell-tabs" role="group" aria-label={lang === 'ru' ? 'Экраны Raohane' : 'Raohane surfaces'}>
-    {screenshots.map((shot, index) => <button type="button" data-preview={index} aria-pressed={index === 0} aria-controls={`preview-${shot.id}`}>{shot[lang as 'en' | 'ru']}</button>)}
+
+<div class="shell-preview-v3" data-shell-preview>
+  <div class="preview-head-v3">
+    <div>
+      <span>{copy.eyebrow}</span>
+      <b>{copy.title}</b>
+    </div>
+    <div class="preview-index"><small>{copy.index}</small><strong data-preview-counter>01 / {String(screenshots.length).padStart(2, '0')}</strong></div>
   </div>
-  {screenshots.map((shot, index) => (
-    <a id={`preview-${shot.id}`} class="shell-capture" data-gallery data-preview-image={index} href={`${base}screenshots/${shot.id}.webp`} hidden={index !== 0}>
-      <img src={`${base}screenshots/${shot.id}.webp`} srcset={`${base}screenshots/${shot.id}-800.webp 800w, ${base}screenshots/${shot.id}.webp 1920w`} sizes="(max-width: 1120px) calc(100vw - 40px), 1080px" width="1920" height="1080" alt={`Raohane — ${shot[lang as 'en' | 'ru']}`} loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} />
-      <span>{lang === 'ru' ? 'Открыть в Full HD' : 'View in Full HD'} ↗</span>
-    </a>
-  ))}
+
+  <div class="preview-frame-v3">
+    <div class="preview-tabs-v3" role="group" aria-label={lang === 'ru' ? 'Экраны Raohane' : 'Raohane surfaces'}>
+      {screenshots.map((shot, index) => (
+        <button type="button" data-preview={index} aria-pressed={index === 0} aria-controls={`preview-${shot.id}`}>
+          <span>{String(index + 1).padStart(2, '0')}</span><b>{shot[lang as 'en' | 'ru']}</b>
+        </button>
+      ))}
+    </div>
+
+    <div class="capture-stack-v3">
+      {screenshots.map((shot, index) => (
+        <a id={`preview-${shot.id}`} class="shell-capture-v3" data-gallery data-preview-image={index} href={`${base}screenshots/${shot.id}.webp`} hidden={index !== 0}>
+          <img
+            src={`${base}screenshots/${shot.id}.webp`}
+            srcset={`${base}screenshots/${shot.id}-800.webp 800w, ${base}screenshots/${shot.id}.webp 1920w`}
+            sizes="(max-width: 1120px) calc(100vw - 28px), 1080px"
+            width="1920"
+            height="1080"
+            alt={`Raohane — ${shot[lang as 'en' | 'ru']}`}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            fetchpriority={index === 0 ? 'high' : 'auto'}
+          />
+          <span class="capture-open-v3">{copy.full} <b>↗</b></span>
+        </a>
+      ))}
+    </div>
+  </div>
 </div>
+
 <script>
   document.querySelectorAll<HTMLElement>('[data-shell-preview]').forEach(preview => {
     const buttons = preview.querySelectorAll<HTMLButtonElement>('[data-preview]');
+    const counter = preview.querySelector<HTMLElement>('[data-preview-counter]');
     buttons.forEach(button => button.addEventListener('click', () => {
       buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
       preview.querySelectorAll<HTMLElement>('[data-preview-image]').forEach(item => {
         item.hidden = item.dataset.previewImage !== button.dataset.preview;
       });
+      const index = Number(button.dataset.preview ?? 0) + 1;
+      if (counter) counter.textContent = `${String(index).padStart(2, '0')} / ${String(buttons.length).padStart(2, '0')}`;
     }));
   });
 </script>
+
 <style>
-  .shell-preview { width: min(1080px, 100%); margin: 56px auto 0; position: relative; z-index: 4; }
-  .shell-tabs { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
-  .shell-tabs button { border: 1px solid var(--line); padding: 11px 16px; border-radius: 10px; background: #10121b; color: var(--text-soft); cursor: pointer; font-size: 14px; }
-  .shell-tabs button[aria-pressed='true'] { background: var(--accent-soft); color: var(--text); border-color: #b8a5ff66; }
-  .shell-capture { position: relative; display: block; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 20px; box-shadow: var(--shadow); }
-  .shell-capture[hidden] { display: none; }
-  .shell-capture img { display: block; width: 100%; height: auto; }
-  .shell-capture span { position: absolute; bottom: 14px; right: 14px; padding: 10px 14px; border-radius: 10px; background: #07090de6; color: var(--text); font-size: 14px; }
+  .shell-preview-v3 { width: 100%; margin: 72px auto 0; position: relative; z-index: 4; }
+  .preview-head-v3 {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 14px;
+    padding: 0 2px;
+  }
+  .preview-head-v3 > div:first-child { display: grid; gap: 4px; }
+  .preview-head-v3 span, .preview-index small { color: var(--muted); font-size: 8px; letter-spacing: .17em; font-weight: 700; }
+  .preview-head-v3 b { color: var(--text-soft); font-size: 11px; font-weight: 600; }
+  .preview-index { display: grid; gap: 3px; text-align: right; }
+  .preview-index strong { color: var(--accent); font: 600 11px Manrope, sans-serif; letter-spacing: .08em; }
+
+  .preview-frame-v3 {
+    position: relative;
+    display: grid;
+    grid-template-columns: 184px minmax(0, 1fr);
+    min-height: 570px;
+    overflow: hidden;
+    border: 1px solid var(--line-strong);
+    border-radius: 28px;
+    background: #0d0d0f;
+    box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,.025);
+  }
+  .preview-frame-v3::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(223,195,207,.025), transparent 38%);
+  }
+
+  .preview-tabs-v3 {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 10px;
+    border-right: 1px solid var(--line);
+    background: rgba(255,255,255,.012);
+  }
+  .preview-tabs-v3::after {
+    content: "静 / SHELL";
+    margin-top: auto;
+    padding: 20px 10px 8px;
+    color: rgba(243,239,233,.18);
+    font-size: 8px;
+    letter-spacing: .18em;
+    writing-mode: vertical-rl;
+  }
+  .preview-tabs-v3 button {
+    width: 100%;
+    min-height: 52px;
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 6px;
+    align-items: center;
+    padding: 0 10px;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+    color: var(--muted);
+    text-align: left;
+    cursor: pointer;
+    transition: color 150ms ease, background 150ms ease;
+  }
+  .preview-tabs-v3 button:first-child { border-top: 1px solid var(--line); }
+  .preview-tabs-v3 button span { color: rgba(223,195,207,.5); font-size: 8px; font-weight: 700; }
+  .preview-tabs-v3 button b { font-size: 10px; font-weight: 600; }
+  .preview-tabs-v3 button:hover { color: var(--text-soft); background: rgba(255,255,255,.018); }
+  .preview-tabs-v3 button[aria-pressed='true'] { color: var(--text); background: var(--accent-soft); }
+  .preview-tabs-v3 button[aria-pressed='true'] span { color: var(--accent); }
+
+  .capture-stack-v3 { position: relative; min-width: 0; padding: 18px; display: grid; place-items: center; }
+  .shell-capture-v3 {
+    position: relative;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 18px;
+    background: #080809;
+    box-shadow: 0 22px 60px rgba(0,0,0,.34);
+  }
+  .shell-capture-v3[hidden] { display: none; }
+  .shell-capture-v3 img { display: block; width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; transition: transform 420ms cubic-bezier(.2,.8,.2,1), filter 220ms ease; }
+  .shell-capture-v3:hover img { transform: scale(1.006); filter: brightness(1.025); }
+  .capture-open-v3 {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 13px;
+    padding: 9px 11px;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 9px;
+    background: rgba(9,9,10,.78);
+    color: var(--text-soft);
+    backdrop-filter: blur(14px);
+    font-size: 9px;
+    font-weight: 650;
+  }
+  .capture-open-v3 b { color: var(--accent); }
+
+  @media (max-width: 800px) {
+    .shell-preview-v3 { margin-top: 52px; }
+    .preview-frame-v3 { grid-template-columns: 1fr; min-height: 0; border-radius: 20px; }
+    .preview-tabs-v3 { flex-direction: row; gap: 3px; overflow-x: auto; padding: 8px; border-right: 0; border-bottom: 1px solid var(--line); scrollbar-width: none; }
+    .preview-tabs-v3::-webkit-scrollbar { display: none; }
+    .preview-tabs-v3::after { display: none; }
+    .preview-tabs-v3 button { min-width: 116px; min-height: 40px; grid-template-columns: 24px 1fr; border: 0; border-radius: 8px; padding: 0 8px; }
+    .preview-tabs-v3 button:first-child { border-top: 0; }
+    .capture-stack-v3 { padding: 10px; }
+    .shell-capture-v3 { border-radius: 13px; }
+  }
+
+  @media (max-width: 520px) {
+    .preview-head-v3 b { font-size: 10px; }
+    .capture-open-v3 { right: 8px; bottom: 8px; }
+  }
 </style>

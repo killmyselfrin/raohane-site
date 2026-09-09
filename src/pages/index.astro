@@ -7,100 +7,104 @@ import ShellPreview from "../components/ShellPreview.astro";
 const github = "https://github.com/killmyselfrin/raohane-dots";
 const base = import.meta.env.BASE_URL;
 const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\n./install-raohane.sh";
-
-const petals = [
-  { x: 4,  size: 0.82, opacity: 0.38, duration: 15.8, delay: -2.6, driftMid: 34,  driftEnd: -18, rot: 18 },
-  { x: 13, size: 1.08, opacity: 0.58, duration: 18.4, delay: -11.1, driftMid: -28, driftEnd: 22,  rot: 61 },
-  { x: 22, size: 0.9,  opacity: 0.46, duration: 16.9, delay: -6.7, driftMid: 42,  driftEnd: 10,  rot: 104 },
-  { x: 31, size: 1.2,  opacity: 0.62, duration: 20.2, delay: -15.4, driftMid: -36, driftEnd: 30,  rot: 147 },
-  { x: 41, size: 0.76, opacity: 0.32, duration: 14.7, delay: -4.1, driftMid: 25,  driftEnd: -25, rot: 203 },
-  { x: 49, size: 1.0,  opacity: 0.54, duration: 19.1, delay: -12.8, driftMid: -44, driftEnd: -8,  rot: 252 },
-  { x: 58, size: 0.86, opacity: 0.42, duration: 17.3, delay: -8.9, driftMid: 31,  driftEnd: 26,  rot: 299 },
-  { x: 66, size: 1.14, opacity: 0.6,  duration: 21.0, delay: -17.2, driftMid: -30, driftEnd: 18,  rot: 338 },
-  { x: 74, size: 0.72, opacity: 0.3,  duration: 15.3, delay: -5.4, driftMid: 39,  driftEnd: -14, rot: 23 },
-  { x: 82, size: 1.05, opacity: 0.5,  duration: 18.8, delay: -13.7, driftMid: -38, driftEnd: -28, rot: 79 },
-  { x: 89, size: 0.92, opacity: 0.44, duration: 16.4, delay: -9.8, driftMid: 28,  driftEnd: 20,  rot: 132 },
-  { x: 95, size: 1.18, opacity: 0.56, duration: 20.6, delay: -18.5, driftMid: -25, driftEnd: 34,  rot: 186 },
-];
 ---
 
-<BaseLayout title="Raohane 1.1.0 — Native desktop shell for Hyprland" description="Raohane 1.1.0 is the stable whole-shell polish release for the native Hyprland + Quickshell desktop shell, with refreshed Settings and runtime surfaces plus targeted performance improvements.">
-  <div class="page-shell">
+<BaseLayout title="Raohane 1.2.1 — Context-aware desktop shell for Hyprland" description="Raohane 1.2.1 is the stable contextual-shell release for Hyprland + Quickshell, with Scenes, application-aware switching, native shell actions and improved lyrics flow.">
+  <div class="page-shell home-v3">
     <SiteHeader active="home" />
 
     <main id="main-content">
-      <section class="hero shell-width">
-        <div class="hero-glow hero-glow-a"></div>
-        <div class="hero-glow hero-glow-b"></div>
-
-        <div class="sakura-field" aria-hidden="true">
-          {petals.map((petal) => (
-            <i style={`--petal-x:${petal.x}%;--petal-scale:${petal.size};--petal-opacity:${petal.opacity};--petal-duration:${petal.duration}s;--petal-delay:${petal.delay}s;--petal-drift-mid:${petal.driftMid}px;--petal-drift-end:${petal.driftEnd}px;--petal-rotation:${petal.rot}deg`}></i>
-          ))}
-        </div>
-
-        <div class="hero-copy reveal">
-          <div class="eyebrow"><span></span> HYPRLAND · QUICKSHELL · 1.1.0 STABLE</div>
-          <h1>Desktop,<br/><em>composed.</em></h1>
-          <p class="hero-lede">
-            Raohane 1.1 refines the whole shell: clearer Settings, more consistent runtime surfaces and less background work on common open paths — while keeping the native Hyprland architecture intact.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href={`${base}install/`}>Install Raohane <span>→</span></a>
-            <a class="button button-ghost" href={github} target="_blank" rel="noreferrer">View source</a>
+      <section class="home-hero shell-width">
+        <div class="hero-grid-v3 reveal">
+          <div class="hero-copy-v3">
+            <div class="eyebrow"><span></span> HYPRLAND · QUICKSHELL · 1.2.1 STABLE</div>
+            <h1>A desktop that<br/><em>adapts to context.</em></h1>
+            <p class="hero-lede">
+              Raohane is a native Hyprland shell built around context instead of clutter. Scenes reshape runtime behavior, Launcher actions follow what you are doing, and the interface stays quiet until it has something useful to say.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href={`${base}install/`}>Install Raohane <span>→</span></a>
+              <a class="button button-ghost" href={github} target="_blank" rel="noreferrer">Source on GitHub ↗</a>
+            </div>
           </div>
-          <div class="hero-meta">
-            <span><b>1.1.0</b> stable</span>
-            <span><b>Hyprland</b> + Quickshell</span>
-            <span><b>Arch</b> first</span>
-            <span><b>GPL-3.0</b> open source</span>
-          </div>
+
+          <aside class="hero-manifesto" aria-label="Raohane design principles">
+            <p>One shell, one state model, one visual language — from the bar and launcher to recording, media, notifications and system controls.</p>
+            <div class="manifesto-list">
+              <div class="manifesto-row"><span>01</span><b>Native state</b><small>QML</small></div>
+              <div class="manifesto-row"><span>02</span><b>Context-aware</b><small>Scenes</small></div>
+              <div class="manifesto-row"><span>03</span><b>Reversible</b><small>Runtime</small></div>
+              <div class="manifesto-row"><span>04</span><b>Quiet motion</b><small>Motion</small></div>
+            </div>
+          </aside>
         </div>
 
         <ShellPreview />
+
+        <div class="hero-release-rail reveal" aria-label="Raohane release facts">
+          <div><b>1.2.1 stable</b><span>Contextual shell + lyrics flow hotfix</span></div>
+          <div><b>Hyprland + Quickshell</b><span>Native Linux desktop runtime</span></div>
+          <div><b>Arch first</b><span>CachyOS · Arch · EndeavourOS</span></div>
+          <div><b>GPL-3.0</b><span>Open source and inspectable</span></div>
+        </div>
       </section>
 
-      <section class="section shell-width reveal" id="features">
-        <div class="section-kicker">01 · BUILT AS A SHELL</div>
-        <div class="section-heading">
-          <h2>Everything you touch<br/>belongs to <em>Raohane.</em></h2>
-          <p>Not a collection of disconnected widgets. One native desktop layer with shared state, motion, themes and system services.</p>
+      <section class="home-section shell-width reveal" id="features">
+        <span class="section-kicker">01 · CONTEXTUAL SHELL</span>
+        <div class="editorial-heading">
+          <h2>Change the desktop<br/><em>without changing yourself.</em></h2>
+          <p>Scenes apply temporary runtime policy instead of overwriting your base configuration. Gaming can suppress distractions; Focus can quiet notifications; Work can keep the session awake — and Balanced restores your baseline.</p>
         </div>
-        <div class="feature-grid">
-          <article class="feature feature-wide">
-            <span class="feature-index">01</span><div class="feature-icon">⌘</div>
-            <h3>Resident. Immediate.</h3><p>Primary surfaces stay warm and respond before background refresh work begins. The interface comes first.</p>
-            <div class="latency-strip"><span></span><span></span><span></span><span></span><b>&lt; 50 ms target</b></div>
+
+        <div class="scene-stage">
+          <article class="scene-intro">
+            <span class="scene-current">ACTIVE CONTEXT · BALANCED</span>
+            <h3>Context is a layer,<br/>not a new config.</h3>
+            <p>Application-aware switching can activate a Scene from the focused app and return to the user-selected Scene when that context ends.</p>
           </article>
-          <article class="feature"><span class="feature-index">02</span><div class="feature-icon">桜</div><h3>Sakura ambience</h3><p>A restrained Japanese accent, designed as part of the shell instead of a heavy particle effect.</p></article>
-          <article class="feature"><span class="feature-index">03</span><div class="feature-icon">◌</div><h3>Native controls</h3><p>PipeWire, NetworkManager, BlueZ, Hyprland and system services behind one cohesive control surface.</p></article>
-          <article class="feature"><span class="feature-index">04</span><div class="feature-icon">Ⅱ</div><h3>Media, everywhere</h3><p>MPRIS controls, lyrics and an overlay that can appear above the desktop or inside a gaming session.</p></article>
-          <article class="feature feature-wide"><span class="feature-index">05</span><div class="feature-icon">◐</div><h3>Nocturne by design.</h3><p>Graphite glass, lavender accents, compact geometry and motion with discipline. Visual depth without uncontrolled neon.</p><div class="palette"><i></i><i></i><i></i><i></i><i></i></div></article>
-        </div>
-      </section>
 
-      <section class="section philosophy reveal">
-        <div class="shell-width philosophy-inner">
-          <div class="kanji" aria-hidden="true">静</div>
-          <div><span class="section-kicker">02 · THE IDEA</span><h2>Quiet when idle.<br/><em>Present when needed.</em></h2></div>
-          <p>Raohane avoids making the desktop the main character. It should disappear into your workflow, then feel instant when you call it.</p>
-        </div>
-      </section>
-
-      <section class="section shell-width install-section reveal" id="install">
-        <div class="install-copy">
-          <div class="section-kicker">03 · INSTALL</div>
-          <h2>Three commands.<br/><em>Your desktop changes.</em></h2>
-          <p>Raohane 1.1.0 targets modern Arch-based Hyprland systems. The guided installer checks dependencies, stages the native runtime and configures the user service.</p>
-          <div class="distro-pills" role="group" aria-label="Supported distributions">
-            <span>CachyOS</span><span>Arch Linux</span><span>EndeavourOS</span>
+          <div class="scene-list">
+            <article class="scene-card"><div class="scene-card-head"><span>01 · BASELINE</span><i></i></div><h3>Balanced</h3><p>Your normal desktop. Raohane restores the runtime state that existed before temporary Scene policy was applied.</p></article>
+            <article class="scene-card"><div class="scene-card-head"><span>02 · PLAY</span><i></i></div><h3>Gaming</h3><p>Contextual quick actions, DND, Keep Awake and Game Mode can follow the game without rewriting persistent settings.</p></article>
+            <article class="scene-card"><div class="scene-card-head"><span>03 · QUIET</span><i></i></div><h3>Focus</h3><p>Reduce interruptions and keep important shell feedback available without turning the desktop into a separate profile.</p></article>
+            <article class="scene-card"><div class="scene-card-head"><span>04 · WORK</span><i></i></div><h3>Work</h3><p>Keep the session ready for longer tasks while preserving the same shell, theme and underlying configuration.</p></article>
           </div>
-          <a class="text-link" href={`${base}install/`}>Open the complete install guide →</a>
         </div>
-        <div class="terminal-card">
-          <div class="terminal-top"><div><i></i><i></i><i></i></div><span>raohane — install</span><button class="copy-button" data-copy-install>Copy</button></div>
-          <pre><code>{installCommand}</code></pre>
-          <div class="terminal-status"><span>●</span> guided installer · dependencies checked before install</div>
+      </section>
+
+      <section class="home-section shell-width reveal">
+        <span class="section-kicker">02 · ONE SYSTEM</span>
+        <div class="editorial-heading">
+          <h2>Surfaces share state.<br/><em>Not just styling.</em></h2>
+          <p>Raohane is designed as a desktop system rather than a directory of unrelated widgets. Services are shared, runtime actions stay native, and the same context can appear in the Launcher, Control Center and Context Island.</p>
+        </div>
+
+        <div class="system-rows">
+          <article class="system-row"><span>01</span><h3>Launcher 2.0</h3><p>Applications, Scene commands and live actions such as microphone, audio output, recording, DND and media in one command surface.</p><small>SUPER + R</small></article>
+          <article class="system-row"><span>02</span><h3>Context Island</h3><p>Prioritized activity for recording, privacy, media, Scene transitions and the active application without permanent visual noise.</p><small>LIVE STATE</small></article>
+          <article class="system-row"><span>03</span><h3>Control Center</h3><p>Network, Bluetooth, PipeWire, brightness, notifications and Scene switching behind native shared services.</p><small>SYSTEM</small></article>
+          <article class="system-row"><span>04</span><h3>Media + lyrics</h3><p>MPRIS playback, synced or plain LRCLIB lyrics and a fullscreen-friendly overlay with click-to-seek behavior.</p><small>MPRIS</small></article>
+          <article class="system-row"><span>05</span><h3>Capture tools</h3><p>Screenshot, gameplay recording, OCR and screen translation live inside the same Raohane interaction model.</p><small>TOOLS</small></article>
+        </div>
+      </section>
+
+      <section class="home-section shell-width reveal" id="install">
+        <div class="install-v3">
+          <div>
+            <span class="section-kicker">03 · INSTALL</span>
+            <h2>Three commands.<br/><em>One shell.</em></h2>
+            <p>Raohane 1.2.1 targets modern Arch-based Hyprland systems. The guided installer checks dependencies, stages the native runtime and configures the user service without hiding the underlying files from you.</p>
+            <div class="distro-pills" role="group" aria-label="Supported distributions">
+              <span>CachyOS</span><span>Arch Linux</span><span>EndeavourOS</span>
+            </div>
+            <a class="text-link" href={`${base}install/`}>Open the complete install guide →</a>
+          </div>
+
+          <div class="terminal-card">
+            <div class="terminal-top"><div><i></i><i></i><i></i></div><span>raohane — install</span><button class="copy-button" data-copy-install>Copy</button></div>
+            <pre><code>{installCommand}</code></pre>
+            <div class="terminal-status"><span>●</span> guided installer · dependencies checked before install</div>
+          </div>
         </div>
       </section>
     </main>
@@ -108,42 +112,8 @@ const petals = [
     <SiteFooter />
   </div>
 
-  <style>
-    .sakura-field i {
-      left: var(--petal-x);
-      width: calc(11px * var(--petal-scale));
-      height: calc(16px * var(--petal-scale));
-      opacity: var(--petal-opacity);
-      animation-duration: var(--petal-duration);
-      animation-delay: var(--petal-delay);
-      transform-origin: 50% 64%;
-    }
-
-    .sakura-field i::after {
-      left: 50%;
-      right: auto;
-      top: -1px;
-      width: 4px;
-      height: 4px;
-      transform: translateX(-50%) rotate(45deg);
-      border-radius: 0 0 4px 4px;
-    }
-
-    @keyframes petal-fall {
-      0% {
-        transform: translate3d(0, -5vh, 0) rotate(var(--petal-rotation)) rotateX(0deg);
-      }
-      46% {
-        transform: translate3d(var(--petal-drift-mid), 52vh, 0) rotate(calc(var(--petal-rotation) + 148deg)) rotateX(52deg);
-      }
-      100% {
-        transform: translate3d(var(--petal-drift-end), 104vh, 0) rotate(calc(var(--petal-rotation) + 318deg)) rotateX(8deg);
-      }
-    }
-  </style>
-
   <script>
-    const copyButton = document.querySelector('[data-copy-install]');
+    const copyButton = document.querySelector<HTMLButtonElement>('[data-copy-install]');
     copyButton?.addEventListener('click', async () => {
       const command = `git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\n./install-raohane.sh`;
       try {
@@ -158,7 +128,7 @@ const petals = [
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add('revealed'));
-      }, { threshold: 0.12 });
+      }, { threshold: 0.1 });
       document.querySelectorAll('.reveal').forEach((item) => observer.observe(item));
     } else {
       document.querySelectorAll('.reveal').forEach((item) => item.classList.add('revealed'));

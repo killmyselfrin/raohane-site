@@ -5,20 +5,33 @@ import SiteFooter from '../components/SiteFooter.astro';
 import '../styles/content.css';
 const base = import.meta.env.BASE_URL;
 ---
-<BaseLayout title="Page not found — Raohane" description="This page could not be found. Return to Raohane or open the installation guide." noindex>
+
+<BaseLayout title="Page not found — Raohane" description="This page could not be found. Return to Raohane or open the Russian homepage." noindex>
   <div class="page-shell">
     <SiteHeader />
-    <main id="main-content" class="content-main shell-width">
-      <section class="page-intro">
-        <span class="page-badge">404</span>
-        <h1>Page not found.<br/><em>Страница не найдена.</em></h1>
-        <p>The address may have changed. / Возможно, адрес изменился.</p>
-        <div class="hero-actions" style="justify-content:flex-start">
-          <a class="button button-primary" href={base}>Raohane · EN</a>
-          <a class="button button-ghost" href={`${base}ru/`}>На главную · RU</a>
+    <main id="main-content" class="content-main shell-width not-found-main">
+      <section class="page-intro not-found-intro">
+        <span class="page-badge">404 · LOST CONTEXT</span>
+        <h1>Nothing lives<br/><em>at this path.</em></h1>
+        <p>The route may have moved, but the shell is still here. / Возможно, адрес изменился — вернись к Raohane и продолжай оттуда.</p>
+        <div class="hero-actions not-found-actions">
+          <a class="button button-primary" href={base}>Raohane · EN <span>→</span></a>
+          <a class="button button-ghost" href={`${base}ru/`}>Raohane · RU</a>
         </div>
+      </section>
+
+      <section class="docs-overview" aria-label="Recovery routes">
+        <div><b>HOME</b><span>Return to the contextual shell overview</span></div>
+        <div><b>INSTALL</b><span>Open the stable installation path</span></div>
+        <div><b>DOCS</b><span>Find commands and recovery notes</span></div>
       </section>
     </main>
     <SiteFooter />
   </div>
 </BaseLayout>
+
+<style>
+  .not-found-main { min-height: calc(100vh - 220px); }
+  .not-found-intro { padding-top: 120px; }
+  .not-found-actions { justify-content: flex-start; margin-top: 32px; }
+</style>

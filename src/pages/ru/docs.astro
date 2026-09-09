@@ -5,45 +5,116 @@ import SiteFooter from "../../components/SiteFooter.astro";
 import "../../styles/content.css";
 
 const commands = [
-  ["raohane status", "Показать состояние user service и runtime."],
-  ["raohane restart", "Перезапустить установленный Quickshell runtime."],
-  ["raohane doctor all", "Проверить зависимости, сервисы и основные backend-команды."],
-  ["raohane doctor graphics", "Определить GPU, активный драйвер и доступные graphics updates."],
-  ["raohane validate phase4 --full", "Запустить расширенную live-проверку Phase 4."],
-  ["raohane validate release --full", "Запустить release validation в реальной Wayland/Hyprland-сессии."]
+  ["raohane launcher", "Открыть Launcher 2.0 с приложениями, нативными actions и режимами поиска."],
+  ["raohane control", "Открыть нативный Control Center."],
+  ["raohane settings", "Открыть workspace настроек Raohane."],
+  ["raohane media", "Открыть media surface с текущей Scene и политикой позиционирования."],
+  ["raohane desktop", "Открыть desktop actions и инструменты обоев."],
+  ["raohane wallpaper", "Открыть Wallpaper Selector напрямую."],
+  ["raohane session", "Открыть lock/logout/power actions."],
+  ["raohane translate", "Запустить workflow экранного перевода."],
 ];
 ---
 
-<BaseLayout lang="ru" title="Документация — Raohane" description="Основные команды, пути конфигурации и диагностика Raohane.">
+<BaseLayout lang="ru" title="Документация — Raohane" description="Команды Raohane, пути конфигурации, Launcher 2.0, Scenes, диагностика и разработка.">
   <div class="page-shell">
     <SiteHeader active="docs" lang="ru" />
     <main id="main-content" class="content-main shell-width">
       <section class="page-intro">
-        <span class="page-badge">Короткий справочник</span>
-        <h1>Управление Raohane<br/><em>без магии.</em></h1>
-        <p>Основные команды, runtime paths и диагностические точки собраны здесь. Полная техническая документация продолжает жить рядом с исходным кодом.</p>
+        <span class="page-badge">Справочник · Raohane 1.2.1</span>
+        <h1>Знай оболочку.<br/><em>Контролируй систему.</em></h1>
+        <p>Короткий operational reference для ежедневного использования, настройки и recovery. Глубокая архитектура, release validation и developer notes остаются рядом с runtime-кодом.</p>
       </section>
 
-      <section class="section-block">
-        <header><span class="section-kicker">CLI</span><h2>Основные команды.</h2></header>
-        <div class="content-grid">
-          {commands.map(([command,description]) => <article class="content-card"><code>{command}</code><p>{description}</p></article>)}
-        </div>
+      <section class="docs-overview" aria-label="Структура документации">
+        <div><b>CLI</b><span>Прямые точки входа в shell</span></div>
+        <div><b>State</b><span>Config, runtime и Scene data</span></div>
+        <div><b>Recovery</b><span>Doctor, logs и validation</span></div>
       </section>
 
-      <section class="section-block">
-        <header><span class="section-kicker">Пути</span><h2>Где живёт Raohane.</h2></header>
-        <div class="content-grid">
-          <article class="content-card"><h3>Source checkout</h3><code>~/raohane-dots</code><p>Git checkout проекта. Изменения сначала приходят сюда.</p></article>
-          <article class="content-card"><h3>Live runtime</h3><code>~/.config/quickshell/raohane</code><p>Установленный runtime, который фактически запускает Quickshell.</p></article>
-          <article class="content-card"><h3>State</h3><code>~/.local/state/raohane</code><p>Отчёты validation, updater state и другие runtime-данные.</p></article>
-          <article class="content-card"><h3>Config</h3><code>~/.config/raohane</code><p>Пользовательские настройки и интеграционные конфиги Raohane.</p></article>
-        </div>
-      </section>
+      <div class="docs-layout">
+        <aside class="docs-nav" aria-label="Разделы документации">
+          <a href="#commands">Команды</a>
+          <a href="#launcher">Launcher</a>
+          <a href="#configuration">Конфигурация</a>
+          <a href="#scenes">Scenes</a>
+          <a href="#themes">Темы</a>
+          <a href="#diagnostics">Диагностика</a>
+          <a href="#development">Разработка</a>
+        </aside>
 
-      <section class="section-block">
-        <header><span class="section-kicker">Launcher</span><h2>Больше чем список приложений.</h2><p>Launcher поддерживает приложения, Raohane actions, command mode, вычисления, clipboard history и переход к настройкам.</p></header>
-      </section>
+        <article class="docs-article">
+          <section id="commands">
+            <span class="section-kicker">01 · Daily use</span>
+            <h2>Основные команды</h2>
+            <p><code>raohane</code> CLI — тонкий entry layer над нативными сервисами и поверхностями. Он нужен для прямого доступа, скриптов и recovery, а не для обхода внутренних service boundaries.</p>
+            <div class="command-ledger">
+              {commands.map(([command, description]) => (
+                <div><code>{command}</code><span>{description}</span></div>
+              ))}
+            </div>
+          </section>
+
+          <section id="launcher">
+            <span class="section-kicker">02 · Search grammar</span>
+            <h2>Launcher 2.0</h2>
+            <p>Launcher объединяет приложения с context-aware actions Raohane. Префиксы переключают модель поиска без открытия отдельных утилит.</p>
+            <div class="command-ledger">
+              <div><code>/</code><span>Actions Raohane и команды shell из action registry.</span></div>
+              <div><code>&gt;</code><span>Режим выполнения команд.</span></div>
+              <div><code>=</code><span>Калькулятор.</span></div>
+              <div><code>:</code><span>Clipboard history.</span></div>
+            </div>
+          </section>
+
+          <section id="configuration">
+            <span class="section-kicker">03 · User state</span>
+            <h2>Конфигурация</h2>
+            <p>Основные настройки живут в <code>~/.config/raohane/native.json</code>. Пользовательский autostart — в <code>~/.config/raohane/autostart.conf</code>. Runtime Scene-state хранится отдельно, чтобы автоматическое переключение контекста не переписывала базовые настройки пользователя.</p>
+            <div class="docs-callout">Предпочтительно менять product settings через Raohane Settings. Прямое редактирование JSON полезно для recovery или разработки, но некорректные значения могут быть нормализованы при schema upgrade.</div>
+          </section>
+
+          <section id="scenes">
+            <span class="section-kicker">04 · Context</span>
+            <h2>Scenes</h2>
+            <p>Balanced, Gaming, Focus и Work — runtime policy layers. Application-aware switching может временно менять DND, Keep Awake, Game Mode и другие scene-owned параметры, а затем вернуть выбранную пользователем Scene без постоянной перезаписи конфигурации.</p>
+            <div class="docs-callout">Gaming работает обратимо: после выхода из game-rule контекста восстанавливается выбранная Scene и её baseline policies.</div>
+          </section>
+
+          <section id="themes">
+            <span class="section-kicker">05 · Appearance</span>
+            <h2>Темы</h2>
+            <p>Одна whole-shell token system управляет Settings, Launcher, Control Center, media, widgets и desktop surfaces. Встроенные presets можно расширять собственными темами.</p>
+            <div class="code-panel"><pre><code>raohane theme list
+raohane theme import FILE
+raohane theme export ID FILE
+raohane theme remove ID</code></pre></div>
+          </section>
+
+          <section id="diagnostics">
+            <span class="section-kicker">06 · Recovery</span>
+            <h2>Диагностика</h2>
+            <p>Начинай с полного doctor report. Он проверяет зависимости, целостность установленного runtime, сервисы, графику и shell context до того, как ты начнёшь менять конфиги вслепую.</p>
+            <div class="code-panel"><pre><code>raohane doctor all
+raohane status
+raohane logs</code></pre></div>
+            <h3>Проверка startup errors напрямую</h3>
+            <div class="code-panel"><pre><code>raohane stop
+raohane run</code></pre></div>
+            <p>Для performance bug report полезны версия, свежие логи, process usage во время проблемы и точное действие, которое её вызвало.</p>
+          </section>
+
+          <section id="development">
+            <span class="section-kicker">07 · Source</span>
+            <h2>Разработка</h2>
+            <p>Product QML находится в <code>modules/raohane/</code>. Static audits проверяют runtime boundaries, localization и архитектурные контракты, но финальная release validation всё равно требует реальной Hyprland + Quickshell сессии.</p>
+            <div class="code-panel"><pre><code>bash scripts/raohane-audit.sh
+bash scripts/runtime-payload-audit.sh
+bash scripts/media-overlay-boundary-audit.sh</code></pre></div>
+            <p><a class="button button-ghost" href="https://github.com/killmyselfrin/raohane-dots/tree/main/docs" target="_blank" rel="noreferrer">Открыть source documentation ↗</a></p>
+          </section>
+        </article>
+      </div>
     </main>
     <SiteFooter lang="ru" />
   </div>

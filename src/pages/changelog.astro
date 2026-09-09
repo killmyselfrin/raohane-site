@@ -6,6 +6,29 @@ import "../styles/content.css";
 
 const releases = [
   {
+    title: "1.2.1 — Lyrics Flow Hotfix",
+    status: "Stable · September 8, 2026",
+    items: [
+      "Improve plain and synced LRCLIB lyrics readability across the media overlay and lyrics-only mode.",
+      "Keep lyric delegates at a stable width so active lines no longer clip against the left or right edge.",
+      "Use high-contrast light text with a dark outline over arbitrary fullscreen application content.",
+      "Give the first and last timed lines enough breathing room to reach the same centered reading position as the rest of the track.",
+      "Preserve MPRIS playback, click-to-seek and the complete 1.2 contextual-shell feature set."
+    ]
+  },
+  {
+    title: "1.2.0 — Contextual Shell",
+    status: "Stable · September 8, 2026",
+    items: [
+      "Add Balanced, Gaming, Focus and Work Scenes with reversible runtime policy instead of overwriting base user configuration.",
+      "Add event-driven application-aware Scene switching with user rules, manual override and return to the selected Scene when context ends.",
+      "Add Scene controls to Control Center and a dedicated Settings editor for automatic switching, app rules and per-Scene behavior.",
+      "Extend Launcher with Scene commands and contextual Gaming actions for microphone, audio output, recording, Game Mode, DND and media.",
+      "Add native gameplay recording and evolve Context Island with recording, privacy, Scene and active-application feedback.",
+      "Keep Dock and motion behavior as temporary Scene overlays so leaving a Scene restores the user's baseline."
+    ]
+  },
+  {
     title: "1.1.0 — Whole-shell Polish",
     status: "Stable · September 8, 2026",
     items: [
@@ -63,14 +86,14 @@ const releases = [
 ];
 ---
 
-<BaseLayout title="Raohane 1.1.0 Changelog" description="Release notes for Raohane 1.1.0 whole-shell polish, the 1.0.0 stable foundation and earlier Hyprland + Quickshell development milestones.">
+<BaseLayout title="Raohane 1.2.1 Changelog" description="Release notes for Raohane 1.2.1, the contextual-shell 1.2.0 release, whole-shell 1.1 polish and earlier Hyprland + Quickshell milestones.">
   <div class="page-shell">
     <SiteHeader active="changelog" />
     <main id="main-content" class="content-main shell-width">
       <section class="page-intro">
-        <span class="page-badge">1.1.0 stable</span>
-        <h1>One shell.<br/><em>More consistent everywhere.</em></h1>
-        <p>Raohane 1.1.0 is the whole-shell polish release: clearer Settings, more consistent runtime surfaces and targeted performance cleanup on top of the stable 1.0 foundation.</p>
+        <span class="page-badge">1.2.1 stable</span>
+        <h1>Context first.<br/><em>Stable underneath.</em></h1>
+        <p>Raohane 1.2 turns the shell into a context-aware system with reversible Scenes, application rules, contextual Launcher actions and native recording. 1.2.1 tightens the media and lyrics experience without changing that foundation.</p>
       </section>
 
       <section class="timeline" aria-label="Release history">
