@@ -4,66 +4,219 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import "../../styles/content.css";
 
-const required = [
-  ["Core shell", "hyprland · quickshell · qt6-5compat · qt6-multimedia · qt6-wayland", "Compositor, Quickshell runtime и Qt-модули видимой оболочки."],
-  ["Сеть и звук", "networkmanager · pipewire · pipewire-audio · pipewire-pulse · wireplumber", "Нативное состояние сети, PipeWire graph и audio policy."],
-  ["Desktop integration", "polkit · xdg-desktop-portal · xdg-desktop-portal-hyprland · xdg-desktop-portal-gtk · upower · libnotify · xdg-utils · xdg-user-dirs", "Авторизация, portals, питание, уведомления и стандартная Linux desktop integration."],
-  ["Runtime tools", "python · git · rsync · ripgrep · jq · procps-ng · wl-clipboard", "Installer, диагностика, updater и небольшие backend-инструменты."],
-  ["Шрифты и иконки", "hicolor-icon-theme · adwaita-icon-theme · ttf-material-symbols-variable|ttf-material-symbols-variable-git · noto-fonts · noto-fonts-cjk · ttf-jetbrains-mono-nerd", "Стабильные glyphs, CJK coverage, Material Symbols и fallback icons."]
+const requiredGroups = [
+  {
+    title: "Core shell",
+    note: "Compositor, Quickshell runtime и Qt-модули видимой оболочки.",
+    packages: [
+      ["hyprland", "Wayland compositor и целевой window-management backend."],
+      ["quickshell", "Qt/QML runtime, на котором работают поверхности и сервисы Raohane."],
+      ["qt6-5compat", "Qt 6 compatibility modules для частей QML runtime."],
+      ["qt6-multimedia", "Media backend и video-wallpaper support."],
+      ["qt6-wayland", "Qt Wayland platform integration."],
+    ],
+  },
+  {
+    title: "Сеть и звук",
+    note: "Нативное состояние идёт через NetworkManager, PipeWire и WirePlumber.",
+    packages: [
+      ["networkmanager", "Wi-Fi и network state/control backend."],
+      ["pipewire", "Основной media graph для audio и privacy context."],
+      ["pipewire-audio", "Audio support для PipeWire."],
+      ["pipewire-pulse", "PulseAudio-compatible server поверх PipeWire."],
+      ["wireplumber", "Session/policy manager и wpctl."],
+    ],
+  },
+  {
+    title: "Desktop integration",
+    note: "Авторизация, portals, питание и стандартная Linux desktop plumbing.",
+    packages: [
+      ["polkit", "Privilege/authentication framework для защищённых действий."],
+      ["xdg-desktop-portal", "Общий desktop portal framework."],
+      ["xdg-desktop-portal-hyprland", "Hyprland-specific portal backend."],
+      ["xdg-desktop-portal-gtk", "GTK fallback для общих portal dialogs."],
+      ["upower", "Battery и power-device information."],
+      ["libnotify", "Notification command support."],
+      ["xdg-utils", "xdg-open и стандартные desktop helpers."],
+      ["xdg-user-dirs", "Определение стандартных user directories."],
+    ],
+  },
+  {
+    title: "Runtime tools",
+    note: "Небольшие CLI-инструменты для installer, diagnostics и backend-задач.",
+    packages: [
+      ["python", "Helper backends, updater logic и maintenance scripts."],
+      ["git", "Source install, development и recovery workflow."],
+      ["rsync", "Безопасная синхронизация файлов при установке."],
+      ["ripgrep", "Быстрые diagnostics и audit helpers."],
+      ["jq", "JSON processing для maintenance utilities."],
+      ["procps-ng", "Process inspection для diagnostics/system tooling."],
+      ["wl-clipboard", "Wayland clipboard read/write support."],
+    ],
+  },
+  {
+    title: "Шрифты и иконки",
+    note: "Стабильные glyphs, CJK coverage и fallback icons.",
+    packages: [
+      ["hicolor-icon-theme", "Стандартная fallback icon hierarchy."],
+      ["adwaita-icon-theme", "Надёжный набор common desktop icons."],
+      ["ttf-material-symbols-variable | ttf-material-symbols-variable-git", "Material Symbols; подходит любой из двух пакетов."],
+      ["noto-fonts", "Общий Unicode text coverage."],
+      ["noto-fonts-cjk", "Japanese/Chinese/Korean coverage."],
+      ["ttf-jetbrains-mono-nerd", "Monospace и Nerd Font symbols."],
+    ],
+  },
 ];
 
-const features = [
-  ["Bluetooth и сеть", "bluez · bluez-utils · blueman · network-manager-applet"],
-  ["Дисплеи и яркость", "brightnessctl · ddcutil · hyprsunset · pciutils"],
-  ["Capture, media и clipboard", "grim · slurp · wf-recorder · cliphist · ffmpeg · imagemagick · python-pillow"],
-  ["Input, audio и utilities", "ydotool · easyeffects · libpulse · libqalculate"],
-  ["OCR и перевод", "tesseract · tesseract-data-eng · tesseract-data-rus · translate-shell"],
-  ["Session и authentication", "fprintd · sddm"]
+const featureGroups = [
+  {
+    title: "Bluetooth и сеть",
+    packages: [
+      ["bluez", "Linux Bluetooth protocol stack."],
+      ["bluez-utils", "bluetoothctl и BlueZ utilities."],
+      ["blueman", "Опциональный графический Bluetooth fallback."],
+      ["network-manager-applet", "nm-connection-editor для advanced network configuration."],
+    ],
+  },
+  {
+    title: "Дисплеи и яркость",
+    packages: [
+      ["brightnessctl", "Backlight control для ноутбуков и поддерживаемых displays."],
+      ["ddcutil", "DDC/CI управление внешними мониторами."],
+      ["hyprsunset", "Night Light / color temperature backend."],
+      ["pciutils", "Hardware/GPU inspection для diagnostics."],
+    ],
+  },
+  {
+    title: "Capture, media и clipboard",
+    packages: [
+      ["grim", "Wayland screenshot capture."],
+      ["slurp", "Region selection для screenshot workflow."],
+      ["wf-recorder", "Wayland screen recording."],
+      ["cliphist", "Clipboard history."],
+      ["ffmpeg", "Video processing и media conversion."],
+      ["imagemagick", "Image conversion/processing helpers."],
+      ["python-pillow", "Image analysis для native Python helpers."],
+    ],
+  },
+  {
+    title: "Input, audio и utilities",
+    packages: [
+      ["ydotool", "Synthetic input backend для поддерживаемых input features."],
+      ["easyeffects", "Опциональная PipeWire effects integration."],
+      ["libpulse", "PulseAudio compatibility libraries."],
+      ["libqalculate", "Calculator backend для Launcher."],
+    ],
+  },
+  {
+    title: "OCR и перевод",
+    packages: [
+      ["tesseract", "OCR engine для распознавания текста на экране."],
+      ["tesseract-data-eng", "English OCR data."],
+      ["tesseract-data-rus", "Russian OCR data."],
+      ["translate-shell", "Translation backend для screen translation."],
+    ],
+  },
+  {
+    title: "Session и authentication",
+    packages: [
+      ["fprintd", "Fingerprint authentication при поддерживаемом hardware."],
+      ["sddm", "Display manager для опциональной Raohane login theme."],
+    ],
+  },
 ];
+
+const requiredCount = requiredGroups.reduce((total, group) => total + group.packages.length, 0);
+const featureCount = featureGroups.reduce((total, group) => total + group.packages.length, 0);
 ---
 
-<BaseLayout lang="ru" title="Пакеты и зависимости — Raohane" description="Обязательные и feature-пакеты, используемые Raohane на Arch Linux.">
+<BaseLayout lang="ru" title="Пакеты и зависимости — Raohane" description="Все required и feature-пакеты Raohane для Arch Linux, их назначение и политика installer.">
   <div class="page-shell">
     <SiteHeader active="dependencies" lang="ru" />
     <main id="main-content" class="content-main shell-width">
       <section class="page-intro">
-        <span class="page-badge">Runtime manifest</span>
+        <span class="page-badge">Runtime manifest · Arch family</span>
         <h1>Что питает<br/><em>Raohane.</em></h1>
-        <p>Зависимости не спрятаны за одной install-командой. Проект хранит собственные manifest-файлы, а installer проверяет их перед изменением системы.</p>
+        <p>Зависимости — часть product contract, а не скрытый побочный эффект установки. Guided installer читает собственные manifest-файлы Raohane и показывает отсутствующие пакеты до изменений package manager.</p>
       </section>
 
-      <section class="content-grid">
-        <article class="content-card"><span class="card-icon">31</span><h2>Required</h2><p>Минимальный поддерживаемый runtime-профиль Raohane для Arch-family системы.</p></article>
-        <article class="content-card"><span class="card-icon">25+</span><h2>Feature packages</h2><p>Bluetooth, DDC, capture, OCR, translation, EasyEffects, fingerprint и login theme.</p></article>
-        <article class="content-card"><span class="card-icon">0</span><h2>GPU drivers</h2><p>GPU drivers намеренно отсутствуют в manifest и не подменяются installer-ом.</p></article>
+      <section class="dependency-stats" aria-label="Сводка зависимостей">
+        <article><strong>{requiredCount}</strong><span>required packages</span><small>Основной поддерживаемый runtime.</small></article>
+        <article><strong>{featureCount}</strong><span>feature packages</span><small>Полный desktop capability set.</small></article>
+        <article><strong>0</strong><span>GPU drivers</span><small>Никогда не меняются автоматически.</small></article>
       </section>
 
-      <section class="section-block">
-        <header><span class="section-kicker">Required</span><h2>Основной <em>runtime</em>.</h2></header>
-        <div class="package-stack">
-          {required.map(([title,packages,note]) => <article><h3>{title}</h3><code>{packages}</code><p>{note}</p></article>)}
+      <section class="manifest-note">
+        <div>
+          <span class="section-kicker">Источник истины</span>
+          <h2>Manifest-файлы installer.</h2>
+          <p>Запись <code>a|b</code> означает, что подходит любой установленный пакет. Если нет ни одного, installer предпочитает первый. GPU drivers намеренно находятся за пределами этого контракта.</p>
+        </div>
+        <div class="manifest-links">
+          <a href="https://github.com/killmyselfrin/raohane-dots/blob/main/install/arch/required.txt" target="_blank" rel="noreferrer">required.txt ↗</a>
+          <a href="https://github.com/killmyselfrin/raohane-dots/blob/main/install/arch/features.txt" target="_blank" rel="noreferrer">features.txt ↗</a>
         </div>
       </section>
 
-      <section class="section-block">
-        <header><span class="section-kicker">Full experience</span><h2>Feature <em>backends</em>.</h2><p>Эти пакеты включают дополнительные аппаратные и desktop-возможности.</p></header>
-        <div class="package-stack">
-          {features.map(([title,packages]) => <article><h3>{title}</h3><code>{packages}</code></article>)}
+      <section class="section-block dependency-section">
+        <header>
+          <span class="section-kicker">01 · Required</span>
+          <h2>Основной <em>runtime</em>.</h2>
+          <p>Минимальное поддерживаемое Arch-family окружение для полной оболочки Raohane.</p>
+        </header>
+        <div class="package-groups">
+          {requiredGroups.map((group) => (
+            <article class="package-group">
+              <div class="package-group-heading">
+                <div><span class="package-status required">Required</span><h3>{group.title}</h3></div>
+                <p>{group.note}</p>
+              </div>
+              <div class="package-list">
+                {group.packages.map(([name, description]) => (
+                  <div class="package-row"><code>{name}</code><span>{description}</span></div>
+                ))}
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section class="section-block">
-        <header><span class="section-kicker">Источник истины</span><h2>Manifest-файлы проекта.</h2></header>
+      <section class="section-block dependency-section">
+        <header>
+          <span class="section-kicker">02 · Full experience</span>
+          <h2>Feature <em>backends</em>.</h2>
+          <p>Bluetooth, capture, OCR, monitor controls, translation, EasyEffects, fingerprint и login theme остаются явно видимыми capability backends.</p>
+        </header>
+        <div class="package-groups">
+          {featureGroups.map((group) => (
+            <article class="package-group">
+              <div class="package-group-heading">
+                <div><span class="package-status feature">Feature</span><h3>{group.title}</h3></div>
+              </div>
+              <div class="package-list">
+                {group.packages.map(([name, description]) => (
+                  <div class="package-row"><code>{name}</code><span>{description}</span></div>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section-block package-policy">
+        <header>
+          <span class="section-kicker">03 · Installer policy</span>
+          <h2>Явно по <em>умолчанию</em>.</h2>
+          <p>Installer должен объяснять системные изменения, а не молча расширять свои полномочия.</p>
+        </header>
         <div class="content-grid">
-          <a class="content-card" href="https://github.com/killmyselfrin/raohane-dots/blob/main/install/arch/required.txt" target="_blank" rel="noreferrer"><h3>required.txt ↗</h3><p>Обязательные зависимости.</p></a>
-          <a class="content-card" href="https://github.com/killmyselfrin/raohane-dots/blob/main/install/arch/features.txt" target="_blank" rel="noreferrer"><h3>features.txt ↗</h3><p>Полный feature profile.</p></a>
+          <article class="content-card"><span class="card-icon">01</span><h3>Проверка до установки</h3><p>Missing packages показываются до изменений package manager.</p></article>
+          <article class="content-card"><span class="card-icon">02</span><h3>Drivers остаются твоими</h3><p>NVIDIA, AMD и Intel GPU drivers не входят в automatic dependency install.</p></article>
+          <article class="content-card"><span class="card-icon">03</span><h3>Диагностируемо</h3><p><code>raohane doctor deps</code> и <code>raohane doctor all</code> проверяют dependency health после установки.</p></article>
+          <article class="content-card"><span class="card-icon">04</span><h3>Arch-family package names</h3><p>NixOS и Home Manager используют declarative flake path вместо этого manifest.</p></article>
         </div>
       </section>
     </main>
     <SiteFooter lang="ru" />
   </div>
 </BaseLayout>
-
-<style>
-  .package-stack{display:grid;gap:10px}.package-stack article{padding:22px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}.package-stack h3{margin:0 0 10px;font-size:14px}.package-stack code{display:block;color:var(--accent);line-height:1.8;overflow-wrap:anywhere}.package-stack p{margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.65}
-</style>
