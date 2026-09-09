@@ -5,31 +5,49 @@ import SiteFooter from "../../components/SiteFooter.astro";
 import "../../styles/content.css";
 
 const features = [
-  ["◈", "Поверхности оболочки", "Горизонтальный и вертикальный Bar, workspaces, tray, Context Island и Dock используют одну дизайн-систему."],
-  ["⌕", "Launcher и Overview", "Поиск приложений, встроенные actions, command mode, вычисления, clipboard history и обзор рабочих пространств."],
-  ["⌘", "Control Center", "Wi-Fi, Bluetooth, output/microphone audio, яркость, Night Light и уведомления в одной нативной панели."],
-  ["♫", "Медиа", "MPRIS, тексты песен и fullscreen-friendly media overlay, рассчитанный в том числе на игры."],
-  ["▣", "Рабочий стол", "Изображения и видео-обои, desktop widgets, theme presets и собственная wallpaper library."],
-  ["◎", "Системные инструменты", "Скриншоты, запись экрана, OCR, перевод, clipboard tools, OSK, session controls, Polkit и Task Manager."],
-  ["✦", "Темы", "Общие Raohane tokens управляют всеми поверхностями, включая Sakura, Matcha, Slate, Sand, Sumi и Midnight."],
-  ["↯", "Отзывчивый runtime", "Event-driven state, resident surfaces и минимальный background polling уменьшают задержку интерфейса."]
+  ["01", "Scenes", "Balanced, Gaming, Focus и Work накладывают обратимую runtime-policy, не перезаписывая базовую конфигурацию оболочки.", "場"],
+  ["02", "Launcher 2.0", "Приложения, Scene-команды, shell actions, вычисления и contextual Gaming controls находятся в одной command surface.", "⌕"],
+  ["03", "Context Island", "Recording, privacy, media, смена Scene и active-window context приоритизируются в одной небольшой live surface.", "◌"],
+  ["04", "Control Center", "NetworkManager, Bluetooth, PipeWire, яркость, notifications и Scene switching используют общее нативное состояние сервисов.", "⌘"],
+  ["05", "Media + lyrics", "MPRIS, LRCLIB lyrics, click-to-seek и fullscreen-friendly overlay остаются полезными и на desktop, и в играх.", "♫"],
+  ["06", "Capture tools", "Скриншоты, native gameplay recording, OCR и screen translation следуют одному interaction model Raohane.", "◎"],
+  ["07", "Desktop system", "Bar, Dock, Overview, wallpaper tools, desktop widgets и Settings используют одну theme, motion и config архитектуру.", "▣"],
+  ["08", "Event-driven runtime", "Общие PipeWire, NetworkManager и Bluetooth monitors держат состояние живым, а медленные опросы остаются repair-path.", "↯"]
 ];
 ---
 
-<BaseLayout lang="ru" title="Возможности — Raohane" description="Возможности нативной оболочки Raohane для Hyprland.">
-  <div class="page-shell">
+<BaseLayout lang="ru" title="Возможности — Raohane" description="Scenes, Launcher, Context Island, нативные системные controls, media, capture tools и общая runtime-архитектура Raohane 1.2.1.">
+  <div class="page-shell editorial-page">
     <SiteHeader active="features" lang="ru" />
     <main id="main-content" class="content-main shell-width">
       <section class="page-intro">
-        <span class="page-badge">Вся оболочка целиком</span>
-        <h1>Один desktop.<br/><em>Один язык.</em></h1>
-        <p>Raohane — не набор несвязанных виджетов. Bar, Launcher, Control Center, Settings, media surfaces и desktop tools построены вокруг общего состояния, motion и визуальной системы.</p>
+        <span class="page-badge">Raohane 1.2.1 · карта системы</span>
+        <h1>Не виджеты.<br/><em>Desktop system.</em></h1>
+        <p>Поверхности Raohane построены вокруг общего состояния и обратимого контекста. Launcher, Control Center, Context Island, media layer и desktop tools не держат отдельные копии одной и той же системной логики.</p>
       </section>
-      <section class="content-grid" aria-label="Возможности Raohane">
-        {features.map(([icon,title,description]) => <article class="content-card"><span class="card-icon">{icon}</span><h2>{title}</h2><p>{description}</p></article>)}
+
+      <section class="feature-ledger" aria-label="Возможности Raohane">
+        {features.map(([index, title, description, mark]) => (
+          <article class="feature-ledger-row">
+            <span>{index}</span>
+            <h2>{title}</h2>
+            <p>{description}</p>
+            <b aria-hidden="true">{mark}</b>
+          </article>
+        ))}
       </section>
-      <section class="section-block">
-        <header><span class="section-kicker">Нативная архитектура</span><h2>Построено вокруг <em>Hyprland</em>.</h2><p>Raohane напрямую ориентирована на Hyprland и использует Quickshell + Qt/QML. Конфигурация продукта, системные сервисы и видимые поверхности принадлежат самой Raohane.</p></header>
+
+      <section class="architecture-band">
+        <div>
+          <span class="section-kicker">НАТИВНАЯ АРХИТЕКТУРА</span>
+          <h2>Построено для<br/><em>Hyprland.</em></h2>
+        </div>
+        <div class="architecture-stack">
+          <div><b>Runtime</b><span>Quickshell + Qt/QML surfaces с Raohane-owned state и configuration.</span></div>
+          <div><b>Context</b><span>Wayland/Hyprland active-window state управляет app-aware Scene rules без постоянного polling loop.</span></div>
+          <div><b>System</b><span>PipeWire, NetworkManager, BlueZ, portals и compositor-facing actions скрыты за общими сервисами.</span></div>
+          <div><b>Safety</b><span>Scene changes — временные overlays: после контекста возвращается выбранный baseline пользователя, а не переписанный конфиг.</span></div>
+        </div>
       </section>
     </main>
     <SiteFooter lang="ru" />
