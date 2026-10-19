@@ -11,7 +11,7 @@
 }
 
 .editorial-page .page-intro::after {
-  content: "羅";
+  content: "";
   position: absolute;
   right: 2%;
   bottom: -42px;
@@ -79,7 +79,7 @@
 
 .feature-ledger-row b {
   justify-self: end;
-  color: rgba(223,195,207,.55);
+  color: rgba(164,145,246,.7);
   font-size: 20px;
   font-weight: 500;
 }
@@ -95,12 +95,12 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background:
-    radial-gradient(circle at 10% 20%, rgba(223,195,207,.09), transparent 35%),
+    radial-gradient(circle at 10% 20%, rgba(138,112,232,.11), transparent 35%),
     rgba(255,255,255,.014);
 }
 
 .architecture-band::after {
-  content: "系";
+  content: "";
   position: absolute;
   right: -18px;
   bottom: -88px;
@@ -165,7 +165,7 @@
   display: grid;
   place-items: center;
   padding: 18px;
-  background: #0b0b0d;
+  background: #0b0d15;
 }
 
 .showcase-image a {
@@ -241,3 +241,9 @@
 @media (prefers-reduced-motion: reduce) {
   .feature-ledger-row, .showcase-image img { transition: none; }
 }
+
+/* Nocturne: subtle glass surfaces and accessible motion */
+.showcase-piece{background:linear-gradient(145deg,rgba(24,27,40,.65),rgba(12,14,23,.88));box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
+.architecture-band{background:radial-gradient(circle at 15% 15%,rgba(135,110,231,.11),transparent 43%),rgba(14,17,28,.78)}
+.editorial-page .page-intro::after,.architecture-band::after{display:none}
+.feature-ledger-row:hover{background:rgba(150,132,241,.045)}
