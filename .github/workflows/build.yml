@@ -30,11 +30,8 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
 
-      - name: Configure GitHub Pages
-        if: github.event_name != 'pull_request'
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
+      # GitHub Pages must be enabled once in Settings → Pages, source: GitHub Actions.
+      # Avoid enablement:true: GITHUB_TOKEN cannot create a Pages site.
 
       - name: Install dependencies
         run: npm ci
