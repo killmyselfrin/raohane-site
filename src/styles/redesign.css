@@ -1,17 +1,17 @@
 :root {
-  --bg: #09090a;
-  --bg-soft: #0f1012;
-  --surface: rgba(19, 20, 23, 0.74);
-  --surface-strong: rgba(24, 25, 29, 0.92);
+  --bg: #080a10;
+  --bg-soft: #0d1018;
+  --surface: rgba(17, 20, 30, 0.74);
+  --surface-strong: rgba(20, 24, 35, 0.92);
   --line: rgba(244, 238, 231, 0.09);
   --line-strong: rgba(244, 238, 231, 0.16);
-  --text: #f3efe9;
-  --text-soft: #cbc5bd;
-  --muted: #8d8882;
-  --accent: #dfc3cf;
-  --accent-strong: #c99eaf;
-  --accent-soft: rgba(223, 195, 207, 0.13);
-  --pink: #e7bccd;
+  --text: #f1effa;
+  --text-soft: #c4c6d5;
+  --muted: #858da3;
+  --accent: #b6a4fa;
+  --accent-strong: #9786e8;
+  --accent-soft: rgba(157, 135, 255, 0.14);
+  --pink: #a7a0fa;
   --green: #a7c0ad;
   --radius-xl: 34px;
   --radius-lg: 24px;
@@ -23,9 +23,9 @@
 html { background: var(--bg); }
 body {
   background:
-    radial-gradient(circle at 72% -8%, rgba(179, 136, 153, .10), transparent 29%),
-    radial-gradient(circle at 8% 17%, rgba(121, 136, 123, .055), transparent 26%),
-    linear-gradient(180deg, #09090a 0%, #0a0a0c 52%, #080809 100%);
+    radial-gradient(circle at 72% -8%, rgba(119, 103, 220, .15), transparent 32%),
+    radial-gradient(circle at 8% 17%, rgba(69, 121, 169, .09), transparent 30%),
+    linear-gradient(180deg, #080a10 0%, #0a0c13 52%, #070810 100%);
 }
 
 body::before {
@@ -72,7 +72,7 @@ body::before {
   right: 7%;
   top: 120px;
   border-radius: 50%;
-  border: 1px solid rgba(223,195,207,.07);
+  border: 1px solid rgba(134,111,241,.07);
   box-shadow: 0 0 0 90px rgba(223,195,207,.018), 0 0 0 180px rgba(223,195,207,.01);
   pointer-events: none;
 }
@@ -197,7 +197,7 @@ body::before {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background:
-    radial-gradient(circle at 26% 18%, rgba(223,195,207,.12), transparent 33%),
+    radial-gradient(circle at 26% 18%, rgba(134,111,241,.12), transparent 33%),
     rgba(255,255,255,.018);
 }
 .scene-intro::after {
@@ -295,3 +295,21 @@ body::before {
 .chromatic-demo-dots i:last-child { background:#7bd3f3;box-shadow:0 0 12px #7bd3f360; }
 @keyframes raohane-color-flow { from { background-position:0% 50%; } to { background-position:100% 50%; } }
 @media(prefers-reduced-motion:reduce){.chromatic-demo::before{animation:none}}
+
+/* Raohane Nocturne website language */
+.hero-grid-v3 { align-items:center; grid-template-columns:minmax(0,1.06fr) minmax(320px,.86fr); gap:clamp(20px,3vw,56px); }
+.hero-copy-v3 { position:relative;z-index:3 }
+.hero-copy-v3 h1 { font-size:clamp(58px,6.8vw,98px);line-height:.94 }
+.hero-copy-v3 h1 em { background:linear-gradient(105deg,#ded7ff 12%,#a999fc 62%,#85c8f1);background-clip:text;-webkit-text-fill-color:transparent }
+.hero-art { position:relative; min-height:580px; display:grid; place-items:center; isolation:isolate; overflow:visible; }
+.hero-art::before { content:"";position:absolute;width:min(95%,490px);aspect-ratio:1;top:22%;border-radius:50%;background:radial-gradient(circle,rgba(133,111,237,.20),rgba(75,109,176,.08) 45%,transparent 72%);filter:blur(34px);animation:mascot-glow 9s ease-in-out infinite alternate;z-index:-1; }
+.hero-art-frame {position:relative;width:min(100%,510px);height:560px;display:grid;place-items:center;filter:drop-shadow(0 30px 42px rgba(0,0,0,.4));animation:mascot-drift 8s ease-in-out infinite alternate}
+.hero-art-frame img {display:block;max-width:100%;max-height:100%;object-fit:contain}
+.hero-art-sigil {position:absolute;bottom:8%;left:4%;font:600 10px Manrope,sans-serif;color:#989cb8;letter-spacing:.22em}
+.hero-art-orbit { position:absolute;width:86%;height:86%;border:1px solid rgba(155,145,245,.08);border-radius:50%;transform:rotate(-18deg);z-index:-1; }
+.hero-art-orbit::before {content:"";position:absolute;inset:20px;border:1px dashed rgba(150,160,230,.09);border-radius:50%}
+@keyframes mascot-drift {from{transform:translateY(5px) rotate(-.8deg)}to{transform:translateY(-9px) rotate(.8deg)}}
+@keyframes mascot-glow {from{opacity:.55;transform:scale(.96)}to{opacity:.95;transform:scale(1.07)}}
+@media(max-width:940px){.hero-grid-v3{grid-template-columns:1fr}.hero-art{min-height:430px;margin-top:-10px}.hero-art-frame{height:430px}.hero-art-sigil{bottom:0}}
+@media(max-width:620px){.hero-art{min-height:355px}.hero-art-frame{height:355px}.hero-copy-v3 h1{font-size:clamp(51px,12vw,70px)}}
+@media(prefers-reduced-motion:reduce){.hero-art-frame,.hero-art::before{animation:none}}
