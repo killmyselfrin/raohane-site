@@ -6,10 +6,10 @@ import ShellPreview from "../components/ShellPreview.astro";
 
 const github = "https://github.com/killmyselfrin/raohane-dots";
 const base = import.meta.env.BASE_URL;
-const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\n./install-raohane.sh";
+const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\nbash install.sh";
 ---
 
-<BaseLayout title="Raohane 1.2.1 — Context-aware desktop shell for Hyprland" description="Raohane 1.2.1 is the stable contextual-shell release for Hyprland + Quickshell, with Scenes, application-aware switching, native shell actions and improved lyrics flow.">
+<BaseLayout title="Raohane — Your desktop, in your colors" description="Explore Raohane for Hyprland: Halo Bar, animated two-color Chromatic Flow, Wallpaper Studio, Widget Studio and contextual Scenes.">
   <div class="page-shell home-v3">
     <SiteHeader active="home" />
 
@@ -17,10 +17,10 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
       <section class="home-hero shell-width">
         <div class="hero-grid-v3 reveal">
           <div class="hero-copy-v3">
-            <div class="eyebrow"><span></span> HYPRLAND · QUICKSHELL · 1.2.1 STABLE</div>
-            <h1>A desktop that<br/><em>adapts to context.</em></h1>
+            <div class="eyebrow"><span></span> HYPRLAND · QUICKSHELL · 1.3.0 DEVELOPMENT</div>
+            <h1>Your desktop.<br/><em>In your colors.</em></h1>
             <p class="hero-lede">
-              Raohane is a native Hyprland shell built around context instead of clutter. Scenes reshape runtime behavior, Launcher actions follow what you are doing, and the interface stays quiet until it has something useful to say.
+              Raohane brings wallpaper-aware color, a refined floating Halo Bar, customizable desktop widgets, contextual Scenes and native controls into one atmospheric Hyprland experience. Try the optional two-color Chromatic Flow animation.
             </p>
             <div class="hero-actions">
               <a class="button button-primary" href={`${base}install/`}>Install Raohane <span>→</span></a>
@@ -42,7 +42,7 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
         <ShellPreview />
 
         <div class="hero-release-rail reveal" aria-label="Raohane release facts">
-          <div><b>1.2.1 stable</b><span>Contextual shell + lyrics flow hotfix</span></div>
+          <div><b>1.3.0-dev</b><span>Active development · new customization tools</span></div>
           <div><b>Hyprland + Quickshell</b><span>Native Linux desktop runtime</span></div>
           <div><b>Arch first</b><span>CachyOS · Arch · EndeavourOS</span></div>
           <div><b>GPL-3.0</b><span>Open source and inspectable</span></div>
@@ -93,7 +93,7 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
           <div>
             <span class="section-kicker">03 · INSTALL</span>
             <h2>Three commands.<br/><em>One shell.</em></h2>
-            <p>Raohane 1.2.1 targets modern Arch-based Hyprland systems. The guided installer checks dependencies, stages the native runtime and configures the user service without hiding the underlying files from you.</p>
+            <p>Raohane targets modern Arch-based Hyprland systems. The guided installer checks dependencies, stages the native runtime and configures the user service without hiding the underlying files from you.</p>
             <div class="distro-pills" role="group" aria-label="Supported distributions">
               <span>CachyOS</span><span>Arch Linux</span><span>EndeavourOS</span>
             </div>
@@ -115,7 +115,7 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
   <script>
     const copyButton = document.querySelector<HTMLButtonElement>('[data-copy-install]');
     copyButton?.addEventListener('click', async () => {
-      const command = `git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\n./install-raohane.sh`;
+      const command = `git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\nbash install.sh`;
       try {
         await navigator.clipboard.writeText(command);
         copyButton.textContent = 'Copied';
