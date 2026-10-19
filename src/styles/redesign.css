@@ -52,7 +52,7 @@ body::before {
 }
 
 .home-hero::before {
-  content: "静";
+  content: "";
   position: absolute;
   top: 12px;
   right: -26px;
@@ -117,7 +117,7 @@ body::before {
   border-left: 1px solid var(--line-strong);
 }
 .hero-manifesto::before {
-  content: "羅";
+  content: "";
   position: absolute;
   top: -62px;
   left: 22px;
@@ -201,7 +201,7 @@ body::before {
     rgba(255,255,255,.018);
 }
 .scene-intro::after {
-  content: "場";
+  content: "";
   position: absolute;
   right: -16px;
   bottom: -74px;
