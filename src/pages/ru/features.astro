@@ -5,24 +5,26 @@ import SiteFooter from "../../components/SiteFooter.astro";
 import "../../styles/content.css";
 
 const features = [
-  ["01", "Scenes", "Balanced, Gaming, Focus и Work накладывают обратимую runtime-policy, не перезаписывая базовую конфигурацию оболочки.", "場"],
+  ["01", "Scenes", "Balanced, Gaming, Focus и Work накладывают обратимую runtime-policy, не перезаписывая базовую конфигурацию оболочки.", "◈"],
   ["02", "Launcher 2.0", "Приложения, Scene-команды, shell actions, вычисления и contextual Gaming controls находятся в одной command surface.", "⌕"],
   ["03", "Context Island", "Recording, privacy, media, смена Scene и active-window context приоритизируются в одной небольшой live surface.", "◌"],
   ["04", "Control Center", "NetworkManager, Bluetooth, PipeWire, яркость, notifications и Scene switching используют общее нативное состояние сервисов.", "⌘"],
   ["05", "Media + lyrics", "MPRIS, LRCLIB lyrics, click-to-seek и fullscreen-friendly overlay остаются полезными и на desktop, и в играх.", "♫"],
   ["06", "Capture tools", "Скриншоты, native gameplay recording, OCR и screen translation следуют одному interaction model Raohane.", "◎"],
   ["07", "Desktop system", "Bar, Dock, Overview, wallpaper tools, desktop widgets и Settings используют одну theme, motion и config архитектуру.", "▣"],
-  ["08", "Event-driven runtime", "Общие PipeWire, NetworkManager и Bluetooth monitors держат состояние живым, а медленные опросы остаются repair-path.", "↯"]
+  ["08", "Chromatic Flow + Halo Bar", "Два цвета, выбранных из обоев, плавно переливаются на панели. Анимацию можно настроить или полностью отключить.", "◐"],
+  ["09", "Widget Studio", "Виджеты часов, музыки и системных показателей с вариантами Classic, Minimal и Aurora и размещением на сетке рабочего стола.", "◇"],
+  ["10", "Event-driven runtime", "Общие PipeWire, NetworkManager и Bluetooth monitors держат состояние живым, а медленные опросы остаются repair-path.", "↯"]
 ];
 ---
 
-<BaseLayout lang="ru" title="Возможности — Raohane" description="Scenes, Launcher, Context Island, нативные системные controls, media, capture tools и общая runtime-архитектура Raohane 1.2.1.">
+<BaseLayout lang="ru" title="Возможности — Raohane" description="Scenes, Launcher, Context Island, нативные системные controls, media, capture tools и общая runtime-архитектура Raohane.">
   <div class="page-shell editorial-page">
     <SiteHeader active="features" lang="ru" />
     <main id="main-content" class="content-main shell-width">
       <section class="page-intro">
-        <span class="page-badge">Raohane 1.2.1 · карта системы</span>
-        <h1>Не виджеты.<br/><em>Desktop system.</em></h1>
+        <span class="page-badge">Raohane · карта системы</span>
+        <h1>Больше, чем виджеты.<br/><em>Твой рабочий стол.</em></h1>
         <p>Поверхности Raohane построены вокруг общего состояния и обратимого контекста. Launcher, Control Center, Context Island, media layer и desktop tools не держат отдельные копии одной и той же системной логики.</p>
       </section>
 
