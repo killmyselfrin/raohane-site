@@ -284,3 +284,14 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   .scene-card, .install-v3 .terminal-card { transition: none; transform: none; }
 }
+
+/* Wallpaper-inspired bar animation preview */
+.chromatic-demo { position:relative; display:flex; align-items:center; gap:14px; width:100%; max-width:510px; padding:12px 18px; margin:26px 0 0; border:1px solid rgba(255,255,255,.16); border-radius:24px; background:rgba(9,10,16,.76); isolation:isolate; overflow:hidden; box-shadow:0 18px 60px rgba(0,0,0,.22); }
+.chromatic-demo::before { content:""; position:absolute; inset:-9px; z-index:-1; opacity:.72; background:linear-gradient(100deg,#a25ae7 0%,#a25ae7 28%,#65c5e9 74%,#65c5e9 100%); background-size:180% 100%; filter:blur(12px); animation:raohane-color-flow 9s ease-in-out infinite alternate; }
+.chromatic-demo::after { content:""; position:absolute; inset:5px; z-index:-1; border-radius:20px; background:rgba(10,11,19,.88); }
+.chromatic-demo-label { color:var(--text); font-size:12px; letter-spacing:.04em; font-weight:650; }
+.chromatic-demo-dots { margin-left:auto; display:flex; gap:7px; }
+.chromatic-demo-dots i { width:7px; height:7px; border-radius:50%; background:#bb83ee; box-shadow:0 0 12px #bb83ee60; }
+.chromatic-demo-dots i:last-child { background:#7bd3f3;box-shadow:0 0 12px #7bd3f360; }
+@keyframes raohane-color-flow { from { background-position:0% 50%; } to { background-position:100% 50%; } }
+@media(prefers-reduced-motion:reduce){.chromatic-demo::before{animation:none}}
