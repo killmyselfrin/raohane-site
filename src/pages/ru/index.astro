@@ -7,10 +7,10 @@ import ShellPreview from "../../components/ShellPreview.astro";
 const base = import.meta.env.BASE_URL;
 const prefix = `${base}ru/`;
 const github = "https://github.com/killmyselfrin/raohane-dots";
-const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\n./install-raohane.sh";
+const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\nbash install.sh";
 ---
 
-<BaseLayout lang="ru" title="Raohane 1.2.1 — контекстная оболочка для Hyprland" description="Raohane 1.2.1 — стабильный contextual-shell релиз для Hyprland + Quickshell со Scenes, переключением по приложениям, нативными действиями оболочки и улучшенным lyrics flow.">
+<BaseLayout lang="ru" title="Raohane — твой рабочий стол, твои цвета" description="Raohane для Hyprland: Halo Bar, переливающийся Chromatic Flow, Wallpaper Studio, виджеты рабочего стола и режимы Scenes.">
   <div class="page-shell home-v3">
     <SiteHeader active="home" lang="ru" />
 
@@ -18,10 +18,10 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
       <section class="home-hero shell-width">
         <div class="hero-grid-v3 reveal">
           <div class="hero-copy-v3">
-            <div class="eyebrow"><span></span> HYPRLAND · QUICKSHELL · 1.2.1 STABLE</div>
-            <h1>Рабочий стол,<br/><em>который понимает контекст.</em></h1>
+            <div class="eyebrow"><span></span> HYPRLAND · QUICKSHELL · 1.3.0 В РАЗРАБОТКЕ</div>
+            <h1>Твой рабочий стол.<br/><em>Твои цвета.</em></h1>
             <p class="hero-lede">
-              Raohane — нативная оболочка Hyprland, построенная вокруг контекста, а не визуального шума. Scenes временно меняют поведение runtime, Launcher показывает действия по ситуации, а интерфейс остаётся спокойным, пока ему нечего сообщить.
+              Raohane объединяет цвета обоев, плавающую панель Halo, настраиваемые виджеты, режимы Scenes и системные инструменты в одной оболочке Hyprland. Двухцветный переливающийся Chromatic Flow можно включать и отключать.
             </p>
             <div class="hero-actions">
               <a class="button button-primary" href={`${prefix}install/`}>Установить Raohane <span>→</span></a>
@@ -43,7 +43,7 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
         <ShellPreview lang="ru" />
 
         <div class="hero-release-rail reveal" aria-label="Информация о релизе Raohane">
-          <div><b>1.2.1 stable</b><span>Contextual shell + lyrics flow hotfix</span></div>
+          <div><b>1.3.0-dev</b><span>Активная разработка · новые настройки оформления</span></div>
           <div><b>Hyprland + Quickshell</b><span>Нативный Linux desktop runtime</span></div>
           <div><b>Arch в приоритете</b><span>CachyOS · Arch · EndeavourOS</span></div>
           <div><b>GPL-3.0</b><span>Открытый и проверяемый код</span></div>
@@ -94,7 +94,7 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
           <div>
             <span class="section-kicker">03 · УСТАНОВКА</span>
             <h2>Три команды.<br/><em>Одна оболочка.</em></h2>
-            <p>Raohane 1.2.1 рассчитан на современные Arch-based системы с Hyprland. Установщик проверяет зависимости, разворачивает нативный runtime и настраивает пользовательский сервис, не скрывая от тебя структуру проекта.</p>
+            <p>Raohane рассчитан на современные Arch-based системы с Hyprland. Установщик проверяет зависимости, разворачивает нативный runtime и настраивает пользовательский сервис, не скрывая от тебя структуру проекта.</p>
             <div class="distro-pills" role="group" aria-label="Поддерживаемые дистрибутивы">
               <span>CachyOS</span><span>Arch Linux</span><span>EndeavourOS</span>
             </div>
@@ -116,7 +116,7 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
   <script>
     const copyButton = document.querySelector<HTMLButtonElement>('[data-copy-install]');
     copyButton?.addEventListener('click', async () => {
-      const command = `git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\n./install-raohane.sh`;
+      const command = `git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\nbash install.sh`;
       try {
         await navigator.clipboard.writeText(command);
         copyButton.textContent = 'Скопировано';
