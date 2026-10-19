@@ -22,7 +22,7 @@ for (const file of pages) {
   assert(html.includes('id="main-content"'), `Skip target: ${file}`);
   assert(/<meta name="description" content="[^"]+"/.test(html), `Description: ${file}`);
   assert(!/serpantinum/i.test(html), `Retired product identity leaked into public page: ${file}`);
-  assert(!html.includes('bash install.sh'), `Obsolete installer command leaked into public page: ${file}`);
+  assert(!html.includes('./install-raohane.sh'), `Legacy developer installer leaked into public page: ${file}`);
   if (!file.endsWith('/404.html')) {
     const canonical = html.match(/rel="canonical" href="([^"]+)"/)?.[1];
     const expected = origin + base + file.slice(root.length).replace(/index\.html$/, '');
