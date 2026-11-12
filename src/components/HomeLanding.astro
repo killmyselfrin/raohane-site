@@ -1,0 +1,323 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "./SiteHeader.astro";
+import SiteFooter from "./SiteFooter.astro";
+import ShellPreview from "./ShellPreview.astro";
+
+interface Props { lang?: "en" | "ru" }
+const { lang = "en" } = Astro.props;
+const ru = lang === "ru";
+const base = import.meta.env.BASE_URL;
+const prefix = ru ? base + "ru/" : base;
+const github = "https://github.com/killmyselfrin/raohane-dots";
+const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.git\ncd raohane-dots\nbash install.sh";
+
+const t = ru ? {
+  title: "Raohane — Рабочий стол с характером",
+  description: "Raohane — атмосферная оболочка Hyprland и Quickshell: адаптивные цвета, Wallpaper Studio, Widget Studio, Context Island и нативные инструменты.",
+  top: "НАТИВНАЯ ОБОЛОЧКА / HYPRLAND",
+  source: "ИСТОЧНИК НА GITHUB",
+  above: "СОЗДАНО ДЛЯ ТВОЕГО ПРОСТРАНСТВА",
+  hero1: "Рабочий стол.",
+  hero2: "В твоём ритме.",
+  heroDesc: "Raohane превращает Hyprland в цельную и спокойную среду: продуманная панель, адаптивные цвета, любимые виджеты и системные инструменты — всегда на своём месте.",
+  install: "Установить Raohane",
+  explore: "Посмотреть оболочку",
+  symbolAlt: "Фирменная эмблема Raohane — четыре пера и сияющий ромб",
+  symbolLabel: "ОРИГИНАЛЬНАЯ ЭМБЛЕМА RAOHANE",
+  symbolText: "Одна оболочка. Твоя атмосфера.",
+  factOne: "НАТИВНЫЙ ИНТЕРФЕЙС",
+  factTwo: "СВОБОДА ОФОРМЛЕНИЯ",
+  factThree: "ОТКРЫТЫЙ КОД",
+  screenshotEyebrow: "01 / НАСТОЯЩИЙ ИНТЕРФЕЙС",
+  screenshotTitle: "Не концепт.",
+  screenshotTitleEm: "Твоя будущая система.",
+  screenshotDesc: "Подлинные снимки запущенной оболочки. Выбери экран, чтобы рассмотреть, как интерфейс работает вместе — от рабочего стола до настроек.",
+  captureNote: "Скриншоты работающего Quickshell из тестового сеанса; эффекты и производительность зависят от конфигурации Hyprland.",
+  philosophyEyebrow: "02 / ФИЛОСОФИЯ",
+  philosophyHeading: "Меньше шума.",
+  philosophyHeadingEm: "Больше пространства.",
+  philosophyText: "Красота — не в количестве панелей. Она в точном расстоянии между ними, в спокойных цветах, в движении, которое никогда не требует внимания.",
+  featureEyebrow: "03 / СДЕЛАНО ДЛЯ ТЕБЯ",
+  featureTitle: "Твой способ",
+  featureTitleEm: "чувствовать рабочий стол.",
+  featureIntro: "Один язык оформления объединяет повседневные инструменты — без визуального хаоса и повторяющихся элементов.",
+  feat1Eyebrow: "01 / ЦВЕТ",
+  feat1Title: "Цвет из атмосферы.",
+  feat1Body: "Wallpaper Studio 2.0, коллекции, избранное и необязательная адаптивная палитра. Обои задают тон, но выбор всегда остаётся за тобой.",
+  feat2Eyebrow: "02 / КОМПОЗИЦИЯ",
+  feat2Title: "Панель под твои задачи.",
+  feat2Body: "Настраиваемые Bar и Dock, размещение модулей, виджеты рабочего стола и несколько стилистических направлений.",
+  feat3Eyebrow: "03 / КОНТЕКСТ",
+  feat3Title: "Режим под момент.",
+  feat3Body: "Balanced, Focus, Work и Gaming меняют временные настройки, не разрушая твою основную конфигурацию.",
+  feat4Eyebrow: "04 / МУЗЫКА",
+  feat4Title: "Музыка остаётся рядом.",
+  feat4Body: "MPRIS-плеер и тексты песен. В версии 1.3-dev можно отдельно расположить плеер для рабочего стола и игр.",
+  moodEyebrow: "04 / ПАЛИТРЫ",
+  moodHeading: "Найди свой",
+  moodHeadingEm: "оттенок тишины.",
+  moodDesc: "Небольшая интерактивная иллюстрация характерных настроений Raohane. Это визуальный эскиз, а не скриншот рабочего стола.",
+  moodSelect: "ВЫБЕРИ ПАЛИТРУ",
+  demoLabel: "ИЛЛЮСТРАЦИЯ ОФОРМЛЕНИЯ",
+  moodCards: "Отображение палитры",
+  mediaCaption: "ТИХИЕ ЧАСТОТЫ",
+  mediaAuthor: "RAOHANE / AUDIO",
+  viewThemes: "Изучить возможности",
+  closerEyebrow: "05 / НАТИВНЫЕ ИНСТРУМЕНТЫ",
+  closerHeading: "Всё важное.",
+  closerHeadingEm: "Ничего лишнего.",
+  closerDesc: "Launcher, Control Center и Context Island используют общие сервисы и состояния. Управляй музыкой, подключениями, уведомлениями и текущей задачей без постоянного переключения между окнами.",
+  closerLink: "Все возможности",
+  finalEyebrow: "06 / НАЧНИ СВОЮ ИСТОРИЮ",
+  finalHeading: "Дай своему рабочему",
+  finalHeadingEm: "столу характер.",
+  finalDesc: "Raohane находится в активной разработке. Установщик проверит зависимости и покажет изменения перед установкой. Для Arch Linux, CachyOS и других совместимых Hyprland-систем.",
+  copy: "Копировать",
+  copied: "Скопировано",
+  copyError: "Выдели команду",
+  guide: "Инструкция по установке",
+  repo: "Исходники",
+  footnote: "1.3.0-dev · Активная разработка, не сертифицированный стабильный релиз",
+  screenshotLabel: "Рабочий стол Raohane — настоящий снимок"
+} : {
+  title: "Raohane — Your desktop, your atmosphere",
+  description: "Raohane is an atmospheric Hyprland and Quickshell desktop shell with wallpaper-aware colors, native controls, Wallpaper Studio and Widget Studio.",
+  top: "NATIVE DESKTOP SHELL / HYPRLAND",
+  source: "VIEW SOURCE ON GITHUB",
+  above: "BUILT FOR YOUR OWN SPACE",
+  hero1: "A desktop",
+  hero2: "in your rhythm.",
+  heroDesc: "Raohane brings a little intention to Hyprland: composed surfaces, wallpaper-aware color, personal widgets and native controls, all exactly where they belong.",
+  install: "Install Raohane",
+  explore: "Explore the shell",
+  symbolAlt: "Official Raohane feather-nova emblem",
+  symbolLabel: "THE ORIGINAL RAOHANE EMBLEM",
+  symbolText: "One shell. Your atmosphere.",
+  factOne: "NATIVE RUNTIME",
+  factTwo: "PERSONAL BY DESIGN",
+  factThree: "OPEN SOURCE",
+  screenshotEyebrow: "01 / THE REAL INTERFACE",
+  screenshotTitle: "Not a concept.",
+  screenshotTitleEm: "A living desktop.",
+  screenshotDesc: "Actual captures of the running shell. Move between desktop, controls, launcher and settings to see how the experience comes together.",
+  captureNote: "Real Quickshell captures from a diagnostic session; compositor effects and performance depend on the Hyprland system.",
+  philosophyEyebrow: "02 / OUR PHILOSOPHY",
+  philosophyHeading: "Less noise.",
+  philosophyHeadingEm: "More room to think.",
+  philosophyText: "A beautiful desktop is not about adding more panels. It's about knowing what to leave out, when to move, and when to stay perfectly still.",
+  featureEyebrow: "03 / MADE FOR YOU",
+  featureTitle: "A different way",
+  featureTitleEm: "to feel at home.",
+  featureIntro: "One visual language brings everyday tools together without a collection of disconnected surfaces.",
+  feat1Eyebrow: "01 / COLOR",
+  feat1Title: "Color with a sense of place.",
+  feat1Body: "Wallpaper Studio 2.0, collections, favorites and optional adaptive accents. The wallpaper sets the mood while you remain in control.",
+  feat2Eyebrow: "02 / COMPOSITION",
+  feat2Title: "Space that fits your day.",
+  feat2Body: "Configurable Bar and Dock, movable modules, desktop widgets and multiple carefully tuned visual treatments.",
+  feat3Eyebrow: "03 / CONTEXT",
+  feat3Title: "A mode for the moment.",
+  feat3Body: "Balanced, Focus, Work and Gaming apply reversible behavior without rewriting your chosen desktop defaults.",
+  feat4Eyebrow: "04 / MUSIC",
+  feat4Title: "Music has a place, too.",
+  feat4Body: "An MPRIS player and lyrics experience. The 1.3-dev cycle adds independent player placement for desktop and games.",
+  moodEyebrow: "04 / COLOR STUDIES",
+  moodHeading: "Find your",
+  moodHeadingEm: "kind of quiet.",
+  moodDesc: "A small interactive illustration of Raohane's visual moods. A design study, not a capture of the live desktop.",
+  moodSelect: "CHOOSE AN ATMOSPHERE",
+  demoLabel: "ILLUSTRATIVE COLOR STUDY",
+  moodCards: "Palette illustration",
+  mediaCaption: "QUIET FREQUENCIES",
+  mediaAuthor: "RAOHANE / AUDIO",
+  viewThemes: "Explore all features",
+  closerEyebrow: "05 / NATIVE TOOLS",
+  closerHeading: "Everything essential.",
+  closerHeadingEm: "Nothing in the way.",
+  closerDesc: "Launcher, Control Center and Context Island share native state and services. Music, connections, notifications and the current task remain close, without demanding constant attention.",
+  closerLink: "Explore features",
+  finalEyebrow: "06 / BEGIN HERE",
+  finalHeading: "Give your desktop",
+  finalHeadingEm: "a point of view.",
+  finalDesc: "Raohane is in active development. The guided installer checks dependencies and explains changes before installation. Made for Arch Linux, CachyOS and compatible Hyprland setups.",
+  copy: "Copy",
+  copied: "Copied",
+  copyError: "Select text",
+  guide: "Installation guide",
+  repo: "Source code",
+  footnote: "1.3.0-dev · Active development, not a certified stable release",
+  screenshotLabel: "Raohane desktop — actual capture"
+};
+const moodItems = [
+  {id:"nocturne",label:"Nocturne",description:ru?"Лаванда / графит":"Lavender / graphite"},
+  {id:"rose",label:"Rose Glass",description:ru?"Пепельная роза":"Ash rose"},
+  {id:"sage",label:"Sage Glass",description:ru?"Шалфей / туман":"Sage / mist"},
+  {id:"midnight",label:"Midnight",description:ru?"Полночный индиго":"Midnight indigo"}
+];
+---
+
+<BaseLayout lang={lang} title={t.title} description={t.description}>
+  <div class="page-shell ra-home">
+    <SiteHeader active="home" lang={lang}/>
+
+    <main id="main-content">
+      <section class="ra-hero shell-width" aria-labelledby="ra-hero-title">
+        <div class="ra-hero-topline">
+          <span><i class="ra-live-dot" aria-hidden="true"></i>{t.top}</span>
+          <a href={github} target="_blank" rel="noreferrer">{t.source} <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="ra-hero-grid">
+          <div class="ra-hero-copy">
+            <p class="ra-eyebrow">{t.above} <span aria-hidden="true">/ 2026</span></p>
+            <h1 id="ra-hero-title">{t.hero1}<br/><em>{t.hero2}</em></h1>
+            <p class="ra-hero-lede">{t.heroDesc}</p>
+            <div class="ra-hero-actions">
+              <a class="ra-button ra-button-primary" href={prefix+"install/"}>{t.install}<span aria-hidden="true">↗</span></a>
+              <a class="ra-button ra-button-text" href="#experience">{t.explore}<span aria-hidden="true">↓</span></a>
+            </div>
+            <p class="ra-hero-version">{t.footnote}</p>
+          </div>
+
+          <div class="ra-brand-stage" aria-label={t.symbolAlt}>
+            <div class="ra-brand-orbits" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="ra-brand-core">
+              <img src={base+"brand/raohane-logo.svg"} alt={t.symbolAlt} width="256" height="256" fetchpriority="high"/>
+            </div>
+            <div class="ra-brand-caption">
+              <span>{t.symbolLabel}</span>
+              <small>{t.symbolText}</small>
+            </div>
+            <span class="ra-brand-index" aria-hidden="true">R — 01</span>
+          </div>
+        </div>
+        <div class="ra-hero-facts" aria-label="Raohane project facts">
+          <span><b>01</b> {t.factOne} <strong>Hyprland + Quickshell</strong></span>
+          <span><b>02</b> {t.factTwo} <strong>Wallpaper · Widgets · Scenes</strong></span>
+          <span><b>03</b> {t.factThree} <strong>GPL-3.0</strong></span>
+        </div>
+      </section>
+
+      <section class="ra-experience shell-width" id="experience" aria-labelledby="ra-experience-title">
+        <div class="ra-section-heading">
+          <div><span class="ra-section-index">{t.screenshotEyebrow}</span><h2 id="ra-experience-title">{t.screenshotTitle}<br/><em>{t.screenshotTitleEm}</em></h2></div>
+          <p>{t.screenshotDesc}</p>
+        </div>
+        <div class="ra-experience-stage"><ShellPreview lang={lang}/></div>
+        <p class="ra-capture-note"><span aria-hidden="true">↳</span> {t.captureNote}</p>
+      </section>
+
+      <section class="ra-philosophy shell-width" aria-labelledby="ra-philosophy-title">
+        <div class="ra-philosophy-side"><span class="ra-section-index">{t.philosophyEyebrow}</span><span class="ra-philosophy-symbol" aria-hidden="true">✦</span></div>
+        <div class="ra-philosophy-body">
+          <h2 id="ra-philosophy-title">{t.philosophyHeading}<br/><em>{t.philosophyHeadingEm}</em></h2>
+          <p>{t.philosophyText}</p>
+        </div>
+      </section>
+
+      <section class="ra-features shell-width" aria-labelledby="ra-features-title">
+        <div class="ra-section-heading">
+          <div><span class="ra-section-index">{t.featureEyebrow}</span><h2 id="ra-features-title">{t.featureTitle}<br/><em>{t.featureTitleEm}</em></h2></div>
+          <p>{t.featureIntro}</p>
+        </div>
+        <div class="ra-feature-grid">
+          <article class="ra-feature-card ra-feature-color">
+            <div class="ra-feature-copy"><span class="ra-feature-kicker">{t.feat1Eyebrow}</span><h3>{t.feat1Title}</h3><p>{t.feat1Body}</p></div>
+            <div class="ra-color-art" aria-hidden="true"><div class="ra-color-orb"></div><div class="ra-color-arc"></div><div class="ra-color-palette"><i></i><i></i><i></i><i></i></div></div>
+          </article>
+          <article class="ra-feature-card ra-feature-layout">
+            <div class="ra-feature-copy"><span class="ra-feature-kicker">{t.feat2Eyebrow}</span><h3>{t.feat2Title}</h3><p>{t.feat2Body}</p></div>
+            <div class="ra-feature-screenshot"><img src={base+"screenshots/settings-800.webp"} alt={ru?"Настройки Raohane — скриншот работающей оболочки":"Actual Raohane settings screenshot"} width="800" height="450" loading="lazy" decoding="async"/></div>
+          </article>
+          <article class="ra-feature-card ra-feature-scenes">
+            <div class="ra-feature-copy"><span class="ra-feature-kicker">{t.feat3Eyebrow}</span><h3>{t.feat3Title}</h3><p>{t.feat3Body}</p></div>
+            <div class="ra-scenes-art" aria-hidden="true"><span>Balanced <i>◉</i></span><span>Focus <i>◌</i></span><span>Work <i>◧</i></span><span>Gaming <i>◇</i></span></div>
+          </article>
+          <article class="ra-feature-card ra-feature-music">
+            <div class="ra-feature-copy"><span class="ra-feature-kicker">{t.feat4Eyebrow}</span><h3>{t.feat4Title}</h3><p>{t.feat4Body}</p></div>
+            <div class="ra-music-art" aria-hidden="true"><div class="ra-record"><span>✦</span></div><div class="ra-music-text"><small>MPRIS / AUDIO</small><b>Now playing</b><div><i></i></div><span>◁ &nbsp;&nbsp; ▷ &nbsp;&nbsp; ▷|</span></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="ra-moods" data-ra-moods data-palette="nocturne" aria-labelledby="ra-moods-title">
+        <div class="shell-width ra-mood-inner">
+          <div class="ra-mood-copy">
+            <span class="ra-section-index">{t.moodEyebrow}</span>
+            <h2 id="ra-moods-title">{t.moodHeading}<br/><em>{t.moodHeadingEm}</em></h2>
+            <p>{t.moodDesc}</p>
+            <div class="ra-mood-options" role="group" aria-label={t.moodSelect}>
+              {moodItems.map((m,index)=>(
+                <button type="button" data-ra-palette={m.id} aria-pressed={index===0?"true":"false"}>
+                  <span class={"ra-mood-dot ra-mood-dot-"+m.id} aria-hidden="true"></span>
+                  <span><b>{m.label}</b><small>{m.description}</small></span>
+                </button>
+              ))}
+            </div>
+            <a class="ra-inline-link" href={prefix+"features/"}>{t.viewThemes} <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="ra-mood-preview" role="img" aria-label={t.moodCards}>
+            <div class="ra-mood-scene"><div class="ra-mood-disc"></div><div class="ra-mood-horizon"></div></div>
+            <div class="ra-mood-floating-bar" aria-hidden="true"><img src={base+"brand/raohane-logo.svg"} width="21" height="21" alt=""/><span>01 &nbsp; 02 &nbsp; 03</span><span>⌘ &nbsp; ◉ &nbsp; 08:42</span></div>
+            <div class="ra-mood-clock" aria-hidden="true"><span>RAOHANE / 01</span><strong>08:42</strong><small>{t.demoLabel}</small></div>
+            <div class="ra-mood-floating-player" aria-hidden="true"><div class="ra-mini-art">✦</div><div><small>{t.mediaAuthor}</small><b>{t.mediaCaption}</b><i></i></div><span>Ⅱ</span></div>
+            <div class="ra-mood-label" aria-hidden="true"><span data-ra-mood-name>Nocturne</span><b>◈</b></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ra-detail shell-width" aria-labelledby="ra-detail-title">
+        <div class="ra-detail-image">
+          <a href={base+"screenshots/control-center.webp"} data-gallery aria-label={ru?"Открыть скриншот Control Center":"Open Control Center screenshot"}>
+            <img src={base+"screenshots/control-center-800.webp"} alt={ru?"Raohane Control Center — настоящий скриншот":"Real Raohane Control Center screenshot"} width="800" height="450" loading="lazy" decoding="async"/>
+          </a>
+          <span>RAOHANE / CONTROL CENTER</span>
+        </div>
+        <div class="ra-detail-copy">
+          <span class="ra-section-index">{t.closerEyebrow}</span>
+          <h2 id="ra-detail-title">{t.closerHeading}<br/><em>{t.closerHeadingEm}</em></h2>
+          <p>{t.closerDesc}</p>
+          <a class="ra-inline-link" href={prefix+"features/"}>{t.closerLink} <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="ra-final shell-width" id="install" aria-labelledby="ra-final-title">
+        <span class="ra-section-index">{t.finalEyebrow}</span>
+        <h2 id="ra-final-title">{t.finalHeading}<br/><em>{t.finalHeadingEm}</em></h2>
+        <p>{t.finalDesc}</p>
+        <div class="ra-terminal">
+          <div class="ra-terminal-head"><span><i></i><i></i><i></i></span><b>terminal / raohane</b><button type="button" data-ra-copy>{t.copy}</button></div>
+          <pre><code>{installCommand}</code></pre>
+        </div>
+        <div class="ra-final-links"><a class="ra-button ra-button-primary" href={prefix+"install/"}>{t.guide} <span aria-hidden="true">↗</span></a><a class="ra-button ra-button-text" href={github} target="_blank" rel="noreferrer">{t.repo} <span aria-hidden="true">↗</span></a></div>
+      </section>
+    </main>
+
+    <SiteFooter lang={lang}/>
+  </div>
+  <script define:vars={{copied:t.copied,copy:t.copy,copyError:t.copyError,installCommand}}>
+    document.querySelectorAll("[data-ra-moods]").forEach(function(root) {
+      const buttons = root.querySelectorAll("[data-ra-palette]");
+      const label = root.querySelector("[data-ra-mood-name]");
+      buttons.forEach(function(button) {
+        button.addEventListener("click", function() {
+          root.dataset.palette = button.dataset.raPalette || "nocturne";
+          buttons.forEach(function(other) { other.setAttribute("aria-pressed", String(other === button)); });
+          const name = button.querySelector("b");
+          if (label && name) label.textContent = name.textContent || "Nocturne";
+        });
+      });
+    });
+    document.querySelectorAll("[data-ra-copy]").forEach(function(button) {
+      button.addEventListener("click", async function() {
+        try {
+          await navigator.clipboard.writeText(installCommand);
+          button.textContent = copied;
+          window.setTimeout(function() { button.textContent = copy; }, 1700);
+        } catch (e) {
+          button.textContent = copyError;
+        }
+      });
+    });
+  </script>
+</BaseLayout>
