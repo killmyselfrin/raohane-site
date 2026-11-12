@@ -20,15 +20,15 @@ npm run preview
 
 ## Design direction
 
-The site follows the Raohane Nocturne visual language: graphite and blue-black surfaces, restrained lavender accents, subtle glass, restrained editorial minimalism, and motion that stays responsive and quiet.
+Raohane's site follows a **premium editorial / Nocturne** design language: graphite-black surfaces, warm off-white typography, lavender-rose accents, large calm typography, disciplined spacing and quiet motion.
 
-## November 2026 experience refresh
+The homepage is shared between English and Russian through `src/components/HomeLanding.astro`. The **official feather-nova logo** from `raohane-dots/assets/icons/raohane-logo.svg` replaces the former mascot illustration in the hero, header, footer and favicon. The website no longer displays the mascot as its brand symbol.
 
-- The English and Russian homepages include a **bilingual Atmosphere Studio**: four keyboard-accessible palette choices with live changes to an illustrative shell composition.
-- The visual preview is deliberately labeled as an **illustration**, not a screenshot or an implementation of the actual wallpaper-color extraction engine. The separate screenshot viewer still shows actual shell captures.
-- Shared Nocturne design tokens refine the hero, floating navigation, cards, contrast, focus and small-screen layout.
-- The feature ledger now reflects Wallpaper Studio 2.0 and the in-development 1.3 Media Position Studio from the shell's current main branch.
-- The shell source version is `1.3.0-dev`; the most recent stable release represented in structured-data SEO metadata remains `1.2.1`.
+- **Live shell captures** come from the existing `public/screenshots/` set and remain clearly distinguished from artwork.
+- The **interactive palette study** is CSS illustration, not a screenshot or a functional Raohane theme engine; buttons switch the illustrated colors with accessible pressed state.
+- `src/styles/premium.css` provides shared site-wide design and responsive rules; existing documentation and installation routes remain available.
+- The 1.3.0 development status is transparent and distinct from the most recently tagged stable 1.2.1 release used in structured metadata.
+- Motion respects `prefers-reduced-motion`, menu and theme controls work by keyboard, and the install command has a copy control.
 
 ## Screenshots
 
