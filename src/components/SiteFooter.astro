@@ -8,7 +8,7 @@ const base = import.meta.env.BASE_URL;
 const prefix = lang === "ru" ? `${base}ru/` : base;
 const labels = lang === "ru"
   ? {
-      tagline: "Контекстная оболочка Hyprland, которая остаётся спокойной до момента, когда действительно нужна.",
+      tagline: "Атмосферная оболочка Hyprland: пространство, в котором хочется работать, создавать и оставаться собой.",
       features: "Возможности",
       showcase: "Галерея",
       install: "Установка",
@@ -19,7 +19,7 @@ const labels = lang === "ru"
       source: "Открытый код"
     }
   : {
-      tagline: "A context-aware Hyprland shell that stays quiet until the desktop has something useful to say.",
+      tagline: "An atmospheric, thoughtful Hyprland shell: a place to focus, create and feel at home.",
       features: "Features",
       showcase: "Showcase",
       install: "Install",
@@ -35,7 +35,7 @@ const labels = lang === "ru"
   <div class="shell-width footer-grid-v3">
     <div class="footer-identity">
       <a class="footer-brand" href={prefix} aria-label="Raohane home">
-        <span>R</span><b>RAOHANE</b>
+        <span class="footer-brand-mark"><img src={base+"brand/raohane-logo.svg"} width="31" height="31" alt="" loading="lazy" decoding="async"/></span><b>RAOHANE</b>
       </a>
       <p>{labels.tagline}</p>
     </div>
