@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import ShellPreview from "../../components/ShellPreview.astro";
+import AtmosphereStudio from "../../components/AtmosphereStudio.astro";
 
 const base = import.meta.env.BASE_URL;
 const prefix = `${base}ru/`;
@@ -21,7 +22,7 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
             <div class="eyebrow"><span></span> HYPRLAND · QUICKSHELL · 1.3.0 В РАЗРАБОТКЕ</div>
             <h1>Твой рабочий стол.<br/><em>Твои цвета.</em></h1>
             <p class="hero-lede">
-              Raohane объединяет цвета обоев, плавающую панель Halo, настраиваемые виджеты, режимы Scenes и системные инструменты в одной оболочке Hyprland. Двухцветный переливающийся Chromatic Flow можно включать и отключать.
+              Raohane объединяет адаптивные цвета обоев, плавающие панели, Widget Studio и контекстные Scenes в одной нативной оболочке Hyprland. Настраивай оформление и медиаплеер, сохраняя пространство для самого важного.
             </p>
             <div class="hero-actions">
               <a class="button button-primary" href={`${prefix}install/`}>Установить Raohane <span>→</span></a>
@@ -42,12 +43,14 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
         <div class="chromatic-demo" aria-label="Демонстрация переливающейся панели Chromatic Flow"><span class="chromatic-demo-label">CHROMATIC FLOW · ЦВЕТА ОБОЕВ</span><span class="chromatic-demo-dots" aria-hidden="true"><i></i><i></i></span></div>
 
         <div class="hero-release-rail reveal" aria-label="Информация о релизе Raohane">
-          <div><b>1.3.0-dev</b><span>Активная разработка · новые настройки оформления</span></div>
+          <div><b>1.3.0-dev</b><span>Активная разработка · медиаплеер 1.3</span></div>
           <div><b>Hyprland + Quickshell</b><span>Нативный Linux desktop runtime</span></div>
           <div><b>Arch в приоритете</b><span>CachyOS · Arch · EndeavourOS</span></div>
           <div><b>GPL-3.0</b><span>Открытый и проверяемый код</span></div>
         </div>
       </section>
+
+      <AtmosphereStudio lang="ru" />
 
       <section class="home-section shell-width reveal" id="features">
         <span class="section-kicker">01 · КОНТЕКСТНАЯ ОБОЛОЧКА</span>
@@ -83,7 +86,7 @@ const installCommand = "git clone https://github.com/killmyselfrin/raohane-dots.
           <article class="system-row"><span>01</span><h3>Launcher 2.0</h3><p>Приложения, Scene-команды и живые действия: микрофон, audio output, запись, DND и медиа в одной command surface.</p><small>SUPER + R</small></article>
           <article class="system-row"><span>02</span><h3>Context Island</h3><p>Приоритетные состояния записи, privacy, media, смены Scene и активного приложения без постоянного визуального шума.</p><small>LIVE STATE</small></article>
           <article class="system-row"><span>03</span><h3>Control Center</h3><p>NetworkManager, Bluetooth, PipeWire, яркость, уведомления и Scene switching поверх общих нативных сервисов.</p><small>SYSTEM</small></article>
-          <article class="system-row"><span>04</span><h3>Media + lyrics</h3><p>MPRIS, synced/plain LRCLIB lyrics и fullscreen-friendly overlay с click-to-seek.</p><small>MPRIS</small></article>
+          <article class="system-row"><span>04</span><h3>Media + lyrics</h3><p>MPRIS, синхронизированные тексты и компактный медиаплеер с отдельными позициями для рабочего стола и Gaming.</p><small>MPRIS</small></article>
           <article class="system-row"><span>05</span><h3>Capture tools</h3><p>Скриншоты, gameplay recording, OCR и screen translation работают внутри одного interaction model Raohane.</p><small>TOOLS</small></article>
         </div>
       </section>
