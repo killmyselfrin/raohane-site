@@ -1,0 +1,103 @@
+/* Raohane Nocturne 2026 — site polish. Core layout remains in redesign.css. */
+:root {
+  --bg: #090a10;
+  --bg-soft: #10121c;
+  --text: #f5f3fc;
+  --text-soft: #c9c7d8;
+  --muted: #9a97ad;
+  --accent: #c2b0ff;
+  --accent-strong: #a698ed;
+  --accent-soft: rgba(176, 157, 244, .14);
+  --line: rgba(240,236,255,.085);
+  --line-strong: rgba(240,236,255,.16);
+}
+html { scroll-padding-top: 106px; }
+body {
+  background:
+    radial-gradient(ellipse 46% 21% at 82% 0%, rgba(142,113,207,.14), transparent),
+    radial-gradient(ellipse 35% 24% at 5% 32%, rgba(91,106,182,.075), transparent),
+    linear-gradient(180deg,#090a10,#0c0d17 38%,#090a10 74%,#080910);
+}
+body::before {
+  opacity: .18;
+  background-size: 96px 96px;
+  mask-image: linear-gradient(to bottom, black 0, transparent 66%);
+}
+::selection { background: rgba(186,167,255,.33); color:#fff; }
+.header-wrap { padding-top: 12px; }
+.site-header-v3 {
+  background: linear-gradient(105deg,rgba(16,17,27,.86),rgba(19,20,31,.77));
+  border-color: rgba(234,229,255,.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.055),0 18px 48px rgba(0,0,0,.28);
+}
+.brand-mark-v3 {
+  border-color:rgba(199,184,255,.32);
+  background:linear-gradient(145deg,rgba(173,151,240,.24),rgba(143,122,205,.07));
+}
+.brand-copy b { letter-spacing:.2em; }
+.nav-links-v3 a { transition:background-color .2s ease,color .2s ease; }
+.nav-links-v3 a:hover { background:rgba(192,173,255,.08); }
+.header-cta-v3 {
+  background:linear-gradient(140deg,#f4f0ff,#d8d0ef);
+  color:#1a1829;
+  border-color:rgba(255,255,255,.44);
+  box-shadow:0 7px 24px rgba(137,120,200,.12);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.header-cta-v3:hover { transform:translateY(-1px);box-shadow:0 12px 30px rgba(137,120,200,.2); }
+.home-hero { padding-top:clamp(60px,7vw,112px); }
+.hero-grid-v3 { align-items:center; }
+.hero-copy-v3 .eyebrow { font-size:10px; letter-spacing:.2em; color:#aaa6c0; }
+.hero-copy-v3 .eyebrow span { box-shadow:0 0 17px rgba(196,168,255,.4); }
+.hero-copy-v3 h1 { max-width:810px; letter-spacing:-.065em; }
+.hero-copy-v3 .hero-lede { max-width:635px; font-size:clamp(15px,1.55vw,18px);line-height:1.82; }
+.hero-copy-v3 h1 em { background:linear-gradient(100deg,#efe6ff 4%,#c4abff 50%,#96c0e2);background-clip:text;-webkit-text-fill-color:transparent; }
+.hero-actions .button { min-height:51px; border-radius:12px; padding-inline:22px; }
+.hero-actions .button-primary { background:linear-gradient(130deg,#eeeaff,#d6cef1);color:#1b1729; }
+.hero-actions .button-primary:hover { box-shadow:0 14px 35px rgba(185,164,255,.19); }
+.hero-actions .button-ghost { border-color:rgba(234,229,255,.15); background:rgba(255,255,255,.03); }
+.hero-art::before { background:radial-gradient(circle,rgba(164,133,231,.16),rgba(93,107,188,.06) 47%,transparent 72%); }
+.hero-art-frame { filter:drop-shadow(0 40px 65px rgba(3,3,10,.55)); }
+.hero-art-sigil { color:#a8a2c1; }
+.preview-frame-v3 {
+  border-color:rgba(235,228,255,.14);
+  background:linear-gradient(145deg,#0e0f19,#0c0d14);
+  box-shadow:0 35px 90px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.04);
+}
+.preview-tabs-v3 { background:rgba(255,255,255,.015); }
+.preview-tabs-v3 button[aria-pressed='true'] { background:rgba(178,150,238,.11); }
+.shell-capture-v3 { box-shadow:0 30px 70px rgba(0,0,0,.32); }
+.chromatic-demo { background:rgba(16,17,28,.81);border-color:rgba(223,211,255,.18); }
+.hero-release-rail { border-color:rgba(241,236,255,.1); }
+.hero-release-rail > div { padding-block:21px; }
+.hero-release-rail b { color:#eeebfa; }
+.home-section { padding-block:clamp(76px,9vw,118px); }
+.editorial-heading p { color:#aaa8ba; }
+.scene-intro {
+  background:radial-gradient(ellipse at 21% 18%,rgba(165,135,225,.12),transparent 42%),linear-gradient(145deg,rgba(27,27,43,.74),rgba(14,16,25,.76));
+}
+.scene-card, .install-v3 .terminal-card { background:linear-gradient(140deg,rgba(27,28,43,.56),rgba(15,16,26,.72)); }
+.scene-card:hover { border-color:rgba(193,173,255,.27); }
+.system-row { border-color:var(--line); }
+.system-row:hover { background:rgba(156,133,235,.045); }
+.install-v3 .terminal-card { border-color:rgba(234,226,255,.13); }
+.terminal-card code { color:#ebe4fb; }
+.copy-button:hover { color:var(--text);border-color:var(--line-strong); }
+.editorial-page .page-intro h1 em, .showcase-editorial .page-intro h1 em { color:#c1afff; }
+.editorial-page .feature-ledger-row:hover { background:rgba(154,140,221,.055); }
+.site-footer { border-color:rgba(240,236,255,.08); }
+@media(max-width:960px) {
+  .home-hero { padding-top:65px; }
+  .hero-art::before { width:440px;max-width:100%; }
+}
+@media(max-width:620px) {
+  .header-wrap { padding-top:6px; }
+  .home-hero { padding-top:48px; }
+  .hero-copy-v3 h1 { font-size:clamp(47px,11vw,67px); }
+  .hero-copy-v3 .hero-lede { font-size:15px;line-height:1.74; }
+  .hero-release-rail > div { padding:16px 12px; }
+  .site-header-v3 { border-radius:14px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .header-cta-v3, .nav-links-v3 a { transition:none; }
+}
