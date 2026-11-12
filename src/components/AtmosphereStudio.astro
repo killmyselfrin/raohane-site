@@ -1,0 +1,322 @@
+---
+interface Props {
+  lang?: "en" | "ru";
+}
+
+const { lang = "en" } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const prefix = lang === "ru" ? base + "ru/" : base;
+
+const copy = lang === "ru" ? {
+  kicker: "04 / АТМОСФЕРА",
+  title: "Настрой не просто тему.",
+  emphasis: "Настрой настроение.",
+  lead: "Один рабочий стол — множество настроений. Raohane позволяет выбрать тему, а адаптивная палитра мягко подстраивает оформление под обои. Посмотри, как меняется характер интерфейса.",
+  studio: "СТУДИЯ ОФОРМЛЕНИЯ",
+  note: "Интерактивная иллюстрация цветовой системы, не снимок живого рабочего стола.",
+  preview: "Условная демонстрация оболочки Raohane",
+  workspace: "Рабочее пространство",
+  preset: "Тема",
+  colors: "Варианты настроения",
+  palette: "Выбери настроение",
+  first: "Wallpaper Studio 2.0",
+  firstBody: "Коллекции, избранное, обои по мониторам и необязательный адаптивный акцент.",
+  second: "Widget Studio",
+  secondBody: "Часы, медиа и системные виджеты с настраиваемым расположением.",
+  third: "Media Position Studio",
+  thirdBody: "Отдельные позиции плеера для рабочего стола и игрового режима.",
+  cta: "Все возможности",
+  workspaces: "РАБОЧИЕ СТОЛЫ",
+  listening: "СЕЙЧАС ИГРАЕТ",
+  track: "Тихие частоты",
+  artist: "Атмосфера / Raohane",
+  live: "МИНИМАЛЬНОЕ ОФОРМЛЕНИЕ"
+} : {
+  kicker: "04 / ATMOSPHERE",
+  title: "More than a theme.",
+  emphasis: "Make it yours.",
+  lead: "One desktop, different moods. Choose a theme and optionally let wallpaper colors shape shared surfaces. Explore how a restrained palette changes the feeling of the shell.",
+  studio: "ATMOSPHERE STUDIO",
+  note: "Interactive color-system illustration, not a live desktop capture.",
+  preview: "Illustrative Raohane shell preview",
+  workspace: "Workspace",
+  preset: "Theme",
+  colors: "Color moods",
+  palette: "Choose an atmosphere",
+  first: "Wallpaper Studio 2.0",
+  firstBody: "Collections, favorites, per-monitor wallpapers and optional adaptive accents.",
+  second: "Widget Studio",
+  secondBody: "Clock, media and system widgets with flexible desktop layouts.",
+  third: "Media Position Studio",
+  thirdBody: "Independent player positions for desktop and Gaming.",
+  cta: "Discover all features",
+  workspaces: "WORKSPACES",
+  listening: "NOW PLAYING",
+  track: "Quiet frequencies",
+  artist: "Atmosphere / Raohane",
+  live: "LESS NOISE, MORE ROOM"
+};
+
+const palettes = [
+  { id: "nocturne", label: "Nocturne", detail: lang === "ru" ? "Лавандовый графит" : "Lavender graphite" },
+  { id: "rose", label: "Rose Glass", detail: lang === "ru" ? "Тёплая роза" : "Warm rose" },
+  { id: "sage", label: "Sage Glass", detail: lang === "ru" ? "Приглушённый шалфей" : "Muted sage" },
+  { id: "midnight", label: "Midnight", detail: lang === "ru" ? "Холодная глубина" : "Deep blue" }
+];
+---
+
+<section class="atmosphere-section shell-width reveal" id="atmosphere" data-atmosphere data-palette="nocturne" aria-labelledby="atmosphere-heading">
+  <div class="atmosphere-heading">
+    <div>
+      <span class="section-kicker">{copy.kicker}</span>
+      <h2 id="atmosphere-heading">{copy.title}<br /><em>{copy.emphasis}</em></h2>
+    </div>
+    <p>{copy.lead}</p>
+  </div>
+
+  <div class="atmosphere-workbench">
+    <div class="atmosphere-canvas" role="img" aria-label={copy.preview}>
+      <div class="atmosphere-wallpaper" aria-hidden="true">
+        <div class="atmosphere-sun"></div>
+        <div class="atmosphere-ridge ridge-far"></div>
+        <div class="atmosphere-ridge ridge-near"></div>
+        <div class="atmosphere-grid"></div>
+      </div>
+
+      <div class="atmosphere-bar" aria-hidden="true">
+        <span class="atmosphere-mark">◈</span>
+        <span class="atmosphere-bar-title">raohane</span>
+        <span class="atmosphere-workspaces">01 <b>02</b> 03 04</span>
+        <span class="atmosphere-bar-right">◉ &nbsp; ◇ &nbsp; 08:42</span>
+      </div>
+
+      <div class="atmosphere-desktop-clock" aria-hidden="true">
+        <span>{copy.workspaces} / 02</span>
+        <strong>08<span>:</span>42</strong>
+        <small>{copy.live}</small>
+      </div>
+
+      <div class="atmosphere-media" aria-hidden="true">
+        <span class="atmosphere-album">◈</span>
+        <span class="atmosphere-media-text"><small>{copy.listening}</small><b>{copy.track}</b><i>{copy.artist}</i></span>
+        <span class="atmosphere-play">Ⅱ</span>
+        <span class="atmosphere-progress"></span>
+      </div>
+
+      <div class="atmosphere-dock" aria-hidden="true"><i>◈</i><i>◻</i><i>⌘</i><i>◉</i><i>♫</i></div>
+      <span class="atmosphere-corner-id" aria-hidden="true">RAOHANE / 1.3</span>
+    </div>
+
+    <div class="atmosphere-panel">
+      <div class="atmosphere-panel-header">
+        <span>{copy.studio}</span>
+        <small>01 / 04</small>
+      </div>
+      <h3>{copy.palette}</h3>
+      <div class="atmosphere-options" role="group" aria-label={copy.colors}>
+        {palettes.map((palette, index) => (
+          <button
+            class="atmosphere-option"
+            type="button"
+            data-palette-choice={palette.id}
+            aria-pressed={index === 0 ? "true" : "false"}
+          >
+            <span class={"atmosphere-swatch atmosphere-swatch-" + palette.id} aria-hidden="true"><i></i></span>
+            <span class="atmosphere-option-text"><b>{palette.label}</b><small>{palette.detail}</small></span>
+            <span class="atmosphere-indicator" aria-hidden="true"></span>
+          </button>
+        ))}
+      </div>
+      <div class="atmosphere-panel-bottom">
+        <span class="atmosphere-panel-label">{copy.preset} / <b data-palette-name>Nocturne</b></span>
+        <a href={prefix + "features/"}>{copy.cta} <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="atmosphere-footnotes">
+    <p>{copy.note}</p>
+    <div class="atmosphere-highlights">
+      <div><b>01 / {copy.first}</b><span>{copy.firstBody}</span></div>
+      <div><b>02 / {copy.second}</b><span>{copy.secondBody}</span></div>
+      <div><b>03 / {copy.third}</b><span>{copy.thirdBody}</span></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-atmosphere]").forEach((root) => {
+    const choices = root.querySelectorAll<HTMLButtonElement>("[data-palette-choice]");
+    const title = root.querySelector<HTMLElement>("[data-palette-name]");
+    choices.forEach((button) => button.addEventListener("click", () => {
+      root.dataset.palette = button.dataset.paletteChoice || "nocturne";
+      choices.forEach((choice) => choice.setAttribute("aria-pressed", String(choice === button)));
+      if (title) title.textContent = button.querySelector<HTMLElement>(".atmosphere-option-text b")?.textContent || "Nocturne";
+    }));
+  });
+</script>
+
+<style>
+  .atmosphere-section {
+    --studio-accent: #b9a6f5;
+    --studio-accent-rgb: 185, 166, 245;
+    --studio-alt: #e7b4d4;
+    --studio-sky: #17182f;
+    --studio-horizon: #615a8b;
+    position: relative;
+    padding: 76px 0 128px;
+  }
+  [data-palette="rose"] {
+    --studio-accent: #ffc0d0;
+    --studio-accent-rgb: 255, 192, 208;
+    --studio-alt: #d0a9f5;
+    --studio-sky: #30202e;
+    --studio-horizon: #9e617f;
+  }
+  [data-palette="sage"] {
+    --studio-accent: #b5e0bd;
+    --studio-accent-rgb: 181, 224, 189;
+    --studio-alt: #dfd7ad;
+    --studio-sky: #142b2a;
+    --studio-horizon: #557a73;
+  }
+  [data-palette="midnight"] {
+    --studio-accent: #9bc3f9;
+    --studio-accent-rgb: 155, 195, 249;
+    --studio-alt: #c9a7fb;
+    --studio-sky: #0b1a32;
+    --studio-horizon: #30486c;
+  }
+
+  .atmosphere-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, .54fr);
+    gap: clamp(24px, 6vw, 92px);
+    align-items: end;
+    margin-bottom: 38px;
+  }
+  .atmosphere-heading h2 {
+    margin: 20px 0 0;
+    font: 600 clamp(42px, 6vw, 76px)/.98 Manrope, Inter, sans-serif;
+    letter-spacing: -.06em;
+  }
+  .atmosphere-heading h2 em { color: #c7b5ff; font-style: normal; }
+  .atmosphere-heading p { max-width: 460px; margin: 0 0 4px; color: var(--text-soft); font-size: 15px; line-height: 1.8; }
+  .atmosphere-workbench {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(290px, .65fr);
+    gap: 12px;
+    min-height: 530px;
+  }
+  .atmosphere-canvas {
+    position: relative;
+    isolation: isolate;
+    min-height: 530px;
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 26px;
+    overflow: hidden;
+    background: #131525;
+    box-shadow: 0 30px 80px rgba(0,0,0,.23);
+  }
+  .atmosphere-wallpaper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 56% 40%, rgba(var(--studio-accent-rgb),.22), transparent 47%),
+      radial-gradient(ellipse at 90% 8%, var(--studio-alt), transparent 28%),
+      linear-gradient(160deg, var(--studio-sky), #11121d 70%);
+    transition: background-color 350ms ease;
+  }
+  .atmosphere-wallpaper::before {
+    content: "";
+    position: absolute;
+    width: 64%;
+    height: 88%;
+    left: 15%;
+    top: 8%;
+    border: 1px solid rgba(var(--studio-accent-rgb), .18);
+    border-radius: 50%;
+    transform: rotate(-29deg);
+    box-shadow: 0 0 0 42px rgba(var(--studio-accent-rgb), .032), 0 0 0 90px rgba(var(--studio-accent-rgb), .018);
+  }
+  .atmosphere-sun { position:absolute; width: 145px; aspect-ratio:1; top:31%; left:53%; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(circle,rgba(255,255,255,.62),rgba(var(--studio-accent-rgb),.38) 28%,rgba(var(--studio-accent-rgb),0) 70%); filter:blur(2px) }
+  .atmosphere-ridge { position: absolute; inset: 0; }
+  .ridge-far { top: 42%; opacity:.85; background:linear-gradient(175deg,var(--studio-horizon),#12172c); clip-path:polygon(0 75%,0 45%,15% 59%,26% 26%,41% 55%,55% 33%,69% 56%,84% 24%,100% 58%,100% 100%,0 100%) }
+  .ridge-near { top:53%; background:linear-gradient(135deg,rgba(5,9,21,.7),#090e1e); clip-path:polygon(0 45%,20% 70%,33% 38%,48% 69%,63% 32%,77% 62%,100% 25%,100% 100%,0 100%) }
+  .atmosphere-grid { position:absolute;bottom:-2%;height:31%;width:100%;background:linear-gradient(180deg,transparent,rgba(4,7,18,.65)),repeating-linear-gradient(90deg,rgba(var(--studio-accent-rgb),.07) 0 1px,transparent 1px 62px);transform:perspective(280px) rotateX(58deg);transform-origin:bottom }
+  .atmosphere-bar {
+    position: absolute;
+    top: 20px;
+    left: 23px;
+    right: 23px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 45px;
+    padding: 0 17px;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 14px;
+    background: rgba(16,18,30,.65);
+    box-shadow: inset 0 1px rgba(255,255,255,.06), 0 15px 44px rgba(0,0,0,.2);
+    backdrop-filter: blur(18px);
+    color: #f7f3ff;
+    font-size: 11px;
+  }
+  .atmosphere-mark { color: var(--studio-accent); font-size: 21px; }
+  .atmosphere-bar-title { font-weight: 750; letter-spacing:.08em; }
+  .atmosphere-workspaces { margin-left: auto; color: rgba(255,255,255,.45); font-size:10px; letter-spacing:.24em; }
+  .atmosphere-workspaces b { color:var(--studio-accent);font-weight:750; }
+  .atmosphere-bar-right { margin-left:auto; white-space:nowrap; color: rgba(255,255,255,.76); font-variant-numeric:tabular-nums; }
+  .atmosphere-desktop-clock {
+    position: absolute; top: 26%; left: 11%; display: grid; gap: 4px;
+    text-shadow: 0 8px 30px rgba(0,0,0,.24);
+  }
+  .atmosphere-desktop-clock > span { color: rgba(255,255,255,.75); font:650 9px Inter,sans-serif;letter-spacing:.24em }
+  .atmosphere-desktop-clock strong { font:600 clamp(62px, 7.2vw, 118px)/1 Manrope,sans-serif;letter-spacing:-.095em;color:#fff; }
+  .atmosphere-desktop-clock strong span { color:var(--studio-accent); }
+  .atmosphere-desktop-clock small { color:rgba(255,255,255,.55);font:650 9px Inter,sans-serif;letter-spacing:.17em; }
+  .atmosphere-media {
+    position:absolute; right:6%; bottom:19%;display:grid;grid-template-columns:64px minmax(0,1fr) auto;align-items:center;gap:14px;
+    width:min(340px,86%);min-height:98px;padding:15px 17px;
+    border:1px solid rgba(255,255,255,.18);border-radius:20px;
+    background:rgba(19,19,32,.67);box-shadow:0 18px 50px rgba(0,0,0,.23);
+    backdrop-filter:blur(20px);
+  }
+  .atmosphere-album {display:grid;place-items:center;width:64px;height:64px;border-radius:11px;background:linear-gradient(145deg,var(--studio-accent),var(--studio-horizon));color:#11111c;font-size:29px;}
+  .atmosphere-media-text{display:grid;gap:5px;min-width:0}.atmosphere-media-text small{font-size:8px;letter-spacing:.15em;color:var(--studio-accent)}.atmosphere-media-text b{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.atmosphere-media-text i{font-style:normal;font-size:9px;color:rgba(255,255,255,.6);}
+  .atmosphere-play{font-size:14px;color:#f7f3ff;}
+  .atmosphere-progress{position:absolute;bottom:0;left:18px;right:18px;height:2px;background:linear-gradient(90deg,var(--studio-accent) 36%,rgba(255,255,255,.2) 36%);}
+  .atmosphere-dock {position:absolute;bottom:19px;left:50%;transform:translateX(-50%);display:flex;gap:10px;align-items:center;padding:9px 12px;border:1px solid rgba(255,255,255,.13);border-radius:17px;background:rgba(11,13,22,.57);backdrop-filter:blur(20px);}
+  .atmosphere-dock i{width:29px;height:29px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.13);border-radius:9px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.84);font-size:15px;font-style:normal;}
+  .atmosphere-dock i:first-child {background:rgba(var(--studio-accent-rgb),.24);color:var(--studio-accent)}
+  .atmosphere-corner-id{position:absolute;left:24px;bottom:26px;color:rgba(255,255,255,.3);font-size:9px;letter-spacing:.19em;}
+  .atmosphere-panel {display:flex;flex-direction:column;min-width:0;padding:26px;border:1px solid rgba(255,255,255,.1);border-radius:26px;background:linear-gradient(145deg,rgba(29,32,46,.92),rgba(13,15,24,.96));}
+  .atmosphere-panel-header {display:flex;justify-content:space-between;gap:15px;color:var(--muted);font-size:10px;letter-spacing:.14em;font-weight:700}
+  .atmosphere-panel-header small {font-size:10px;color:var(--studio-accent)}
+  .atmosphere-panel h3 {font:650 25px Manrope,sans-serif;letter-spacing:-.035em;margin:42px 0 23px;}
+  .atmosphere-options {display:grid;gap:8px;}
+  .atmosphere-option {width:100%;min-height:75px;padding:9px 12px;display:flex;align-items:center;gap:14px;text-align:left;border:1px solid transparent;border-radius:15px;background:rgba(255,255,255,.025);color:var(--text);cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease;}
+  .atmosphere-option:hover {background:rgba(255,255,255,.07);}
+  .atmosphere-option[aria-pressed="true"]{border-color:rgba(var(--studio-accent-rgb),.47);background:rgba(var(--studio-accent-rgb),.09);}
+  .atmosphere-swatch {position:relative;width:45px;height:45px;flex-shrink:0;border:1px solid rgba(255,255,255,.19);border-radius:11px;overflow:hidden;background:linear-gradient(140deg,#201a35,#b8a6fa);}
+  .atmosphere-swatch i{position:absolute;width:27px;height:27px;top:12px;right:-7px;transform:rotate(35deg);border-radius:8px;background:rgba(255,255,255,.23);}
+  .atmosphere-swatch-rose{background:linear-gradient(140deg,#5e304e,#e8aec3)} .atmosphere-swatch-sage{background:linear-gradient(140deg,#1e4a44,#aad2bb)} .atmosphere-swatch-midnight{background:linear-gradient(140deg,#071328,#6f93d1)}
+  .atmosphere-option-text{display:grid;gap:5px}.atmosphere-option-text b{font-size:12px;font-weight:700}.atmosphere-option-text small{color:var(--muted);font-size:10px;}
+  .atmosphere-indicator{width:10px;height:10px;margin-left:auto;border:1px solid rgba(255,255,255,.29);border-radius:50%;}
+  .atmosphere-option[aria-pressed="true"] .atmosphere-indicator{border:3px solid var(--studio-accent);background:#171624;}
+  .atmosphere-panel-bottom{display:grid;gap:15px;margin-top:auto;padding-top:34px;}
+  .atmosphere-panel-label{padding:12px 0;border-top:1px solid rgba(255,255,255,.1);color:var(--muted);font-size:10px}.atmosphere-panel-label b{color:var(--text);font-weight:700;}
+  .atmosphere-panel-bottom a{display:flex;align-items:center;justify-content:space-between;color:var(--studio-accent);font-size:12px;font-weight:700;}
+  .atmosphere-panel-bottom a:hover{text-decoration:underline;text-underline-offset:4px;}
+  .atmosphere-footnotes{display:grid;grid-template-columns:minmax(200px,.48fr) minmax(0,1.52fr);gap:46px;margin-top:28px;}
+  .atmosphere-footnotes>p{color:var(--muted);font-size:11px;line-height:1.7;margin:0;}
+  .atmosphere-highlights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:23px;}
+  .atmosphere-highlights>div{display:grid;align-content:start;gap:7px;}
+  .atmosphere-highlights b{color:var(--text-soft);font-size:11px;}
+  .atmosphere-highlights span{color:var(--muted);font-size:11px;line-height:1.7;}
+  @media(max-width:1010px){.atmosphere-workbench{grid-template-columns:1fr}.atmosphere-panel{display:grid;grid-template-columns:200px 1fr;gap:0 30px}.atmosphere-panel-header,.atmosphere-panel h3,.atmosphere-panel-bottom{grid-column:1}.atmosphere-options{grid-column:2;grid-row:1 / span 3;grid-template-columns:repeat(2,minmax(0,1fr));align-content:center}.atmosphere-panel h3{margin-top:30px}.atmosphere-panel-bottom{padding-top:22px}}
+  @media(max-width:760px){.atmosphere-section{padding:58px 0 86px}.atmosphere-heading{grid-template-columns:1fr}.atmosphere-workbench{gap:10px}.atmosphere-canvas{min-height:420px}.atmosphere-panel{display:flex;padding:22px}.atmosphere-panel h3{margin:20px 0}.atmosphere-options{display:grid;grid-template-columns:1fr 1fr}.atmosphere-footnotes{grid-template-columns:1fr;gap:22px}.atmosphere-highlights{gap:12px}.atmosphere-desktop-clock{left:8%;top:25%}.atmosphere-media{bottom:19%;right:5%}}
+  @media(max-width:490px){.atmosphere-canvas{min-height:350px}.atmosphere-bar{top:11px;left:11px;right:11px;padding:0 10px;min-height:37px}.atmosphere-bar-title{font-size:9px}.atmosphere-workspaces{display:none}.atmosphere-desktop-clock strong{font-size:62px}.atmosphere-desktop-clock small{font-size:7px}.atmosphere-media{width:220px;min-height:74px;bottom:22%;padding:9px;grid-template-columns:40px 1fr 10px;gap:8px;border-radius:13px}.atmosphere-album{width:40px;height:40px;font-size:17px}.atmosphere-media-text small{font-size:6px}.atmosphere-media-text b{font-size:10px}.atmosphere-media-text i{font-size:7px}.atmosphere-highlights{grid-template-columns:1fr}.atmosphere-highlights>div{gap:4px}.atmosphere-panel-header{font-size:9px}.atmosphere-option{min-height:65px;padding:6px;gap:8px}.atmosphere-swatch{width:34px;height:34px}.atmosphere-option-text b{font-size:10px}.atmosphere-option-text small{font-size:8px}.atmosphere-corner-id{display:none}}
+  @media(prefers-reduced-motion:reduce){.atmosphere-option,.atmosphere-wallpaper{transition:none!important}}
+</style>
