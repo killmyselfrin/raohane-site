@@ -20,7 +20,15 @@ npm run preview
 
 ## Design direction
 
-The site follows the Raohane Nocturne visual language: graphite and blue-black surfaces, restrained lavender accents, subtle glass, Japanese minimalism, and motion that stays responsive and quiet.
+The site follows the Raohane Nocturne visual language: graphite and blue-black surfaces, restrained lavender accents, subtle glass, restrained editorial minimalism, and motion that stays responsive and quiet.
+
+## November 2026 experience refresh
+
+- The English and Russian homepages include a **bilingual Atmosphere Studio**: four keyboard-accessible palette choices with live changes to an illustrative shell composition.
+- The visual preview is deliberately labeled as an **illustration**, not a screenshot or an implementation of the actual wallpaper-color extraction engine. The separate screenshot viewer still shows actual shell captures.
+- Shared Nocturne design tokens refine the hero, floating navigation, cards, contrast, focus and small-screen layout.
+- The feature ledger now reflects Wallpaper Studio 2.0 and the in-development 1.3 Media Position Studio from the shell's current main branch.
+- The shell source version is `1.3.0-dev`; the most recent stable release represented in structured-data SEO metadata remains `1.2.1`.
 
 ## Screenshots
 
